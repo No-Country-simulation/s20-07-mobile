@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Pizza {
+  id               Int               @id @default(autoincrement())
+  name             String            @unique // Ejemplo: "Mozzarella"
+  predefinedPizzas PredefinedPizza[]
+  isCustom         Boolean           @default(false) // Diferencia entre prediseñada y personalizada
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  PizzaIngredient PizzaIngredient[]
+}
+
+model PredefinedPizza {
+  id        Int      @id @default(autoincrement())
+  pizzaId   Int
+  sizeId    Int
+  price     Float
+  pizza     Pizza    @relation(fields: [pizzaId], references: [id])
+  size      Size     @relation(fields: [sizeId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Size {
+  id        Int               @id @default(autoincrement())
+  name      String            @unique // Ejemplo: "chica", "mediana", "grande"
+  cm        Int // Ejemplo 40
+  basePrice Float // Precio base para este tamaño
+  pizzas    PredefinedPizza[]
+}
+
+model Ingredient {
+  id        Int               @id @default(autoincrement())
+  name      String            @unique
+  extraCost Float // Costo adicional por este ingrediente
+  pizzas    PizzaIngredient[]
+}
+
+model PizzaIngredient {
+  id           Int        @id @default(autoincrement())
+  pizzaId      Int
+  ingredientId Int
+  pizza        Pizza      @relation(fields: [pizzaId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+}

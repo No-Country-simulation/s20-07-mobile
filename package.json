@@ -1,0 +1,17 @@
+{
+  "name": "s20-07-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "backend:dev": "cd express-app && npm run dev",
+    "backend:build": "cd express-app && npm run build",
+    "backend:start": "cd express-app && npm run start",
+    "backend:seed": "cd express-app && npm run seed",
+    "backend:migrate": "cd express-app && npm run migrate",
+    "expo:dev": "cd expo-app && npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
