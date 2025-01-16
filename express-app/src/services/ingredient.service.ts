@@ -19,5 +19,26 @@ export const createIngredient = async (ingredient: { name: string; extraCost: nu
     data: { ...ingredient },
   });
 
+  console.log(newIngredient);
+
   return newIngredient;
+};
+
+export const updateIngredient = async (
+  id: number,
+  ingredient: { name?: string; extraCost?: number },
+) => {
+  const updatedIngredient = await db.ingredient.update({
+    where: { id },
+    data: { ...ingredient },
+  });
+
+  return updatedIngredient;
+};
+export const removeIngredient = async (id: number) => {
+  const deletedIngredient = await db.ingredient.delete({
+    where: { id },
+  });
+
+  return deletedIngredient;
 };

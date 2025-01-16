@@ -12,6 +12,8 @@ model Pizza {
   name             String            @unique // Ejemplo: "Mozzarella"
   predefinedPizzas PredefinedPizza[]
   isCustom         Boolean           @default(false) // Diferencia entre prediseñada y personalizada
+  featured         Boolean           @default(false)
+  haveDiscount     Boolean           @default(false)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 

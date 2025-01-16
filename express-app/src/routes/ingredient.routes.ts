@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import { getAll, getById } from '../controllers/ingredient.controller';
+import { create, getAll, getById, remove, update } from '../controllers/ingredient.controller';
 
 const router = Router();
 
 router.get('/', [], getAll);
 router.get('/:id', [], getById);
+router.post('/', [], create);
+router.put('/:id', [], update);
+router.delete('/:id', [], remove);
 
 export default router;
