@@ -37,12 +37,9 @@ export default function TabLayout () {
         }}
       />
       <Tabs.Screen
-        name='explore'
+        name='cart'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name='paperplane.fill' color={color} />
-          )
+          title: 'CartView'
         }}
       />
     </Tabs>
