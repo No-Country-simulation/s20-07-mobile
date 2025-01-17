@@ -78,6 +78,16 @@ model CustomPizzaIngredient {
   customPizza   CustomPizza @relation(fields: [customPizzaId], references: [id])
 }
 
+model Drink {
+  id          Int     @id @default(autoincrement())
+  name        String //Ej: Coca-Cola
+  content     String //Ej: 500 cm3
+  price       Float
+  image       String?
+  isAlcoholic Boolean @default(false)
+  type        String  @default("drink")
+}
+
 model User {
   id       Int    @id @default(autoincrement())
   email    String @unique
