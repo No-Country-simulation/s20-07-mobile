@@ -113,11 +113,11 @@ model OrderItem {
   orderId           Int
   predefinedPizzaId Int? // Pizza prediseñada
   customPizzaId     Int? // Pizza personalizada
+  drinkId           Int? // Bebida
   quantity          Int // Cantidad de este ítem
   price             Float // Precio total de este ítem
   predefinedPizza   PredefinedPizza? @relation(fields: [predefinedPizzaId], references: [id])
   customPizza       CustomPizza?     @relation(fields: [customPizzaId], references: [id])
   order             Order            @relation(fields: [orderId], references: [id])
-  Drink             Drink?           @relation(fields: [drinkId], references: [id])
-  drinkId           Int?
+  drink             Drink?           @relation(fields: [drinkId], references: [id])
 }
