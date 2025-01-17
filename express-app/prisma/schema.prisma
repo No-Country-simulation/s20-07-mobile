@@ -59,7 +59,7 @@ model CustomPizza {
   type   String  @default("customPizza")
 
   ingredients CustomPizzaIngredient[]
-  OrderItems  OrderItem[]
+  orderItems  OrderItem[]
 }
 
 model PizzaIngredient {
@@ -86,6 +86,8 @@ model Drink {
   image       String?
   isAlcoholic Boolean @default(false)
   type        String  @default("drink")
+
+  orderItems OrderItem[]
 }
 
 model User {
@@ -116,4 +118,6 @@ model OrderItem {
   predefinedPizza   PredefinedPizza? @relation(fields: [predefinedPizzaId], references: [id])
   customPizza       CustomPizza?     @relation(fields: [customPizzaId], references: [id])
   order             Order            @relation(fields: [orderId], references: [id])
+  Drink             Drink?           @relation(fields: [drinkId], references: [id])
+  drinkId           Int?
 }
