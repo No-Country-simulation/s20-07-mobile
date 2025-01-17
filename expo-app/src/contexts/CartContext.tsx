@@ -6,6 +6,8 @@ type CartItem = {
   name: string // Nombre del producto
   price: number // Precio del producto
   quantity: number // Cantidad del producto
+  image: string // URL de la imagen del producto
+  description?: string // Descripción del producto (opcional)
 }
 
 // Tipo para el contexto
@@ -40,12 +42,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }
 
   // Función para eliminar un producto del carrito
-  const removeFromCart = (id: string) => {
-    setCart(prevCart => prevCart.filter(item => item.id !== id))
+  // Modifica esta función en CartContext
+  const removeFromCart = (id: string | 'all') => {
+    if (id === 'all') {
+      // En lugar de vaciar el carrito, establece las cantidades en 0
+      setCart(prevCart =>
+        prevCart.map(item => ({
+          ...item,
+          quantity: 0 // Restablece la cantidad a 0
+        }))
+      )
+    } else {
+      setCart(prevCart => prevCart.filter(item => item.id !== id))
+    }
   }
 
   // Función para actualizar la cantidad de un producto
   const updateQuantity = (id: string, quantity: number) => {
+    if (quantity < 1) return // Prevenir cantidades menores a 1
     setCart(prevCart =>
       prevCart.map(item => (item.id === id ? { ...item, quantity } : item))
     )
