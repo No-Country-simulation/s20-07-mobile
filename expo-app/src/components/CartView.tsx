@@ -2,8 +2,9 @@ import React from 'react'
 import { View, Text, Button } from 'react-native'
 import { useCart } from '../contexts/CartContext'
 
-const CartView = () => {
+export default function CartView () {
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart()
+  console.log(cart) // Log para verificar el contenido del carrito
 
   return (
     <View>
@@ -34,5 +35,3 @@ const CartView = () => {
     </View>
   )
 }
-
-export default CartView

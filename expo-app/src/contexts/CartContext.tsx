@@ -25,6 +25,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Función para agregar un producto al carrito
   const addToCart = (item: CartItem) => {
+    console.log('Agregando al carrito:', item)
     setCart(prevCart => {
       const existingItem = prevCart.find(cartItem => cartItem.id === item.id)
       if (existingItem) {
