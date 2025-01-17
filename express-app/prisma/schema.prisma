@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum OrderStatus {
+  PROCESSING
+  PREPARING
+  READY
+  DELIVERING
+  DELIVERED
+}
+
 model Pizza {
   id           Int     @id @default(autoincrement())
   name         String  @unique // Ejemplo: "Mozzarella"
@@ -100,10 +108,11 @@ model User {
 }
 
 model Order {
-  id         Int   @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   userId     Int? // Relación opcional con el usuario
   totalPrice Float // Precio total de la orden
-  user       User? @relation(fields: [userId], references: [id])
+  status     OrderStatus @default(PROCESSING) // Ver el enum OrderStatus (arriba, en este mismo archivo)
+  user       User?       @relation(fields: [userId], references: [id])
 
   orderItems OrderItem[]
 }
