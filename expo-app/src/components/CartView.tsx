@@ -9,7 +9,9 @@ import {
   FlatList,
   Alert
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { useCart } from '../contexts/CartContext'
+import BackArrow from './BackArrow'
 
 export default function CartView () {
   const { cart, addToCart, removeFromCart, updateQuantity } = useCart()
@@ -56,6 +58,7 @@ export default function CartView () {
 
   return (
     <View style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>Tu carrito</Text>
 
       {/* Mostrar productos */}
@@ -75,16 +78,16 @@ export default function CartView () {
               </View>
               <View style={styles.quantityControls}>
                 <Pressable
-                  style={[styles.button, styles.decreaseButton]}
+                  style={styles.decreaseButton}
                   onPress={() =>
                     updateQuantity(item.id, Math.max(0, item.quantity - 1))
                   }
                 >
                   <Text style={styles.buttonText}>-</Text>
                 </Pressable>
-                <Text style={styles.quantity}>{item.quantity}</Text>
+                <Text>{item.quantity}</Text>
                 <Pressable
-                  style={[styles.button, styles.increaseButton]}
+                  style={styles.increaseButton}
                   onPress={() => updateQuantity(item.id, item.quantity + 1)}
                 >
                   <Text style={styles.buttonText}>+</Text>
@@ -99,34 +102,42 @@ export default function CartView () {
 
       {/* Subtotal y total */}
       <View style={styles.summary}>
-        <Text style={styles.summaryText}>Subtotal: ${calculateSubtotal()}</Text>
-        <Text style={styles.summaryText}>Descuentos: -${discount}</Text>
-        <Text style={styles.totalText}>
-          Total: ${Math.max(0, calculateSubtotal() - discount)}
-        </Text>
+        <View style={styles.row}>
+          <Text style={styles.summaryLabel}>Subtotal:</Text>
+          <Text style={styles.summaryValue}>${calculateSubtotal()}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.summaryLabel}>Descuentos:</Text>
+          <Text style={styles.summaryValue}>-${discount}</Text>
+        </View>
+        <View style={styles.divider}></View>
+        <View style={styles.row}>
+          <Text style={styles.totalLabel}>Total:</Text>
+          <Text style={styles.totalValue}>
+            ${Math.max(0, calculateSubtotal() - discount)}
+          </Text>
+        </View>
       </View>
 
       {/* Cuadro de cupón y botones */}
-      <TextInput
-        style={styles.couponInput}
-        placeholder='Cupón de descuento'
-        value={coupon}
-        onChangeText={setCoupon}
-      />
-      <Pressable
-        style={[styles.button, styles.useCouponButton]}
-        onPress={handleUseCoupon}
-      >
-        <Text style={styles.buttonText}>Usar</Text>
+      <View style={styles.couponContainer}>
+        <TextInput
+          style={styles.couponInput}
+          placeholder='Cupón de descuento'
+          value={coupon}
+          onChangeText={setCoupon}
+        />
+        <Pressable style={styles.useCouponButton} onPress={handleUseCoupon}>
+          <Text style={styles.useCouponText}>Usar</Text>
+        </Pressable>
+      </View>
+
+      <Pressable style={styles.clearCartButton} onPress={handleClearCart}>
+        <Icon name='trash' style={styles.trashIcon} />
+        <Text style={styles.clearCartText}>Eliminar carrito</Text>
       </Pressable>
-      <Pressable
-        style={[styles.button, styles.clearCartButton]}
-        onPress={handleClearCart}
-      >
-        <Text style={styles.buttonText}>Eliminar carrito</Text>
-      </Pressable>
-      <Pressable style={[styles.button, styles.payButton]}>
-        <Text style={styles.buttonText}>Ir a pagar</Text>
+      <Pressable style={styles.payButton}>
+        <Text style={styles.payButtonText}>Ir a pagar</Text>
       </Pressable>
     </View>
   )
@@ -136,14 +147,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingTop: 50
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 70,
     textAlign: 'center'
   },
+
   productContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -174,15 +187,113 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5
+    marginTop: 5,
+    textAlign: 'left', // Esto asegura que el precio quede alineado al inicio
+    color: '#000' // Cambia el color del texto si es necesario
   },
-  quantityControls: {
+  summary: {
+    marginVertical: 20
+  },
+  row: {
     flexDirection: 'row',
-    alignItems: 'center'
+    justifyContent: 'space-between',
+    marginBottom: 5
   },
-  button: {
-    padding: 5,
+  summaryLabel: {
+    fontSize: 16,
+    color: '#666'
+  },
+  summaryValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333'
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    marginVertical: 10
+  },
+  totalLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000'
+  },
+  totalValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'right'
+  },
+  couponContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20
+  },
+  couponInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    width: '70%'
+  },
+  useCouponButton: {
+    borderWidth: 1,
+    borderColor: '#FFA500',
+    borderRadius: 5,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '25%'
+  },
+  useCouponHover: {
+    backgroundColor: '#FFD700'
+  },
+  useCouponText: {
+    color: '#FFA500',
+    fontWeight: 'bold'
+  },
+  clearCartButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10
+  },
+  clearCartHover: {
+    backgroundColor: '#FF4500'
+  },
+  trashIcon: {
+    fontSize: 18,
+    color: '#FFA500',
+    marginRight: 5
+  },
+  clearCartText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFA500'
+  },
+  payButton: {
+    alignItems: 'center',
+    padding: 10,
+    marginTop: 10,
+    backgroundColor: 'rgb(255, 47, 0)',
     borderRadius: 5
+  },
+  payButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  emptyMessage: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginVertical: 20,
+    color: '#666'
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff'
   },
   decreaseButton: {
     backgroundColor: '#FF7F7F',
@@ -196,59 +307,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginLeft: 5
   },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 14
+  quantityControls: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
-  quantity: {
+  quantityText: {
     marginHorizontal: 10,
     fontSize: 16,
     fontWeight: 'bold'
-  },
-  summary: {
-    marginVertical: 20
-  },
-  summaryText: {
-    fontSize: 16,
-    marginBottom: 5
-  },
-  totalText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 10
-  },
-  couponInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10
-  },
-  useCouponButton: {
-    backgroundColor: '#FFA500',
-    marginBottom: 10,
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center'
-  },
-  clearCartButton: {
-    backgroundColor: '#FF4500',
-    marginBottom: 10,
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center'
-  },
-  payButton: {
-    backgroundColor: '#FFA500',
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center'
-  },
-  emptyMessage: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginVertical: 20,
-    color: '#666'
   }
 })

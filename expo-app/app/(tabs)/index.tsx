@@ -92,13 +92,22 @@ const HomeScreen = () => {
         Elige tus pizzas favoritas y agrégalas al carrito.
       </Text>
       <Pressable
-        style={({ pressed }) => [
+        onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra al botón
+        onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale del botón
+        style={[
           styles.cartButton,
-          pressed && styles.cartButtonHover
+          isHovered && styles.cartButtonHover // Aplica el estilo hover cuando `isHovered` es true
         ]}
         onPress={() => navigation.navigate('cart')}
       >
-        <Text style={styles.cartButtonText}>Ver Carrito</Text>
+        <Text
+          style={[
+            styles.cartButtonText,
+            isHovered && styles.cartButtonTextHover
+          ]}
+        >
+          Ver Carrito
+        </Text>
       </Pressable>
     </View>
   )
@@ -122,18 +131,22 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   cartButton: {
-    backgroundColor: '#FFA500',
+    backgroundColor: 'rgb(255, 47, 0)',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5
   },
   cartButtonHover: {
-    backgroundColor: '#FF8C00'
+    backgroundColor: '#7fdf67', // Color de fondo al hacer hover
+    cursor: 'pointer' // Cambia el cursor al estilo pointer
   },
   cartButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  cartButtonTextHover: {
+    color: 'black' // Cambia el color del texto al hacer hover
   }
 })
 
