@@ -1,15 +1,26 @@
-# UserContext
+# Gestión de Contextos
 
-El `UserContext` es un contexto global que gestiona la información del usuario en la aplicación.
+## AppProviders
+El componente `AppProviders` combina múltiples contextos para mantener la estructura del código limpia y organizada.
 
-## Propósito
-- Proveer datos del usuario (nombre, correo, teléfono).
-- Permitir actualizar estos datos desde cualquier componente de la aplicación.
+### Contextos Incluidos:
+1. **UserContext**: Gestión de datos del usuario.
+2. **CartContext**: Manejo del carrito de compras.
 
-## Estado inicial
-El estado inicial del contexto es:
+### Uso:
+En `app/_layout.tsx`, la aplicación se envuelve con `AppProviders`:
+
 ```tsx
-const [user, setUser] = useState<UserType | null>(null);
+import { AppProviders } from '@/contexts/AppProviders';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <AppProviders>
+      {children}
+    </AppProviders>
+  );
+}
+
 
 ### tsx
 ## Tipos Utilizados
