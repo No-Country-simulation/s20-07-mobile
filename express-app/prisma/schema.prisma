@@ -8,57 +8,58 @@ datasource db {
 }
 
 model Pizza {
-  id           Int      @id @default(autoincrement())
-  name         String   @unique // Ejemplo: "Mozzarella"
-  isCustom     Boolean  @default(false) // Diferencia entre prediseñada y personalizada
-  featured     Boolean  @default(false)
-  haveDiscount Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id           Int     @id @default(autoincrement())
+  name         String  @unique // Ejemplo: "Mozzarella"
+  featured     Boolean @default(false)
+  haveDiscount Boolean @default(false)
 
   predefinedPizzas PredefinedPizza[]
-  pizzaIngredient  PizzaIngredient[]
+  pizzaIngredients PizzaIngredient[]
 }
 
 model Size {
-  id          Int               @id @default(autoincrement())
-  name        String            @unique // Ejemplo: "chica", "mediana", "grande"
-  cm          Int // Ejemplo 40
-  basePrice   Float // Precio base para este tamaño
-  pizzas      PredefinedPizza[]
-  customPizza CustomPizza[]
+  id        Int    @id @default(autoincrement())
+  name      String @unique // Ejemplo: "chica", "mediana", "grande"
+  cm        Int // Ejemplo 40
+  basePrice Float // Precio base para este tamaño
+
+  pizzas       PredefinedPizza[]
+  customPizzas CustomPizza[]
 }
 
 model Ingredient {
-  id                    Int                     @id @default(autoincrement())
-  name                  String                  @unique
-  extraCost             Float // Costo adicional por este ingrediente
-  pizzas                PizzaIngredient[]
-  customPizzaIngredient CustomPizzaIngredient[]
+  id        Int    @id @default(autoincrement())
+  name      String @unique
+  extraCost Float // Costo adicional por este ingrediente
+
+  pizzas                 PizzaIngredient[]
+  customPizzaIngredients CustomPizzaIngredient[]
 }
 
 model PredefinedPizza {
-  id        Int         @id @default(autoincrement())
-  pizzaId   Int
-  sizeId    Int
-  price     Float
-  pizza     Pizza       @relation(fields: [pizzaId], references: [id])
-  size      Size        @relation(fields: [sizeId], references: [id])
-  createdAt DateTime    @default(now())
-  OrderItem OrderItem[]
+  id      Int    @id @default(autoincrement())
+  pizzaId Int
+  sizeId  Int
+  price   Float
+  pizza   Pizza  @relation(fields: [pizzaId], references: [id])
+  size    Size   @relation(fields: [sizeId], references: [id])
+  type    String @default("predefinedPizza")
+
+  OrderItems OrderItem[]
 }
 
 model CustomPizza {
-  id          Int                     @id @default(autoincrement())
-  userId      Int? // Usuario que creó esta pizza, opcional
-  sizeId      Int // Tamaño de la pizza
-  name        String? // Nombre opcional para la pizza
+  id     Int     @id @default(autoincrement())
+  userId Int? // Usuario que creó esta pizza, opcional
+  sizeId Int // Tamaño de la pizza
+  name   String? // Nombre opcional para la pizza
+  price  Float // Precio calculado de esta pizza
+  user   User?   @relation(fields: [userId], references: [id])
+  size   Size    @relation(fields: [sizeId], references: [id])
+  type   String  @default("customPizza")
+
   ingredients CustomPizzaIngredient[]
-  price       Float // Precio calculado de esta pizza
-  createdAt   DateTime                @default(now())
-  user        User?                   @relation(fields: [userId], references: [id])
-  size        Size                    @relation(fields: [sizeId], references: [id])
-  OrderItem   OrderItem[]
+  OrderItems  OrderItem[]
 }
 
 model PizzaIngredient {
@@ -78,20 +79,20 @@ model CustomPizzaIngredient {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  email        String        @unique
-  password     String
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
   customPizzas CustomPizza[]
-  order        Order[]
+  orders       Order[]
 }
 
 model Order {
-  id         Int         @id @default(autoincrement())
+  id         Int   @id @default(autoincrement())
   userId     Int? // Relación opcional con el usuario
   totalPrice Float // Precio total de la orden
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  user       User?       @relation(fields: [userId], references: [id])
+  user       User? @relation(fields: [userId], references: [id])
+
   orderItems OrderItem[]
 }
 
