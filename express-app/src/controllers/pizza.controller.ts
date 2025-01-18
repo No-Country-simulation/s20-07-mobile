@@ -3,12 +3,14 @@ import createHttpError from 'http-errors';
 import { getAllPizzas, getPizzaById } from '../services/pizza.service';
 
 export const getAll = async (
-  _req: Request<unknown, unknown, unknown>,
+  req: Request<unknown, unknown, unknown>,
   res: Response,
   next: NextFunction,
 ) => {
+  const { featured } = req.query;
+
   try {
-    const pizzas = await getAllPizzas();
+    const pizzas = await getAllPizzas(featured ? String(featured) === 'true' : undefined);
 
     res.status(200).json({
       pizzas,

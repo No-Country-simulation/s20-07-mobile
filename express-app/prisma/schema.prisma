@@ -18,6 +18,7 @@ enum OrderStatus {
 model Pizza {
   id           Int     @id @default(autoincrement())
   name         String  @unique // Ejemplo: "Mozzarella"
+  image        String?
   featured     Boolean @default(false)
   haveDiscount Boolean @default(false)
 

@@ -1,7 +1,8 @@
 import db from '../common/db';
 
-export const getAllPizzas = async () => {
+export const getAllPizzas = async (featured?: boolean) => {
   const pizzas = await db.pizza.findMany({
+    where: featured !== undefined ? { featured } : undefined,
     select: {
       id: true,
       name: true,
@@ -18,7 +19,7 @@ export const getAllPizzas = async () => {
   // Quitar la clave "ingredient"
   const formattedPizzas = pizzas.map((pizza) => ({
     ...pizza,
-    pizzaIngredient: pizza.pizzaIngredients.map((pi) => pi.ingredient),
+    pizzaIngredients: pizza.pizzaIngredients.map((pi) => pi.ingredient),
   }));
 
   return formattedPizzas;
@@ -45,34 +46,3 @@ export const getPizzaById = async (id: number) => {
 
   return pizza;
 };
-/* export const getPizzaById = async (id: number) => {
-  const pizzas = await db.predefinedPizza.findMany({
-    where: { pizzaId: id },
-    select: {
-      id: true,
-      pizza: {
-        select: {
-          name: true,
-          pizzaIngredients: {
-            select: {
-              ingredient: true,
-            },
-          },
-        },
-      },
-      size: true,
-      price: true,
-    },
-  });
-
-  // quitar la clave "ingredient"
-  const formattedPizzas = pizzas.map((pizza) => ({
-    ...pizza,
-    pizza: {
-      ...pizza.pizza,
-      pizzaIngredients: pizza.pizza.pizzaIngredients.map((pi) => pi.ingredient),
-    },
-  }));
-
-  return formattedPizzas;
-}; */

@@ -30,10 +30,14 @@ export const pizzas = [
   {
     id: 8,
     name: 'Rúcula Especial',
+    featured: true,
+    image: 'https://i.ibb.co/h2RDq52/rucula.png',
   },
   {
     id: 9,
     name: 'Alemana',
+    featured: true,
+    image: 'https://i.ibb.co/cwSfSYP/alemana.png',
   },
   {
     id: 10,
@@ -70,6 +74,8 @@ export const pizzas = [
   {
     id: 18,
     name: 'Capresse',
+    featured: true,
+    image: 'https://i.ibb.co/T0VHr17/capresse.png',
   },
   {
     id: 19,
@@ -78,10 +84,14 @@ export const pizzas = [
   {
     id: 20,
     name: 'Champignón',
+    featured: true,
+    image: 'https://i.ibb.co/SsdLfkB/champignones.png',
   },
   {
     id: 21,
     name: 'Ananá',
+    featured: true,
+    image: 'https://i.ibb.co/Zxyt9kT/anana.png',
   },
   {
     id: 22,
