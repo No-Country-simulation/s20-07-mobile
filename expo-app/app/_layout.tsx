@@ -10,7 +10,7 @@ import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
 import 'react-native-reanimated'
 import { useColorScheme } from '../src/hooks/useColorScheme'
-import { AppProviders } from '@/src/contexts/AppProviders'
+import { AppProviders } from '@/contexts/AppProviders'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -35,8 +35,25 @@ export default function RootLayout () {
     <AppProviders>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
+          {/* Ruta principal */}
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='cart' options={{ title: 'Carrito' }} />
+
+          {/* Rutas adicionales */}
+          <Stack.Screen
+            name='custom-pizzas'
+            options={{ title: 'Personalizadas' }}
+          />
+          <Stack.Screen name='pizzas' options={{ title: 'Pizzas' }} />
+          <Stack.Screen name='drinks' options={{ title: 'Bebidas' }} />
+          <Stack.Screen name='promotions' options={{ title: 'Promociones' }} />
+          <Stack.Screen
+            name='featured-pizzas'
+            options={{ title: 'Destacadas' }}
+          />
+          <Stack.Screen
+            name='terms-and-conditions'
+            options={{ title: 'Términos y Condiciones' }}
+          />
           <Stack.Screen name='+not-found' />
         </Stack>
         <StatusBar style='auto' />

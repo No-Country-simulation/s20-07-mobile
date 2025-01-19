@@ -1,35 +1,99 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+// import React, { useState } from 'react'
+// import { View, Text, StyleSheet, Pressable } from 'react-native'
+// import { useNavigation } from '@react-navigation/native'
 
-const HomeScreen = () => {
-  const navigation = useNavigation()
-  const [isHovered, setIsHovered] = useState(false)
+// const HomeScreen = () => {
+//   const navigation = useNavigation()
+//   const [isHovered, setIsHovered] = useState(false)
 
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.welcome}>¡Bienvenido a la Pizzería 🍕!</Text>
+//       <Text style={styles.subtitle}>
+//         Elige tus pizzas favoritas y agrégalas al carrito.
+//       </Text>
+//       <Pressable
+//         onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra al botón
+//         onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale del botón
+//         style={[
+//           styles.cartButton,
+//           isHovered && styles.cartButtonHover // Aplica el estilo hover cuando `isHovered` es true
+//         ]}
+//         onPress={() => navigation.navigate('cart')}
+//       >
+//         <Text
+//           style={[
+//             styles.cartButtonText,
+//             isHovered && styles.cartButtonTextHover
+//           ]}
+//         >
+//           Ver Carrito
+//         </Text>
+//       </Pressable>
+//     </View>
+//   )
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     padding: 20
+//   },
+//   welcome: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     marginBottom: 10
+//   },
+//   subtitle: {
+//     fontSize: 16,
+//     textAlign: 'center',
+//     marginBottom: 20
+//   },
+//   cartButton: {
+//     backgroundColor: 'rgb(255, 47, 0)',
+//     paddingVertical: 10,
+//     paddingHorizontal: 20,
+//     borderRadius: 5
+//   },
+//   cartButtonHover: {
+//     backgroundColor: '#7fdf67', // Color de fondo al hacer hover
+//     cursor: 'pointer' // Cambia el cursor al estilo pointer
+//   },
+//   cartButtonText: {
+//     color: 'white',
+//     fontSize: 16,
+//     fontWeight: 'bold'
+//   },
+//   cartButtonTextHover: {
+//     color: 'black' // Cambia el color del texto al hacer hover
+//   }
+// })
+
+// export default HomeScreen
+
+import React from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import Slider from '@/components/home/Slider'
+import CategoryList from '@/components/home/CategoryList'
+import Banner from '@/components/home/Banner'
+import Footer from '@/components/Footer'
+
+export default function Home () {
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>¡Bienvenido a la Pizzería 🍕!</Text>
-      <Text style={styles.subtitle}>
-        Elige tus pizzas favoritas y agrégalas al carrito.
-      </Text>
-      <Pressable
-        onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra al botón
-        onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale del botón
-        style={[
-          styles.cartButton,
-          isHovered && styles.cartButtonHover // Aplica el estilo hover cuando `isHovered` es true
-        ]}
-        onPress={() => navigation.navigate('cart')}
-      >
-        <Text
-          style={[
-            styles.cartButtonText,
-            isHovered && styles.cartButtonTextHover
-          ]}
-        >
-          Ver Carrito
-        </Text>
-      </Pressable>
+      {/* Contenido principal desplazable */}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Banner />
+        <CategoryList />
+      </ScrollView>
+
+      {/* Slider */}
+      <View style={styles.fixedContent}>
+        <Slider />
+        <Footer />
+      </View>
     </View>
   )
 }
@@ -37,38 +101,13 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20
+    backgroundColor: '#000' // Fondo negro de toda la pantalla
   },
-  welcome: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10
+  scrollContent: {
+    paddingHorizontal: 10,
+    paddingBottom: 10 // Espacio adicional para evitar que el contenido choque con el footer
   },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20
-  },
-  cartButton: {
-    backgroundColor: 'rgb(255, 47, 0)',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5
-  },
-  cartButtonHover: {
-    backgroundColor: '#7fdf67', // Color de fondo al hacer hover
-    cursor: 'pointer' // Cambia el cursor al estilo pointer
-  },
-  cartButtonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  cartButtonTextHover: {
-    color: 'black' // Cambia el color del texto al hacer hover
+  fixedContent: {
+    backgroundColor: '#000' // Asegura que el fondo del slider y footer también sea negro
   }
 })
-
-export default HomeScreen
