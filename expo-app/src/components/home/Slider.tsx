@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -6,7 +6,8 @@ import {
   ScrollView,
   Image,
   Dimensions,
-  Pressable
+  Pressable,
+  Animated
 } from 'react-native'
 import { Colors } from '@/constants/Colors'
 
@@ -44,9 +45,7 @@ export default function Slider () {
       {/* Contenedor superpuesto para texto y botón */}
       <View style={styles.overlay}>
         <Text style={styles.title}>Pizzas destacadas</Text>
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Empezar</Text>
-        </Pressable>
+        <HoverButton />
       </View>
 
       {/* Slider */}
@@ -58,12 +57,58 @@ export default function Slider () {
         contentContainerStyle={styles.sliderContent}
       >
         {sliderImages.map((image, index) => (
-          <View key={index} style={styles.slide}>
-            <Image source={image} style={styles.image} />
-          </View>
+          <SliderImage key={index} image={image} />
         ))}
       </ScrollView>
     </View>
+  )
+}
+
+const HoverButton = () => {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <Pressable
+      style={[
+        styles.button,
+        isHovered && { backgroundColor: Colors.dark.hoverButton } // Cambiar color en hover
+      ]}
+      onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra
+      onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale
+    >
+      <Text style={styles.buttonText}>Empezar</Text>
+    </Pressable>
+  )
+}
+
+const SliderImage = ({ image }: { image: any }) => {
+  const [scale] = useState(new Animated.Value(1)) // Animación de escala
+
+  const handleMouseEnter = () => {
+    Animated.spring(scale, {
+      toValue: 1.1, // Aumentar el tamaño en hover
+      useNativeDriver: true
+    }).start()
+  }
+
+  const handleMouseLeave = () => {
+    Animated.spring(scale, {
+      toValue: 1, // Volver al tamaño original
+      useNativeDriver: true
+    }).start()
+  }
+
+  return (
+    <Pressable
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={styles.slide}
+    >
+      <Animated.Image
+        source={image}
+        style={[styles.image, { transform: [{ scale }] }]}
+      />
+    </Pressable>
   )
 }
 
@@ -91,13 +136,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.button,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    transition: 'background-color 0.3s' // Suaviza el cambio de color
   },
   buttonText: {
     color: Colors.light.text,
     fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10
+    fontWeight: 'bold'
   },
   slider: {
     flexDirection: 'row',
