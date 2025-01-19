@@ -38,20 +38,20 @@ export default function TermsAndConditions () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.light.background,
+    backgroundColor: Colors.dark.background,
     padding: 20
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.light.text,
+    color: Colors.dark.orangeText,
     marginBottom: 20,
     textAlign: 'center'
   },
   subTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: Colors.light.primary,
+    color: Colors.dark.orangeText,
     marginTop: 20,
     marginBottom: 10
   },
