@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -9,13 +9,22 @@ import {
 import { Colors } from '@/constants/Colors'
 
 export default function Banner () {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
     <ImageBackground
       source={require('../../../assets/images/products/pizza-banner.png')}
       style={styles.banner}
     >
       <Text style={styles.bannerText}>¡Crea tu pizza personalizada!</Text>
-      <Pressable style={styles.bannerButton}>
+      <Pressable
+        style={[
+          styles.bannerButton,
+          isHovered && { backgroundColor: Colors.dark.hoverButton } // Cambiar color en hover
+        ]}
+        onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra
+        onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale
+      >
         <Text style={styles.bannerButtonText}>Empezar</Text>
       </Pressable>
     </ImageBackground>
@@ -42,7 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.dark.button,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    transition: 'background-color 0.3s' // Suaviza el cambio de color
   },
   bannerButtonText: {
     color: Colors.light.text,
