@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   Image,
   Pressable,
-  useWindowDimensions
+  useWindowDimensions,
+  Animated
 } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
@@ -31,12 +32,11 @@ const categories = [
 export default function CategoryList () {
   const router = useRouter()
   const { width } = useWindowDimensions() // Obtener el ancho de la pantalla
+  const isMobile = width < 600
 
   const handlePress = (categoryId: string) => {
     router.push(`/${categoryId}`)
   }
-  // Cambiar el diseño según el tamaño de la pantalla
-  const isMobile = width < 600
 
   return (
     <View style={styles.container}>
@@ -48,17 +48,47 @@ export default function CategoryList () {
         ]}
       >
         {categories.map(category => (
-          <Pressable
+          <CategoryItem
             key={category.id}
-            style={styles.categoryItem}
+            category={category}
             onPress={() => handlePress(category.id)}
-          >
-            <Image source={category.image} style={styles.image} />
-            <Text style={styles.categoryTitle}>{category.title}</Text>
-          </Pressable>
+          />
         ))}
       </View>
     </View>
+  )
+}
+
+const CategoryItem = ({ category, onPress }: any) => {
+  const [scale] = useState(new Animated.Value(1)) // Animación de escala
+
+  const handleMouseEnter = () => {
+    Animated.spring(scale, {
+      toValue: 1.1, // Aumentar el tamaño en hover
+      useNativeDriver: true
+    }).start()
+  }
+
+  const handleMouseLeave = () => {
+    Animated.spring(scale, {
+      toValue: 1, // Volver al tamaño original
+      useNativeDriver: true
+    }).start()
+  }
+
+  return (
+    <Pressable
+      onPress={onPress}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={styles.categoryItem}
+    >
+      <Animated.Image
+        source={category.image}
+        style={[styles.image, { transform: [{ scale }] }]}
+      />
+      <Text style={styles.categoryTitle}>{category.title}</Text>
+    </Pressable>
   )
 }
 
@@ -77,7 +107,7 @@ const styles = StyleSheet.create({
   categoryList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between' //
+    justifyContent: 'space-between'
   },
   categoryListDesktop: {
     flexDirection: 'row',
