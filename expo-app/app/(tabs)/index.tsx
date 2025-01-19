@@ -74,20 +74,27 @@
 // export default HomeScreen
 
 import React from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
-import SearchBar from '@/components/home/SearchBar'
-import Banner from '@/components/home/Banner'
-import CategoryList from '@/components/home/CategoryList'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import Slider from '@/components/home/Slider'
+import CategoryList from '@/components/home/CategoryList'
+import Banner from '@/components/home/Banner'
+import Footer from '@/components/Footer'
 
-export default function HomeScreen () {
+export default function Home () {
   return (
-    <ScrollView style={styles.container}>
-      <SearchBar />
-      <Banner />
-      <CategoryList />
-      <Slider />
-    </ScrollView>
+    <View style={styles.container}>
+      {/* Contenido principal desplazable */}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Banner />
+        <CategoryList />
+      </ScrollView>
+
+      {/* Slider */}
+      <View style={styles.fixedContent}>
+        <Slider />
+        <Footer />
+      </View>
+    </View>
   )
 }
 

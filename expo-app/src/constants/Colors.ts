@@ -21,7 +21,8 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
-    background: '#151718',
+    orangeText: '#fb8500',
+    background: '#000',
     tint: tintColorDark,
     icon: '#9BA1A6',
     tabIconDefault: '#9BA1A6',
@@ -30,6 +31,7 @@ export const Colors = {
     secondary: '#7FDF67', // Mismo color para tema oscuro
     muted: '#AAA',
     border: '#333',
-    button: '#fb8500'
+    button: '#fb8500',
+    hoverButton: '#006400'
   },
 };

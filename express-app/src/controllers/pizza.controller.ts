@@ -17,7 +17,7 @@ export const getAll = async (
     });
   } catch (error) {
     if (error instanceof Error) {
-      const httpError = createHttpError(500, `[Ingredients - GET ALL]: ${error.message}`);
+      const httpError = createHttpError(500, `[Pizzas - GET ALL]: ${error.message}`);
       next(httpError);
     }
   }
@@ -37,7 +37,7 @@ export const getById = async (
     });
   } catch (error) {
     if (error instanceof Error) {
-      const httpError = createHttpError(500, `[Ingredients - GET ALL]: ${error.message}`);
+      const httpError = createHttpError(500, `[Pizzas - GET BY ID]: ${error.message}`);
       next(httpError);
     }
   }

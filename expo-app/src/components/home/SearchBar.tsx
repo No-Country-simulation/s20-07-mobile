@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     color: Colors.light.text,
-    borderWidth: 0, // Asegura que no haya bordes visibles
-    outlineStyle: 'none' // Elimina el borde azul en web
+    borderWidth: 0,
+    outlineStyle: 'none'
   }
 })
