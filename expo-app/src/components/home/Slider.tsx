@@ -10,6 +10,7 @@ import {
   Animated
 } from 'react-native'
 import { Colors } from '@/constants/Colors'
+import { useRouter } from 'expo-router'
 
 const sliderImages = [
   require('../../../assets/images/slider/slider1.png'),
@@ -25,7 +26,6 @@ const screenWidth = Dimensions.get('window').width
 export default function Slider () {
   const scrollViewRef = useRef<ScrollView>(null)
   let currentIndex = 0
-
   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollViewRef.current) {
@@ -65,7 +65,12 @@ export default function Slider () {
 }
 
 const HoverButton = () => {
+  const router = useRouter()
   const [isHovered, setIsHovered] = useState(false)
+
+  const handlePress = () => {
+    router.push('/featured-pizzas') // Redirigir a la página de pizzas destacadas
+  }
 
   return (
     <Pressable
@@ -73,6 +78,7 @@ const HoverButton = () => {
         styles.button,
         isHovered && { backgroundColor: Colors.dark.hoverButton } // Cambiar color en hover
       ]}
+      onPress={handlePress}
       onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra
       onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale
     >
