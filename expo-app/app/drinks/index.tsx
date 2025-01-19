@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Colors } from '@/constants/Colors'
 
 export default function Drinks () {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sección de Bebidas</Text>
+      <Text style={styles.title}>Drinks</Text>
+      <Text style={styles.text}>Lista de todas las bebidas disponibles.</Text>
     </View>
   )
 }
@@ -15,10 +15,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.light.background
+    padding: 20
   },
   title: {
-    fontSize: 18,
-    color: Colors.dark.background
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center'
   }
 })

@@ -1,6 +1,13 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
-import { useRouter } from 'expo-router' // Cambiar a useRouter para Expo Router
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  useWindowDimensions
+} from 'react-native'
+import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 
 const categories = [
@@ -22,17 +29,29 @@ const categories = [
 ]
 
 export default function CategoryList () {
-  const router = useRouter() // Usa el enrutador de Expo Router
+  const router = useRouter()
+  const { width } = useWindowDimensions() // Obtener el ancho de la pantalla
+
+  const handlePress = (categoryId: string) => {
+    router.push(`/${categoryId}`)
+  }
+  // Cambiar el diseño según el tamaño de la pantalla
+  const isMobile = width < 600
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Categorías</Text>
-      <View style={styles.categoryList}>
+      <View
+        style={[
+          styles.categoryList,
+          isMobile ? styles.categoryListMobile : styles.categoryListDesktop
+        ]}
+      >
         {categories.map(category => (
           <Pressable
             key={category.id}
             style={styles.categoryItem}
-            onPress={() => router.push(category.id)} // Navega a la ruta correspondiente
+            onPress={() => handlePress(category.id)}
           >
             <Image source={category.image} style={styles.image} />
             <Text style={styles.categoryTitle}>{category.title}</Text>
@@ -52,15 +71,26 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.light.text,
-    marginBottom: 50
+    marginBottom: 25,
+    textAlign: 'left'
   },
   categoryList: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between' //
+  },
+  categoryListDesktop: {
+    flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  categoryListMobile: {
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   categoryItem: {
     alignItems: 'center',
     flex: 1,
+    marginVertical: 10,
     marginHorizontal: 5
   },
   image: {
