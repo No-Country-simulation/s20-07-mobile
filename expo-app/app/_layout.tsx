@@ -39,6 +39,10 @@ export default function RootLayout () {
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
 
           {/* Rutas adicionales */}
+          <Stack.Screen
+            name='custom-pizzas'
+            options={{ title: 'Personalizadas' }}
+          />
           <Stack.Screen name='pizzas' options={{ title: 'Pizzas' }} />
           <Stack.Screen name='drinks' options={{ title: 'Bebidas' }} />
           <Stack.Screen name='promotions' options={{ title: 'Promociones' }} />
