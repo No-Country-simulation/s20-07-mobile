@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { create } from '../controllers/order.controller';
+import { create } from '../controllers/customPizza.controller';
 import authMiddleware from '../middleware/auth.middleware';
 
 const router = Router();

@@ -62,7 +62,6 @@ model CustomPizza {
   userId Int? // Usuario que creó esta pizza, opcional
   sizeId Int // Tamaño de la pizza
   name   String? // Nombre opcional para la pizza
-  price  Float // Precio calculado de esta pizza
   user   User?   @relation(fields: [userId], references: [id])
   size   Size    @relation(fields: [sizeId], references: [id])
   type   String  @default("customPizza")
@@ -112,6 +111,7 @@ model Order {
   id         Int         @id @default(autoincrement())
   userId     Int? // Relación opcional con el usuario
   totalPrice Float // Precio total de la orden
+  discount   Float       @default(0) // Decuento total de la orden
   status     OrderStatus @default(PROCESSING) // Ver el enum OrderStatus (arriba, en este mismo archivo)
   user       User?       @relation(fields: [userId], references: [id])
 
