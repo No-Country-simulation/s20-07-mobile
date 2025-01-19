@@ -35,8 +35,17 @@ export default function RootLayout () {
     <AppProviders>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
+          {/* Ruta principal */}
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='cart' options={{ title: 'Carrito' }} />
+
+          {/* Rutas adicionales */}
+          <Stack.Screen name='pizzas' options={{ title: 'Pizzas' }} />
+          <Stack.Screen name='drinks' options={{ title: 'Bebidas' }} />
+          <Stack.Screen name='promotions' options={{ title: 'Promociones' }} />
+          <Stack.Screen
+            name='terms-and-conditions'
+            options={{ title: 'Términos y Condiciones' }}
+          />
           <Stack.Screen name='+not-found' />
         </Stack>
         <StatusBar style='auto' />

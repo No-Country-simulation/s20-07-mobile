@@ -13,7 +13,10 @@ import { Colors } from '@/constants/Colors'
 const sliderImages = [
   require('../../../assets/images/slider/slider1.png'),
   require('../../../assets/images/slider/slider2.png'),
-  require('../../../assets/images/slider/slider3.png')
+  require('../../../assets/images/slider/slider3.png'),
+  require('../../../assets/images/slider/slider4.png'),
+  require('../../../assets/images/slider/slider5.png'),
+  require('../../../assets/images/slider/slider6.png')
 ]
 
 const screenWidth = Dimensions.get('window').width
