@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  ScrollView,
   useWindowDimensions,
   Animated
 } from 'react-native'
@@ -45,21 +46,29 @@ export default function CategoryList () {
 
   return (
     <View style={styles.container}>
+      {/* Título fijo */}
       <Text style={styles.title}>Categorías</Text>
-      <View
-        style={[
-          styles.categoryList,
-          isMobile ? styles.categoryListMobile : styles.categoryListDesktop
-        ]}
+
+      {/* Scroll para las imágenes */}
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
       >
-        {categories.map(category => (
-          <CategoryItem
-            key={category.id}
-            category={category}
-            onPress={() => handlePress(category.id)}
-          />
-        ))}
-      </View>
+        <View
+          style={[
+            styles.categoryList,
+            isMobile ? styles.categoryListMobile : styles.categoryListDesktop
+          ]}
+        >
+          {categories.map(category => (
+            <CategoryItem
+              key={category.id}
+              category={category}
+              onPress={() => handlePress(category.id)}
+            />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -99,16 +108,21 @@ const CategoryItem = ({ category, onPress }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    position: 'absolute',
+    flex: 1,
     paddingHorizontal: 10,
-    marginTop: 70
+    paddingBottom: 10
   },
   title: {
+    position: 'relative',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.light.text,
-    marginBottom: 25,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginTop: 50
+  },
+  scrollContent: {
+    paddingBottom: 10 // Espacio adicional para evitar colisiones
   },
   categoryList: {
     flexDirection: 'row',
@@ -127,14 +141,13 @@ const styles = StyleSheet.create({
   },
   categoryItem: {
     alignItems: 'center',
-    // flex: 1,
     marginVertical: 10,
     marginHorizontal: 5,
     width: '45%'
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     borderRadius: 10,
     marginBottom: 5
   },

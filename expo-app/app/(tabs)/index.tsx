@@ -40,7 +40,7 @@
 // })
 
 import React from 'react'
-import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native'
+import { ScrollView, StyleSheet, View, SafeAreaView, Text } from 'react-native'
 import Slider from '@/components/home/Slider'
 import CategoryList from '@/components/home/CategoryList'
 import SearchBar from '@/components/home/SearchBar'
@@ -56,15 +56,18 @@ export default function Home () {
         <Banner />
       </SafeAreaView>
 
-      {/* Contenido desplazable */}
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false} // Oculta la barra de desplazamiento vertical
-      >
-        <CategoryList />
-      </ScrollView>
+      {/* Contenido principal para el título y el desplazamiento de categorías */}
+      <View style={styles.mainContent}>
+        <Text style={styles.title}>Categorías</Text>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <CategoryList />
+        </ScrollView>
+      </View>
 
-      {/* Contenedor fijo para Slider y Footer */}
+      {/* Footer y Slider fijos */}
       <SafeAreaView style={styles.fixedFooter}>
         <Slider />
         <Footer />
@@ -86,9 +89,18 @@ const styles = StyleSheet.create({
     zIndex: 10,
     backgroundColor: '#000'
   },
+  mainContent: {
+    flex: 1,
+    marginTop: 200, // Espacio para el header fijo (SearchBar y Banner)
+    marginBottom: 200 // Espacio para el footer fijo (Slider y Footer)
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    paddingHorizontal: 10
+  },
   scrollContent: {
-    paddingTop: 200,
-    paddingBottom: 200,
     paddingHorizontal: 10
   },
   fixedFooter: {

@@ -25,7 +25,7 @@ export default function Footer () {
         <Text
           style={[
             styles.linkText,
-            isHovered && { color: Colors.light.background } // Cambiar solo el color del texto
+            isHovered && { color: Colors.light.background } // Cambiar solo el color del texto al hacer hover
           ]}
         >
           Términos y Condiciones
@@ -37,13 +37,14 @@ export default function Footer () {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    position: 'relative', // Ajustable para desplazarse con el contenido
     padding: 20,
-    height: 20,
     backgroundColor: '#000',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: Colors.light.border // Línea decorativa
   },
   text: {
     color: Colors.light.text,
