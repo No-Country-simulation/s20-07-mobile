@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   scrollContent: {
-    paddingTop: 200, // Espacio para SearchBar y Banner
-    paddingBottom: 200, // Espacio para Slider y Footer
+    paddingTop: 200,
+    paddingBottom: 200,
     paddingHorizontal: 10
   },
   fixedFooter: {

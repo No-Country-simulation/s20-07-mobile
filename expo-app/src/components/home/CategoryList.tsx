@@ -133,21 +133,24 @@ const styles = StyleSheet.create({
   categoryList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   categoryListDesktop: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   categoryListMobile: {
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   categoryItem: {
     alignItems: 'center',
-    flex: 1,
+    // flex: 1,
     marginVertical: 10,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    width: '45%'
   },
   image: {
     width: 150,
