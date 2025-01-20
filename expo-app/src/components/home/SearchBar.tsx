@@ -22,16 +22,16 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.light.border,
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
-    marginTop: 20,
-    marginBottom: 10
+    margin: 10,
+    minHeight: 50
   },
   searchInput: {
     flex: 1,
     marginLeft: 10,
-    color: Colors.light.text,
+    color: Colors.dark.text1,
     borderWidth: 0, // Asegura que no haya bordes visibles
     outlineStyle: 'none' // Elimina el borde azul en web
   }

@@ -21,6 +21,7 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
+    text1: '#000',
     orangeText: '#fb8500',
     background: '#000',
     tint: tintColorDark,

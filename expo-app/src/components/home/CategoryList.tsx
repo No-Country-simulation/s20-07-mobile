@@ -26,6 +26,31 @@ const categories = [
     id: 'promotions',
     title: 'Promociones',
     image: require('../../../assets/images/categories/promotions.png')
+  },
+  {
+    id: 'pizzas',
+    title: 'Pizzas',
+    image: require('../../../assets/images/categories/pizzas1.png')
+  },
+  {
+    id: 'drinks',
+    title: 'Bebidas',
+    image: require('../../../assets/images/categories/drinks1.png')
+  },
+  {
+    id: 'pizzas',
+    title: 'Pizzas',
+    image: require('../../../assets/images/categories/promotions1.png')
+  },
+  {
+    id: 'pizzas',
+    title: 'Pizzas',
+    image: require('../../../assets/images/categories/drinks2.png')
+  },
+  {
+    id: 'drinks',
+    title: 'Bebidas',
+    image: require('../../../assets/images/categories/promotions2.png')
   }
 ]
 
@@ -96,7 +121,7 @@ const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
     paddingHorizontal: 10,
-    marginTop: 200
+    marginTop: 70
   },
   title: {
     fontSize: 18,
