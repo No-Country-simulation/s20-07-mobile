@@ -95,7 +95,8 @@ const CategoryItem = ({ category, onPress }: any) => {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginTop: 200
   },
   title: {
     fontSize: 18,

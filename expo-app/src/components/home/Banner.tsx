@@ -40,13 +40,16 @@ export default function Banner () {
 
 const styles = StyleSheet.create({
   banner: {
+    position: 'absolute', // Fija el banner
+    top: 0, // Posición en la parte superior
+    width: '100%', // Ocupa todo el ancho de la pantalla
     height: 150,
     borderRadius: 10,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
-    width: '100%'
+    zIndex: 10, // Asegura que el banner esté sobre otros elementos
+    backgroundColor: Colors.light.background
   },
   bannerText: {
     color: Colors.light.text,
