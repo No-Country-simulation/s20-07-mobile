@@ -46,6 +46,7 @@ export default function RootLayout () {
           <Stack.Screen name='pizzas' options={{ title: 'Pizzas' }} />
           <Stack.Screen name='drinks' options={{ title: 'Bebidas' }} />
           <Stack.Screen name='promotions' options={{ title: 'Promociones' }} />
+          <Stack.Screen name='desserts' options={{ title: 'Postres' }} />
           <Stack.Screen
             name='featured-pizzas'
             options={{ title: 'Destacadas' }}

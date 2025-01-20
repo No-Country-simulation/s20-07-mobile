@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-export default function Drinks () {
+export default function Dessert () {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bebidas</Text>
-      <Text style={styles.text}>Lista de todas las bebidas disponibles.</Text>
+      <Text style={styles.title}>Postres</Text>
+      <Text style={styles.text}>Lista de Postres disponibles.</Text>
     </View>
   )
 }

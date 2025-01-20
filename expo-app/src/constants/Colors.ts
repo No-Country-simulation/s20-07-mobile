@@ -32,7 +32,7 @@ export const Colors = {
     secondary: '#7FDF67', // Mismo color para tema oscuro
     muted: '#AAA',
     border: '#333',
-    button: '#fb8500',
-    hoverButton: '#006400'
+    button: '#EB6334', //naranja
+    hoverButton: '#758700'
   },
 };

@@ -28,29 +28,9 @@ const categories = [
     image: require('../../../assets/images/categories/promotions.png')
   },
   {
-    id: 'pizzas',
-    title: 'Pizzas',
-    image: require('../../../assets/images/categories/pizzas1.png')
-  },
-  {
-    id: 'drinks',
-    title: 'Bebidas',
-    image: require('../../../assets/images/categories/drinks1.png')
-  },
-  {
-    id: 'pizzas',
-    title: 'Pizzas',
-    image: require('../../../assets/images/categories/promotions1.png')
-  },
-  {
-    id: 'pizzas',
-    title: 'Pizzas',
-    image: require('../../../assets/images/categories/drinks2.png')
-  },
-  {
-    id: 'drinks',
-    title: 'Bebidas',
-    image: require('../../../assets/images/categories/promotions2.png')
+    id: 'desserts',
+    title: 'Postres',
+    image: require('../../../assets/images/categories/dessert.png')
   }
 ]
 

@@ -14,7 +14,7 @@ export default function Footer () {
   return (
     <View style={styles.container}>
       {/* Texto del copyright */}
-      <Text style={styles.text}>© 2025 Mi Pizzería</Text>
+      <Text style={styles.text}>© 2025 Oh my pizza</Text>
 
       {/* Link a Términos y Condiciones */}
       <Pressable
