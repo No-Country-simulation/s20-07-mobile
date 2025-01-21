@@ -10,7 +10,6 @@ interface Ingredient {
 
 interface CustomPizza {
   sizeId: number;
-  userId?: number;
   name?: string;
   ingredients: Ingredient[];
 }
