@@ -15,7 +15,7 @@ import { useRouter } from 'expo-router'
 
 export default function SearchBar () {
   const router = useRouter()
-  const { search, results } = useSearch() 
+  const { search, results } = useSearch()
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -32,7 +32,7 @@ export default function SearchBar () {
 
   const clearSearch = () => {
     setQuery('') 
-    search('') 
+    search('')
   }
 
   const handlePressItem = (category: string) => {
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     color: Colors.dark.text1,
-    borderWidth: 0, 
-    outlineStyle: 'none' 
+    borderWidth: 0,
+    outlineStyle: 'none'
   },
   clearIcon: {
     marginLeft: 10
