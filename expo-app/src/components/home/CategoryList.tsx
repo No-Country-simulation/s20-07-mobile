@@ -38,7 +38,7 @@ const categories = [
 export default function CategoryList () {
   const router = useRouter()
   const { width } = useWindowDimensions() // Obtener el ancho de la pantalla
-  const isMobile = width < 600
+  const isMobile = width < 500
 
   const handlePress = (categoryId: string) => {
     router.push(`/${categoryId}`)
@@ -52,7 +52,7 @@ export default function CategoryList () {
       {/* Scroll para las imágenes */}
       <ScrollView
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
       >
         <View
           style={[
@@ -108,21 +108,20 @@ const CategoryItem = ({ category, onPress }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    //position: 'absolute',
     flex: 1,
     paddingHorizontal: 10,
     paddingBottom: 10
   },
   title: {
-    position: 'relative',
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.light.text,
     textAlign: 'left',
-    marginTop: 50
+    marginTop: 80
   },
   scrollContent: {
-    paddingBottom: 10 // Espacio adicional para evitar colisiones
+    paddingBottom: 20 // Espacio adicional para evitar colisiones
   },
   categoryList: {
     flexDirection: 'row',
