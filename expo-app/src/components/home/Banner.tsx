@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
-
 // import React, { useState } from 'react'
 // import {
 //   View,
