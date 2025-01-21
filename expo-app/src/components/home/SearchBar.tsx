@@ -20,7 +20,7 @@ export default function SearchBar () {
   const [loading, setLoading] = useState(false)
 
   const handleSearch = async (text: string) => {
-    setQuery(text)
+    setQuery(text) 
     if (!text.trim()) {
       search('')
       return
@@ -31,7 +31,7 @@ export default function SearchBar () {
   }
 
   const clearSearch = () => {
-    setQuery('')
+    setQuery('') 
     search('')
   }
 
