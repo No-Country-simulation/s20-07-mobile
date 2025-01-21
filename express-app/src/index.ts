@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 
 import router from './routes/index';
 import errorHandler, { CustomError } from './common/errorHandler';
@@ -8,8 +9,9 @@ const PORT = 3000;
 const app = express();
 
 // Middlewares globales
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api', router);

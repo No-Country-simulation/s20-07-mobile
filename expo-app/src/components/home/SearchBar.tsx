@@ -15,18 +15,14 @@ import { useRouter } from 'expo-router'
 
 export default function SearchBar () {
   const router = useRouter()
-  const { search, results } = useSearch() // Obtiene la función `search` del contexto
+  const { search, results } = useSearch() 
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // const handleSearch = () => {
-  //   search(query) // Llama a la búsqueda cuando el usuario realiza una acción
-  // }
-
   const handleSearch = async (text: string) => {
-    setQuery(text) // Actualiza la query conforme escribe
+    setQuery(text) 
     if (!text.trim()) {
-      search('') // Si no hay texto, muestra todo
+      search('')
       return
     }
     setLoading(true)
@@ -35,8 +31,8 @@ export default function SearchBar () {
   }
 
   const clearSearch = () => {
-    setQuery('') // Limpia el texto
-    search('') // Muestra todos los elementos al limpiar
+    setQuery('') 
+    search('') 
   }
 
   const handlePressItem = (category: string) => {
@@ -116,8 +112,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     color: Colors.dark.text1,
-    borderWidth: 0, // Asegura que no haya bordes visibles
-    outlineStyle: 'none' // Elimina el borde azul en web
+    borderWidth: 0, 
+    outlineStyle: 'none' 
   },
   clearIcon: {
     marginLeft: 10

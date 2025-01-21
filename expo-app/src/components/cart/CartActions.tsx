@@ -1,8 +1,8 @@
-import React from 'react'
-import { Pressable, Text, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import React from 'react';
+import { Pressable, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function CartActions ({ handleClearCart }: any) {
+export default function CartActions({ handleClearCart }: any) {
   return (
     <>
       <Pressable style={styles.clearCartButton} onPress={handleClearCart}>
@@ -13,7 +13,7 @@ export default function CartActions ({ handleClearCart }: any) {
         <Text style={styles.payButtonText}>Ir a pagar</Text>
       </Pressable>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   }
-})
+});
