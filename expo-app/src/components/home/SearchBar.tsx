@@ -11,8 +11,10 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '@/constants/Colors'
 import { useSearch } from '@/contexts/SearchContext'
+import { useRouter } from 'expo-router'
 
 export default function SearchBar () {
+  const router = useRouter()
   const { search, results } = useSearch() // Obtiene la función `search` del contexto
   const [query, setQuery] = useState('')
   const [loading, setLoading] = useState(false)
@@ -37,6 +39,25 @@ export default function SearchBar () {
     search('') // Muestra todos los elementos al limpiar
   }
 
+  const handlePressItem = (category: string) => {
+    switch (category.toLowerCase()) {
+      case 'pizzas':
+        router.push('/pizzas')
+        break
+      case 'bebidas':
+        router.push('/drinks')
+        break
+      case 'promociones':
+        router.push('/promotions')
+        break
+      case 'postres':
+        router.push('/desserts')
+        break
+      default:
+        console.warn('Categoría desconocida:', category)
+    }
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.searchBar}>
@@ -59,22 +80,23 @@ export default function SearchBar () {
         )}
       </View>
       {/* Resultados */}
-      {query.trim() ? ( // Muestra resultados solo si hay texto en la barra
+      {query.trim() ? (
         <FlatList
           data={results}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={styles.resultItem}>
+            <TouchableOpacity
+              style={styles.resultItem}
+              onPress={() => handlePressItem(item.categoria)}
+            >
               <Text style={styles.resultText}>{item.nombre}</Text>
-              {/* <Text style={styles.resultCategory}>{item.categoria}</Text> */}
-            </View>
+            </TouchableOpacity>
           )}
           ListEmptyComponent={() => (
             <Text style={styles.noResults}>No se encontraron resultados.</Text>
           )}
         />
-      ) : null}{' '}
-      {/* Si no hay texto, no muestra nada */}
+      ) : null}
     </View>
   )
 }
@@ -110,10 +132,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.light.muted
   },
-  resultCategory: {
-    fontSize: 14,
-    color: Colors.light.muted
-  },
+  // resultCategory: {
+  //   fontSize: 14,
+  //   color: Colors.light.muted
+  // },
   noResults: {
     textAlign: 'center',
     marginTop: 20,
