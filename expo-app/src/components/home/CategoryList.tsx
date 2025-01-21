@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  ScrollView,
   useWindowDimensions,
   Animated
 } from 'react-native'
@@ -26,13 +27,18 @@ const categories = [
     id: 'promotions',
     title: 'Promociones',
     image: require('../../../assets/images/categories/promotions.png')
+  },
+  {
+    id: 'desserts',
+    title: 'Postres',
+    image: require('../../../assets/images/categories/dessert.png')
   }
 ]
 
 export default function CategoryList () {
   const router = useRouter()
   const { width } = useWindowDimensions() // Obtener el ancho de la pantalla
-  const isMobile = width < 600
+  const isMobile = width < 500
 
   const handlePress = (categoryId: string) => {
     router.push(`/${categoryId}`)
@@ -40,21 +46,29 @@ export default function CategoryList () {
 
   return (
     <View style={styles.container}>
+      {/* Título fijo */}
       <Text style={styles.title}>Categorías</Text>
-      <View
-        style={[
-          styles.categoryList,
-          isMobile ? styles.categoryListMobile : styles.categoryListDesktop
-        ]}
+
+      {/* Scroll para las imágenes */}
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={true}
       >
-        {categories.map(category => (
-          <CategoryItem
-            key={category.id}
-            category={category}
-            onPress={() => handlePress(category.id)}
-          />
-        ))}
-      </View>
+        <View
+          style={[
+            styles.categoryList,
+            isMobile ? styles.categoryListMobile : styles.categoryListDesktop
+          ]}
+        >
+          {categories.map(category => (
+            <CategoryItem
+              key={category.id}
+              category={category}
+              onPress={() => handlePress(category.id)}
+            />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -94,38 +108,45 @@ const CategoryItem = ({ category, onPress }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    paddingHorizontal: 10
+    //position: 'absolute',
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingBottom: 10
   },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.light.text,
-    marginBottom: 25,
-    textAlign: 'left'
+    textAlign: 'left',
+    marginTop: 80
+  },
+  scrollContent: {
+    paddingBottom: 20 // Espacio adicional para evitar colisiones
   },
   categoryList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   },
   categoryListDesktop: {
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   categoryListMobile: {
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   categoryItem: {
     alignItems: 'center',
-    flex: 1,
     marginVertical: 10,
-    marginHorizontal: 5
+    marginHorizontal: 5,
+    width: '45%'
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 140,
+    height: 140,
     borderRadius: 10,
     marginBottom: 5
   },

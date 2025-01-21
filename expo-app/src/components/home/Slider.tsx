@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 10,
-    transition: 'background-color 0.3s' // Suaviza el cambio de color
+    transition: 'background-color 0.3s'
   },
   buttonText: {
     color: Colors.light.text,
