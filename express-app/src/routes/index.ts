@@ -6,6 +6,7 @@ import orders from './order.routes';
 import customPizzas from './customPizza.routes';
 import search from './search.routes';
 import user from '../routes/user.routes';
+import drinks from '../routes/drink.routes';
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use('/sizes', sizes);
 router.use('/orders', orders);
 router.use('/custom-pizzas', customPizzas);
 router.use('/search', search);
-router.use('/user', user)
+router.use('/user', user);
+router.use('/drinks' , drinks);
 
 export default router;
