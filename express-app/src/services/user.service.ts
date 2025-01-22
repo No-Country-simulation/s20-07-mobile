@@ -15,7 +15,7 @@ export const registerUser = async (email: string, password: string) => {
         data: { email, password: hashedPassword }
     });
 
-    const token = jwt.sign({ id: newUser.id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser.id }, JWT_SECRET, { expiresIn: '7d' });
     return token;
 };
 
@@ -30,6 +30,6 @@ export const loginUser = async (email: string, password: string) => {
         throw new Error('Credenciales inválidas');
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1h' });
-    return token;
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    return { token , user };
 };
