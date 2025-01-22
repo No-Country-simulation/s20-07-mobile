@@ -15,10 +15,18 @@ export const login = async (
 ) => {
 
     const { email, password } = req.body;
-    
+    if (!email || !password) {
+        return res.status(400).json({ message: 'El email y la contraseña son requeridos' });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Formato de email no válido.' });
+    }
+
     try {
-        const token = await loginUser(email, password);
-        res.status(200).json({ token });
+        const { token , user }= await loginUser(email, password);
+        res.status(200).json({ token, email: user.email  });
 
     } catch (error) {
         if (error instanceof Error) {
@@ -38,6 +46,14 @@ export const register = async (
 ) => {
 
     const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json({ message: 'El email y la contraseña son requeridos' });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Formato de email no válido.' });
+    }
 
     try {
         const token = await registerUser(email, password);
@@ -45,9 +61,9 @@ export const register = async (
 
     } catch (error) {
         if (error instanceof Error) {
-          const httpError = createHttpError(500, `[Error - REGISTER]: ${error.message}`);
-          next(httpError);
+            const httpError = createHttpError(500, `[Error - REGISTER]: ${error.message}`);
+            next(httpError);
         }
-      }
+    }
 
 }
