@@ -17,15 +17,6 @@ Bienvenido al repositorio de **[OhMyPizza](https://github.com/No-Country-simulat
 
 
 ## 🚀 Funcionalidades Principales
-
-## 🎨 Diseño
-- Los diseños de la aplicación móvil están disponibles en **Figma**:
-  - [Diseño General]*(https://www.figma.com/design/ORzGDg55YyM33x8abzZUPW/Oh-my-pizza).*
-  - [Prototipo Interactivo]*(https://www.notion.so/albbasanchez/Wireframes).*
-
-    ![diseño-home](https://github.com/user-attachments/assets/24023287-479c-46c8-bbc9-b03abb8ffef6)
-
-
   ### **Backend** (en desarrollo)
 - **API REST**: Desarrollo de endpoints para gestionar pedidos, usuarios y productos.
 - **Gestión del Carrito**: Rutas para sincronizar el carrito entre la app y la base de datos.
@@ -43,6 +34,12 @@ Bienvenido al repositorio de **[OhMyPizza](https://github.com/No-Country-simulat
   - Banner principal con call-to-action.
 - **Navegación Dinámica**: Rutas optimizadas con Expo Router.
 
+## 🎨 Diseño
+- Los diseños de la aplicación móvil están disponibles en **Figma**:
+  - [Diseño General]*(https://www.figma.com/design/ORzGDg55YyM33x8abzZUPW/Oh-my-pizza).*
+  - [Prototipo Interactivo]*(https://www.notion.so/albbasanchez/Wireframes).*
+
+    ![diseño-home](https://github.com/user-attachments/assets/24023287-479c-46c8-bbc9-b03abb8ffef6)
 
 ## 📚 Documentación
 
