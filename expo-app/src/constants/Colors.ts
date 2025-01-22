@@ -21,6 +21,7 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
+    text1: '#000',
     orangeText: '#fb8500',
     background: '#000',
     tint: tintColorDark,
@@ -31,7 +32,7 @@ export const Colors = {
     secondary: '#7FDF67', // Mismo color para tema oscuro
     muted: '#AAA',
     border: '#333',
-    button: '#fb8500',
-    hoverButton: '#006400'
+    button: '#EB6334', //naranja
+    hoverButton: '#758700'
   },
 };
