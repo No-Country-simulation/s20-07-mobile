@@ -1,3 +1,4 @@
+use custompizza;
 -- CreateTable
 CREATE TABLE `Order` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,

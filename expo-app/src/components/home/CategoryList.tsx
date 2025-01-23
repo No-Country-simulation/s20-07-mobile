@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useCategory } from '@/contexts/CategoryContext'
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
   Image,
   Pressable,
   ScrollView,
-  useWindowDimensions,
   Animated
 } from 'react-native'
 import { useRouter } from 'expo-router'
@@ -37,8 +37,6 @@ const categories = [
 
 export default function CategoryList () {
   const router = useRouter()
-  const { width } = useWindowDimensions() // Obtener el ancho de la pantalla
-  const isMobile = width < 500
 
   const handlePress = (categoryId: string) => {
     router.push(`/${categoryId}`)
@@ -49,43 +47,37 @@ export default function CategoryList () {
       {/* Título fijo */}
       <Text style={styles.title}>Categorías</Text>
 
-      {/* Scroll para las imágenes */}
+      {/* Scroll para las imágenes - Horizontal */}
       <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={true}
       >
-        <View
-          style={[
-            styles.categoryList,
-            isMobile ? styles.categoryListMobile : styles.categoryListDesktop
-          ]}
-        >
-          {categories.map(category => (
-            <CategoryItem
-              key={category.id}
-              category={category}
-              onPress={() => handlePress(category.id)}
-            />
-          ))}
-        </View>
+        {categories.map(category => (
+          <CategoryItem
+            key={category.id}
+            category={category}
+            onPress={() => handlePress(category.id)}
+          />
+        ))}
       </ScrollView>
     </View>
   )
 }
 
 const CategoryItem = ({ category, onPress }: any) => {
-  const [scale] = useState(new Animated.Value(1)) // Animación de escala
+  const [scale] = useState(new Animated.Value(1))
 
   const handleMouseEnter = () => {
     Animated.spring(scale, {
-      toValue: 1.1, // Aumentar el tamaño en hover
+      toValue: 1.1,
       useNativeDriver: true
     }).start()
   }
 
   const handleMouseLeave = () => {
     Animated.spring(scale, {
-      toValue: 1, // Volver al tamaño original
+      toValue: 1,
       useNativeDriver: true
     }).start()
   }
@@ -121,28 +113,11 @@ const styles = StyleSheet.create({
     marginTop: 80
   },
   scrollContent: {
-    paddingBottom: 20 // Espacio adicional para evitar colisiones
-  },
-  categoryList: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center'
-  },
-  categoryListDesktop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  categoryListMobile: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingBottom: 10
   },
   categoryItem: {
     alignItems: 'center',
-    marginVertical: 10,
-    marginHorizontal: 5,
-    width: '45%'
+    marginRight: 15
   },
   image: {
     width: 140,

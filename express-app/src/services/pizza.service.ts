@@ -1,50 +1,27 @@
 import db from '../common/db';
 
 export const getAllPizzas = async (featured?: boolean) => {
-  if (featured) {
-    const pizzas = await db.pizza.findMany({
-      where: { featured: true },
-      select: {
-        id: true,
-        name: true,
-        featured: true,
-        haveDiscount: true,
-        pizzaIngredients: {
-          select: {
-            ingredient: true,
-          },
+  const pizzas = await db.pizza.findMany({
+    select: {
+      id: true,
+      name: true,
+      featured: true,
+      haveDiscount: true,
+      pizzaIngredients: {
+        select: {
+          ingredient: true,
         },
       },
-    });
-    // Quitar la clave "ingredient"
-    const formattedPizzas = pizzas.map((pizza) => ({
-      ...pizza,
-      pizzaIngredients: pizza.pizzaIngredients.map((pi) => pi.ingredient),
-    }));
+    },
+  });
 
-    return formattedPizzas;
-  } else {
-    const pizzas = await db.pizza.findMany({
-      select: {
-        id: true,
-        name: true,
-        featured: true,
-        haveDiscount: true,
-        pizzaIngredients: {
-          select: {
-            ingredient: true,
-          },
-        },
-      },
-    });
-    // Quitar la clave "ingredient"
-    const formattedPizzas = pizzas.map((pizza) => ({
-      ...pizza,
-      pizzaIngredients: pizza.pizzaIngredients.map((pi) => pi.ingredient),
-    }));
+  // Quitar la clave "ingredient"
+  const formattedPizzas = pizzas.map((pizza) => ({
+    ...pizza,
+    pizzaIngredients: pizza.pizzaIngredients.map((pi) => pi.ingredient),
+  }));
 
-    return formattedPizzas;
-  }
+  return formattedPizzas;
 };
 
 export const getPizzaById = async (id: number) => {
