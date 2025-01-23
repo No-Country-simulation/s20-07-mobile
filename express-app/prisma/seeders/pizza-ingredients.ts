@@ -516,31 +516,31 @@ export const pizzaIngredients = [
   },
   // Napolitana Especial
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 1,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 2,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 12,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 17,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 21,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 22,
   },
   {
-    pizzaId: 23,
+    pizzaId: 24,
     ingredientId: 9,
   },
 ];

@@ -48,12 +48,12 @@ model PredefinedPizza {
   @@index([sizeId], map: "PredefinedPizza_sizeId_fkey")
 }
 
+// NO DEBE TENER "PRICE", YA QUE EL PRECIO SE CALCULA DEPENDIENDO DE LOS INGREDIENTES Y EL TAMAÑO DE LA PIZZA!!!
 model CustomPizza {
   id          Int                     @id @default(autoincrement())
   userId      Int?
   sizeId      Int
   name        String?
-  price       Float
   type        String                  @default("customPizza")
   size        Size                    @relation(fields: [sizeId], references: [id])
   user        User?                   @relation(fields: [userId], references: [id])
@@ -109,6 +109,7 @@ model Order {
   id         Int         @id @default(autoincrement())
   userId     Int?
   totalPrice Float
+  discount   Float? // Este campo fue eliminado
   status     OrderStatus @default(PROCESSING)
   user       User?       @relation(fields: [userId], references: [id])
   orderItems OrderItem[]
@@ -142,4 +143,3 @@ enum OrderStatus {
   DELIVERING
   DELIVERED
 }
-

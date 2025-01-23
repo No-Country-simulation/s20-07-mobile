@@ -16,7 +16,7 @@ router.use('/sizes', sizes);
 router.use('/orders', orders);
 router.use('/custom-pizzas', customPizzas);
 router.use('/search', search);
-router.use('/user', user);
-router.use('/drinks' , drinks);
+router.use('/users', user);
+router.use('/drinks', drinks);
 
 export default router;
