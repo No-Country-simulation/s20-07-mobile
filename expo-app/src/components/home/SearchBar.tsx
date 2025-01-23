@@ -80,14 +80,19 @@ export default function SearchBar () {
         <FlatList
           data={results}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.resultItem}
-              onPress={() => handlePressItem(item.categoria)}
-            >
-              <Text style={styles.resultText}>{item.nombre}</Text>
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => {
+            console.log('Elemento renderizado:', item)
+            return (
+              <TouchableOpacity
+                style={styles.resultItem}
+                onPress={() => handlePressItem(item.categoria)}
+              >
+                <Text style={[styles.resultText, { color: '#FFFFFF' }]}>
+                  {item.nombre}
+                </Text>
+              </TouchableOpacity>
+            )
+          }}
           ListEmptyComponent={() => (
             <Text style={styles.noResults}>No se encontraron resultados.</Text>
           )}
@@ -121,12 +126,13 @@ const styles = StyleSheet.create({
   resultItem: {
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.light.muted
+    borderBottomColor: '#FFFFFF', // Borde blanco
+    backgroundColor: '#333333' // Fondo oscuro
   },
   resultText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.light.muted
+    color: '#FFFFFF'
   },
   // resultCategory: {
   //   fontSize: 14,
