@@ -2,6 +2,7 @@ import db from '../common/db';
 
 export const getAllPizzas = async (featured?: boolean) => {
   const pizzas = await db.pizza.findMany({
+    where: featured !== undefined ? { featured } : {},
     select: {
       id: true,
       name: true,

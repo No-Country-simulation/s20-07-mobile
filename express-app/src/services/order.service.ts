@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import db from '../common/db';
 
 enum ProductType {
@@ -15,20 +14,17 @@ interface CartItem {
 }
 
 export const createOrder = async (cart: CartItem[], userId: number, discount?: number) => {
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  discount = discount ?? 0;
+
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0) - discount;
   const predefinnedPizzas = cart.filter((item) => item.type === ProductType.PREDEFINEDPIZZA);
   const customPizzas = cart.filter((item) => item.type === ProductType.CUSTOMPIZZA);
   const drinks = cart.filter((item) => item.type === ProductType.DRINK);
-
-  console.log(userId);
-
-  discount = discount ?? 0;
 
   const { id } = await db.order.create({
     data: {
       userId,
       totalPrice: total,
-      discount,
     },
   });
 

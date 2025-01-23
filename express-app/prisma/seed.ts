@@ -4,6 +4,7 @@ import { pizzaIngredients } from './seeders/pizza-ingredients';
 import { pizzas } from './seeders/pizzas';
 import { predefinnedPizzas } from './seeders/predefined-pizzas';
 import { sizes } from './seeders/sizes';
+import { users } from './seeders/users';
 import db from '../src/common/db';
 
 async function main() {
@@ -13,6 +14,7 @@ async function main() {
   await db.predefinedPizza.createMany({ data: predefinnedPizzas });
   await db.pizzaIngredient.createMany({ data: pizzaIngredients });
   await db.drink.createMany({ data: drinks });
+  await db.user.createMany({ data: users });
 }
 
 main()

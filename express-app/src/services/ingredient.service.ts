@@ -19,8 +19,6 @@ export const createIngredient = async (ingredient: { name: string; extraCost: nu
     data: { ...ingredient },
   });
 
-  console.log(newIngredient);
-
   return newIngredient;
 };
 
