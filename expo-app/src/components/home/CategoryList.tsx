@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useCategory } from '@/contexts/CategoryContext'
 import {
   View,
   Text,
