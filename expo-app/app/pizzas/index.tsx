@@ -8,8 +8,11 @@ import {
   ActivityIndicator
 } from 'react-native'
 import axios from 'axios'
+import { useRouter } from 'expo-router'
+import BackArrow from '@/components/BackArrow'
 
 export default function Pizzas () {
+  const router = useRouter()
   const [pizzas, setPizzas] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -17,7 +20,7 @@ export default function Pizzas () {
   const fetchPizzas = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/pizzas') // Ajusta la URL según tu API
-      setPizzas(response.data.pizzas) // Asegúrate de que el backend devuelva un array en `pizzas`
+      setPizzas(response.data.pizzas) // Asegúrate de que el backend devuelva un array en pizzas
     } catch (error) {
       console.error('Error al cargar las pizzas:', error)
     } finally {
@@ -38,14 +41,23 @@ export default function Pizzas () {
     )
   }
 
+  const handlePress = (pizzaId: string) => {
+    console.log('Navegando al detalle de la pizza:', pizzaId)
+    router.push(`/detail-itemId/${pizzaId}`) // Navega al detalle dinámico
+  }
+
   return (
     <View style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>Nuestras Pizzas</Text>
       <FlatList
         data={pizzas}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => handlePress(item.id)}
+          >
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.ingredients}>
               Ingredientes:{' '}
@@ -68,7 +80,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#333'
+    color: '#333',
+    marginTop: 100
   },
   item: {
     padding: 16,

@@ -18,7 +18,7 @@ export const CategoryProvider = ({ children }: { children: ReactNode }) => {
       const response = await axios.get(
         `http://localhost:3000/api/${categoryId}`
       )
-      setCategoryData(response.data.pizzas || [])
+      setCategoryData(response.data || [])
     } catch (error) {
       console.error('Error al obtener los datos de la API:', error)
       setCategoryData([])
