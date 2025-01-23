@@ -83,7 +83,7 @@ Componente al pie de la pantalla con información adicional y enlaces a término
 Incluye redirección dinámica a categorías o vistas de detalles según los resultados seleccionados.
 Implementación de filtros dinámicos basados en nombre o categoría.
 2. **Conexión entre SearchBar y CategoryList**:
-Los resultados de la búsqueda pueden coincidir c
+Los resultados de la búsqueda pueden coincidir con las categorías existentes, permitiendo una navegación fluida.
 
 ### **Enlaces Relacionados**
 - [Arquitectura del Proyecto](./architecture.md)

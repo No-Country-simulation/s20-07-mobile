@@ -1,3 +1,4 @@
+use custompizza;
 -- CreateTable
 CREATE TABLE `Pizza` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,

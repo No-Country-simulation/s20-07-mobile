@@ -55,16 +55,20 @@ export function SearchProvider ({ children }: { children: ReactNode }) {
         return
       }
 
-      // Filtra los datos harcodeados por coincidencias en el nombre o categoría
-      const filteredResults = mockData.filter(
-        item =>
-          item.nombre.toLowerCase().includes(query.toLowerCase()) ||
-          item.categoria.toLowerCase().includes(query.toLowerCase())
+      // Realiza la solicitud a tu API
+      const response = await axios.get(
+        `http://localhost:3000/api/pizzas?query=${query}`
       )
 
-      setResults(filteredResults)
+      // Asegúrate de extraer correctamente el array de pizzas
+      const pizzas = response.data.pizzas || []
+      console.log('Resultados recibidos:', pizzas)
+
+      // Si la respuesta incluye datos, actualiza los resultados
+      setResults(pizzas) // Establece los resultados en el estado
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error)
+      setResults([]) // Limpia los resultados en caso de error
     }
   }
 

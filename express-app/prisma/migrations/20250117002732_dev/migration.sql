@@ -10,19 +10,20 @@
   - You are about to drop the column `createdAt` on the `predefinedpizza` table. All the data in the column will be lost.
 
 */
+use custompizza;
 -- AlterTable
-ALTER TABLE `custompizza` DROP COLUMN `createdAt`,
+ALTER TABLE `CustomPizza` DROP COLUMN `createdAt`,
     ADD COLUMN `type` VARCHAR(191) NOT NULL DEFAULT 'customPizza';
 
 -- AlterTable
-ALTER TABLE `order` DROP COLUMN `createdAt`,
+ALTER TABLE `Order` DROP COLUMN `createdAt`,
     DROP COLUMN `updatedAt`;
 
 -- AlterTable
-ALTER TABLE `pizza` DROP COLUMN `createdAt`,
+ALTER TABLE `Pizza` DROP COLUMN `createdAt`,
     DROP COLUMN `isCustom`,
     DROP COLUMN `updatedAt`;
 
 -- AlterTable
-ALTER TABLE `predefinedpizza` DROP COLUMN `createdAt`,
+ALTER TABLE `PredefinedPizza` DROP COLUMN `createdAt`,
     ADD COLUMN `type` VARCHAR(191) NOT NULL DEFAULT 'predefinedPizza';
