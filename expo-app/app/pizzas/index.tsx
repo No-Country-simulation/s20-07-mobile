@@ -13,30 +13,38 @@ import BackArrow from '@/components/BackArrow'
 
 export default function Pizzas () {
   const router = useRouter()
-  const [pizzas, setPizzas] = useState([])
+  const [pizzas, setPizzas] = useState<Pizza[]>([])
   const [loading, setLoading] = useState(true)
 
   // Función para cargar los datos de las pizzas
-  const fetchPizzas = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/pizzas') // Ajusta la URL según tu API
-      setPizzas(response.data.pizzas) // Asegúrate de que el backend devuelva un array en pizzas
-    } catch (error) {
-      console.error('Error al cargar las pizzas:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
+    const fetchPizzas = async () => {
+      try {
+        const response = await axios.get<Pizza[]>(
+          'http://localhost:3000/api/pizzas'
+        )
+        setPizzas(response.data)
+      } catch (error) {
+        console.error('Error al cargar las pizzas:', error)
+      }
+    }
+
     fetchPizzas()
   }, [])
 
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size='large' color='#FF6347' />
-        <Text style={styles.loadingText}>Cargando pizzas...</Text>
+        <ActivityIndicator size='large' color='#FF5722' />
+        <Text style={styles.loadingText}>Cargando...</Text>
+      </View>
+    )
+  }
+
+  if (!pizzas.length) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>No se encontró la pizza.</Text>
       </View>
     )
   }
@@ -61,7 +69,9 @@ export default function Pizzas () {
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.ingredients}>
               Ingredientes:{' '}
-              {item.pizzaIngredients.map(ing => ing.name).join(', ')}
+              {item.pizzaIngredients
+                .map((ing: Ingredient) => ing.name)
+                .join(', ')}
             </Text>
           </TouchableOpacity>
         )}
@@ -113,5 +123,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     color: '#555'
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  errorText: {
+    fontSize: 16,
+    color: 'red'
   }
 })

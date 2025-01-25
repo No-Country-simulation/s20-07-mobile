@@ -11,7 +11,7 @@ const BackArrow = () => {
       style={styles.backButton}
       onPress={() => navigation.goBack()} // Navega a la página anterior
     >
-      <Icon name='arrow-back' size={24} color='#000' style={styles.icon} />
+      <Icon name='arrow-back' size={24} color='#ffffff' style={styles.icon} />
     </Pressable>
   )
 }
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 10,
     borderRadius: 50, // Hace que sea un círculo
-    backgroundColor: '#f0f0f0', // Fondo claro
+    backgroundColor: '#000000', // Fondo claro
     position: 'absolute', // Posiciona de forma absoluta
-    top: 50, // Margen desde arriba
+    top: 20, // Margen desde arriba
     left: 30, // Margen desde la izquierda
     zIndex: 1000 // Asegúrate de que esté sobre otros elementos
   },

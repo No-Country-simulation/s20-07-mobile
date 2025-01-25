@@ -11,6 +11,7 @@ import CategoryList from '@/components/home/CategoryList'
 import SearchBar from '@/components/home/SearchBar'
 import Banner from '@/components/home/Banner'
 import Footer from '@/components/Footer'
+import { mockPizza } from '@/mocks/mocksPizza'
 
 export default function Home () {
   const { height, width } = useWindowDimensions()
@@ -59,15 +60,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   scrollContainer: {
-    marginTop: 200, // Espacio para SearchBar y Banner
-    marginBottom: 160 // Espacio para Footer y Slider
+    marginTop: 200,
+    marginBottom: 160
   },
   scrollContent: {
     paddingHorizontal: 10
   },
   sliderContainer: {
     position: 'absolute',
-    bottom: 60, // Dejar espacio para el Footer
+    bottom: 60,
     zIndex: 10,
     backgroundColor: '#000'
   },
