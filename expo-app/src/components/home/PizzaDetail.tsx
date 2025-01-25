@@ -14,9 +14,10 @@ import axios from 'axios'
 type Pizza = {
   id: number
   name: string
-  description: string | null
   image: string | null
+  description: string | null
   pizzaIngredients: { ingredient: { name: string } }[]
+  predefinedPizzas: { size: { name: string }; price: number }[] // Agrega precios por tamaño
 }
 
 export default function PizzaDetail () {

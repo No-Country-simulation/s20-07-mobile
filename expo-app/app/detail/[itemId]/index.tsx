@@ -14,9 +14,9 @@ import axios from 'axios'
 type Pizza = {
   id: number
   name: string
-  description: string | null
   image: string | null
   pizzaIngredients: { ingredient: { name: string } }[]
+  predefinedPizzas: { size: { name: string }; price: number }[]
 }
 
 export default function PizzaDetail () {
@@ -77,9 +77,7 @@ export default function PizzaDetail () {
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri:
-              pizza.image ||
-              'https://img.freepik.com/fotos-premium/pizza-mozzarella-aceitunas-tabla-madera_311379-1163.jpg'
+            uri: pizza.image || 'https://via.placeholder.com/250'
           }}
           style={styles.image}
         />
@@ -91,39 +89,45 @@ export default function PizzaDetail () {
         </TouchableOpacity>
       </View>
 
-      {/* Descripción */}
-      <Text style={styles.sectionTitle}>Descripción</Text>
-      <Text style={styles.description}>
-        {pizza.description ? pizza.description : 'Descripción no disponible'}
-      </Text>
+      {/* Ingredientes y precio */}
+      {/* Ingredientes y precio */}
+      <View style={styles.ingredientPriceContainer}>
+        <Text style={styles.sectionTitle}>Ingredientes:</Text>
+        <Text style={styles.price}>
+          {pizza.predefinedPizzas.length > 0
+            ? `$${pizza.predefinedPizzas[0].price}`
+            : 'Precio no disponible'}
+        </Text>
+      </View>
 
-      {/* Ingredientes */}
-      <Text style={styles.sectionTitle}>Ingredientes</Text>
-      <Text style={styles.ingredients}>
-        {pizza.pizzaIngredients.length > 0
-          ? pizza.pizzaIngredients.map(ing => ing.ingredient.name).join(', ')
-          : 'No hay ingredientes disponibles.'}
-      </Text>
+      {/* Lista de ingredientes */}
+      <View>
+        <Text style={styles.ingredients}>
+          {pizza.pizzaIngredients.length > 0
+            ? pizza.pizzaIngredients.map(ing => ing.ingredient.name).join(', ')
+            : 'No hay ingredientes disponibles.'}
+        </Text>
+      </View>
 
       {/* Selector de tamaño */}
       <Text style={styles.sectionTitle}>Selecciona el tamaño de tu pizza</Text>
       <View style={styles.sizeContainer}>
-        {['Pequeña', 'Mediana', 'Grande'].map(size => (
+        {pizza.predefinedPizzas.map(size => (
           <TouchableOpacity
-            key={size}
-            onPress={() => handleSizeSelect(size)}
+            key={size.size.name}
+            onPress={() => handleSizeSelect(size.size.name)}
             style={[
               styles.sizeButton,
-              selectedSize === size && styles.selectedSizeButton
+              selectedSize === size.size.name && styles.selectedSizeButton
             ]}
           >
             <Text
               style={[
                 styles.sizeButtonText,
-                selectedSize === size && styles.selectedSizeButtonText
+                selectedSize === size.size.name && styles.selectedSizeButtonText
               ]}
             >
-              {size}
+              {size.size.name}
             </Text>
           </TouchableOpacity>
         ))}
@@ -169,23 +173,35 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'red'
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
+  priceContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: 20
+  },
+  ingredientPriceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Ingredientes a la izquierda, precio a la derecha
+    alignItems: 'center',
     marginBottom: 10
   },
-  description: {
-    fontSize: 16,
-    color: '#ccc',
-    textAlign: 'justify',
-    marginBottom: 20
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff'
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFC107', // Color del precio
+    textAlign: 'right'
   },
   ingredients: {
     fontSize: 16,
     color: '#ccc',
-    marginBottom: 20
+    marginBottom: 20,
+    textAlign: 'left' // Ingredientes alineados a la izquierda
   },
+
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

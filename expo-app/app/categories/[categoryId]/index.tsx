@@ -13,6 +13,7 @@ import axios from 'axios'
 type Pizza = {
   id: number
   name: string
+  image: string | null
   pizzaIngredients: { ingredient: { name: string } }[]
 }
 
