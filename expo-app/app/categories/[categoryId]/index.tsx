@@ -17,10 +17,10 @@ type Pizza = {
 }
 
 export default function CategoryItemsPage () {
-  const { categoryId } = useLocalSearchParams() // Captura el parámetro de categoría
-  const [pizzas, setPizzas] = useState<Pizza[]>([]) // Declara el tipo del estado
+  const { categoryId } = useLocalSearchParams()
+  const [pizzas, setPizzas] = useState<Pizza[]>([])
   const [loading, setLoading] = useState(true)
-  const router = useRouter() // Para manejar la navegación
+  const router = useRouter()
 
   useEffect(() => {
     const fetchPizzas = async () => {
@@ -28,7 +28,7 @@ export default function CategoryItemsPage () {
         const response = await axios.get(
           `http://localhost:3000/api/${categoryId}`
         )
-        console.log('Datos recibidos de la API:', response.data.pizzas) // Depura aquí
+        console.log('Datos recibidos de la API:', response.data.pizzas)
         setPizzas(response.data.pizzas)
       } catch (error) {
         console.error('Error al cargar las pizzas:', error)
@@ -58,8 +58,8 @@ export default function CategoryItemsPage () {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              console.log('Navigating to:', `/detail/${item.id}`) // Verifica el ID aquí
-              router.push(`/detail/${item.id}`) // Navega al detalle
+              console.log('Navigating to:', `/detail/${item.id}`)
+              router.push(`/detail/${item.id}`)
             }}
           >
             <Text style={styles.itemTitle}>{item.name}</Text>

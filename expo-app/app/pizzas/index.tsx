@@ -51,7 +51,7 @@ export default function Pizzas () {
 
   const handlePress = (pizzaId: string) => {
     console.log('Navegando al detalle de la pizza:', pizzaId)
-    router.push(`/detail-itemId/${pizzaId}`) // Navega al detalle dinámico
+    router.push(`/detail-itemId/${pizzaId}`)
   }
 
   return (

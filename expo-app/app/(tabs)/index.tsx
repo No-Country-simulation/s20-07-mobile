@@ -26,7 +26,7 @@ export default function Home () {
 
       {/* Categorías desplazables */}
       <ScrollView
-        style={[styles.scrollContainer, { height: height - 300 }]} // Ajustar altura dinámica
+        style={[styles.scrollContainer, { height: height - 300 }]}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >

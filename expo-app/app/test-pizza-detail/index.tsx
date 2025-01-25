@@ -1,5 +1,5 @@
 import React from 'react'
-import PizzaDetail from '@/components/home/PizzaDetail' // Asegúrate de la ruta correcta al componente
+import PizzaDetail from '@/components/home/PizzaDetail'
 
 const mockPizza = {
   id: '1',

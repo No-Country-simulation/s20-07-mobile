@@ -20,7 +20,7 @@ type Pizza = {
 }
 
 export default function PizzaDetail () {
-  const { itemId } = useLocalSearchParams<{ itemId: string }>() // Asegura que itemId sea string
+  const { itemId } = useLocalSearchParams<{ itemId: string }>()
   const [pizza, setPizza] = useState<Pizza | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState<string>('Pequeña')
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#1E1E1E' // Fondo oscuro
+    backgroundColor: '#1E1E1E'
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff', // Texto blanco
+    color: '#fff',
     textAlign: 'center',
     marginBottom: 20
   },
@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: '#ccc', // Texto gris claro
+    color: '#ccc',
     textAlign: 'justify',
     marginBottom: 20
   },
   ingredients: {
     fontSize: 16,
-    color: '#ccc', // Texto gris claro
+    color: '#ccc',
     marginBottom: 20
   },
   sizeContainer: {
@@ -186,51 +186,51 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     paddingVertical: 10,
     borderRadius: 10,
-    backgroundColor: '#333', // Fondo gris oscuro
+    backgroundColor: '#333',
     alignItems: 'center'
   },
   selectedSizeButton: {
-    backgroundColor: '#FFC107' // Amarillo para el botón seleccionado
+    backgroundColor: '#FFC107'
   },
   sizeButtonText: {
     fontSize: 16,
-    color: '#fff' // Texto blanco
+    color: '#fff'
   },
   selectedSizeButtonText: {
     fontWeight: 'bold',
-    color: '#000' // Texto negro cuando está seleccionado
+    color: '#000'
   },
   cartButton: {
     padding: 15,
     borderRadius: 10,
-    backgroundColor: '#FF5722', // Botón naranja
+    backgroundColor: '#FF5722',
     alignItems: 'center',
     marginTop: 20
   },
   cartButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff' // Texto blanco
+    color: '#fff'
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1E1E1E' // Fondo oscuro para el loading
+    backgroundColor: '#1E1E1E'
   },
   loadingText: {
     fontSize: 16,
-    color: '#FF5722', // Texto naranja
+    color: '#FF5722',
     marginTop: 10
   },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1E1E1E' // Fondo oscuro para el error
+    backgroundColor: '#1E1E1E'
   },
   errorText: {
     fontSize: 18,
-    color: 'red' // Texto rojo para errores
+    color: 'red'
   }
 })

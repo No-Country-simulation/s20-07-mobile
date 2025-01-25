@@ -19,17 +19,17 @@ export default function SearchBar () {
 
   const handleSearch = (text: string) => {
     setQuery(text)
-    search(text) // Realiza la búsqueda al cambiar el texto
+    search(text)
   }
 
   const clearSearch = () => {
     setQuery('')
-    search('') // Restablece los resultados
+    search('')
   }
 
   const handlePress = (id: number) => {
-    console.log('Navegando al detalle de la pizza:', id) // Depuración
-    router.push(`/detail-itemId/${id}`) // Navegación al detalle
+    console.log('Navegando al detalle de la pizza:', id)
+    router.push(`/detail-itemId/${id}`)
   }
 
   return (
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     color: '#333333',
-    borderWidth: 0, // Elimina bordes
-    outlineStyle: 'none' // Evita la línea azul en navegadores web
+    borderWidth: 0,
+    outlineStyle: 'none'
   },
   clearIcon: {
     marginLeft: 10
@@ -107,4 +107,3 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   }
 })
-
