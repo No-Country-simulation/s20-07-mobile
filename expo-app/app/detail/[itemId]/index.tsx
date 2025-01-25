@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
 
 type Pizza = {
   id: number
@@ -70,6 +71,8 @@ export default function PizzaDetail () {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* Flecha de retroceso */}
+      <BackArrow />
       {/* Título */}
       <Text style={styles.title}>{pizza.name || 'Nombre no disponible'}</Text>
 
@@ -77,7 +80,9 @@ export default function PizzaDetail () {
       <View style={styles.imageContainer}>
         <Image
           source={{
-            uri: pizza.image || 'https://via.placeholder.com/250'
+            uri:
+              pizza.image ||
+              'https://www.clarin.com/2022/10/05/utIOlIIyB_2000x1500__1.jpg'
           }}
           style={styles.image}
         />
@@ -187,7 +192,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#fff',
+    marginBottom: 20
   },
   price: {
     fontSize: 18,

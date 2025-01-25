@@ -61,12 +61,6 @@ export default function SearchBar () {
               onPress={() => handlePress(item.id)} // Navega al detalle
             >
               <View style={styles.resultContent}>
-                <Image
-                  source={{
-                    uri: item.image || 'https://via.placeholder.com/100'
-                  }}
-                  style={styles.resultImage}
-                />
                 <Text style={styles.resultText}>{item.name}</Text>
               </View>
             </TouchableOpacity>
