@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 5,
-    textAlign: 'left', // Esto asegura que el precio quede alineado al inicio
-    color: '#000' // Cambia el color del texto si es necesario
+    textAlign: 'left',
+    color: '#000'
   },
   buttonText: {
     fontSize: 14,

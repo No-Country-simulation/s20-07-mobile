@@ -69,18 +69,18 @@ const HoverButton = () => {
   const [isHovered, setIsHovered] = useState(false)
 
   const handlePress = () => {
-    router.push('/featured-pizzas') // Redirigir a la página de pizzas destacadas
+    router.push('/featured-pizzas')
   }
 
   return (
     <Pressable
       style={[
         styles.button,
-        isHovered && { backgroundColor: Colors.dark.hoverButton } // Cambiar color en hover
+        isHovered && { backgroundColor: Colors.dark.hoverButton }
       ]}
       onPress={handlePress}
-      onMouseEnter={() => setIsHovered(true)} // Detecta cuando el mouse entra
-      onMouseLeave={() => setIsHovered(false)} // Detecta cuando el mouse sale
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Text style={styles.buttonText}>Empezar</Text>
     </Pressable>
@@ -88,18 +88,18 @@ const HoverButton = () => {
 }
 
 const SliderImage = ({ image }: { image: any }) => {
-  const [scale] = useState(new Animated.Value(1)) // Animación de escala
+  const [scale] = useState(new Animated.Value(1))
 
   const handleMouseEnter = () => {
     Animated.spring(scale, {
-      toValue: 1.1, // Aumentar el tamaño en hover
+      toValue: 1.1,
       useNativeDriver: true
     }).start()
   }
 
   const handleMouseLeave = () => {
     Animated.spring(scale, {
-      toValue: 1, // Volver al tamaño original
+      toValue: 1,
       useNativeDriver: true
     }).start()
   }

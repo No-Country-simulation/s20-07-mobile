@@ -10,19 +10,26 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '@/constants/Colors'
 import { useSearch } from '@/contexts/SearchContext'
+import { useRouter } from 'expo-router'
 
 export default function SearchBar () {
+  const router = useRouter()
   const { search, results } = useSearch()
   const [query, setQuery] = useState('')
 
   const handleSearch = (text: string) => {
     setQuery(text)
-    search(text) // Realiza la búsqueda al cambiar el texto
+    search(text)
   }
 
   const clearSearch = () => {
     setQuery('')
-    search('') // Restablece los resultados
+    search('')
+  }
+
+  const handlePress = (id: number) => {
+    console.log('Navegando al detalle de la pizza:', id)
+    router.push(`/detail-itemId/${id}`)
   }
 
   return (
@@ -48,7 +55,10 @@ export default function SearchBar () {
           data={results}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity style={styles.resultItem}>
+            <TouchableOpacity
+              style={styles.resultItem}
+              onPress={() => handlePress(item.id)}
+            >
               <Text style={styles.resultText}>{item.name}</Text>
             </TouchableOpacity>
           )}
@@ -74,8 +84,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     color: '#333333',
-    borderWidth: 0, // Elimina bordes
-    outlineStyle: 'none' // Evita la línea azul en navegadores web
+    borderWidth: 0,
+    outlineStyle: 'none'
   },
   clearIcon: {
     marginLeft: 10
@@ -97,4 +107,3 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   }
 })
-
