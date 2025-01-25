@@ -25,6 +25,7 @@ export default function PizzaDetail () {
   const [pizza, setPizza] = useState<Pizza | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState<string>('Pequeña')
+  const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -34,6 +35,11 @@ export default function PizzaDetail () {
         )
         console.log('Datos de la pizza recibidos:', response.data.pizza)
         setPizza(response.data.pizza)
+        // Establecer precio inicial (por ejemplo, el precio del primer tamaño)
+        if (response.data.pizza.predefinedPizzas.length > 0) {
+          setSelectedPrice(response.data.pizza.predefinedPizzas[0].price)
+          setSelectedSize(response.data.pizza.predefinedPizzas[0].size.name)
+        }
       } catch (error) {
         console.error('Error al cargar los detalles de la pizza:', error)
       } finally {
@@ -44,8 +50,16 @@ export default function PizzaDetail () {
     if (itemId) fetchPizza()
   }, [itemId])
 
-  const handleSizeSelect = (size: string) => {
-    setSelectedSize(size)
+  const handleSizeSelect = (selectedSizeName: string) => {
+    setSelectedSize(selectedSizeName)
+
+    // Buscar el precio correspondiente al tamaño seleccionado
+    const selected = pizza?.predefinedPizzas.find(
+      p => p.size.name === selectedSizeName
+    )
+    if (selected) {
+      setSelectedPrice(selected.price)
+    }
   }
 
   const handleAddToCart = () => {
@@ -95,22 +109,17 @@ export default function PizzaDetail () {
       </View>
 
       {/* Ingredientes y precio */}
-      {/* Ingredientes y precio */}
+      <Text style={styles.sectionTitle}>Ingredientes</Text>
       <View style={styles.ingredientPriceContainer}>
-        <Text style={styles.sectionTitle}>Ingredientes:</Text>
-        <Text style={styles.price}>
-          {pizza.predefinedPizzas.length > 0
-            ? `$${pizza.predefinedPizzas[0].price}`
-            : 'Precio no disponible'}
-        </Text>
-      </View>
-
-      {/* Lista de ingredientes */}
-      <View>
         <Text style={styles.ingredients}>
           {pizza.pizzaIngredients.length > 0
             ? pizza.pizzaIngredients.map(ing => ing.ingredient.name).join(', ')
             : 'No hay ingredientes disponibles.'}
+        </Text>
+        <Text style={styles.price}>
+          {selectedPrice !== null
+            ? `$${selectedPrice}`
+            : 'Precio no disponible'}
         </Text>
       </View>
 
@@ -120,7 +129,7 @@ export default function PizzaDetail () {
         {pizza.predefinedPizzas.map(size => (
           <TouchableOpacity
             key={size.size.name}
-            onPress={() => handleSizeSelect(size.size.name)}
+            onPress={() => handleSizeSelect(size.size.name)} // Pasar el nombre del tamaño
             style={[
               styles.sizeButton,
               selectedSize === size.size.name && styles.selectedSizeButton
@@ -178,36 +187,28 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'red'
   },
-  priceContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: 20
-  },
   ingredientPriceContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Ingredientes a la izquierda, precio a la derecha
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
     marginBottom: 20
-  },
-  price: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFC107', // Color del precio
-    textAlign: 'right'
   },
   ingredients: {
     fontSize: 16,
     color: '#ccc',
-    marginBottom: 20,
-    textAlign: 'left' // Ingredientes alineados a la izquierda
+    flex: 1
   },
-
+  price: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFC107'
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10
+  },
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
