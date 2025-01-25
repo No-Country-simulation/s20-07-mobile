@@ -8,6 +8,7 @@ export const getAllPizzas = async (featured?: boolean) => {
       name: true,
       featured: true,
       haveDiscount: true,
+      image: true,
       pizzaIngredients: {
         select: {
           ingredient: true,
@@ -32,6 +33,7 @@ export const getPizzaById = async (id: number) => {
       name: true,
       featured: true,
       haveDiscount: true,
+      image: true,
       predefinedPizzas: {
         select: {
           id: true,
