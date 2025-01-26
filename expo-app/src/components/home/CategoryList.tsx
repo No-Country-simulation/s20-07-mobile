@@ -1,16 +1,9 @@
-import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  ScrollView,
-  Animated,
-  TouchableOpacity
-} from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
+import PizzasItem from './PizzasItem'
+import DrinkItem from './DrinkItem'
 
 const categories = [
   {
@@ -52,16 +45,13 @@ export default function CategoryList () {
         contentContainerStyle={styles.scrollContent}
       >
         {categories.map(category => (
-          <TouchableOpacity
+          <PizzasItem
             key={category.id}
-            onPress={() => handlePress(category.id)}
-            style={styles.categoryItem}
-          >
-            <Image source={category.image} style={styles.image} />{' '}
-            {/* category.image */}
-            <Text style={styles.categoryTitle}>{category.title}</Text>{' '}
-            {/* category.title */}
-          </TouchableOpacity>
+            id={category.id}
+            title={category.title}
+            image={category.image}
+            onPress={handlePress}
+          />
         ))}
       </ScrollView>
     </View>
@@ -69,7 +59,11 @@ export default function CategoryList () {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 10, paddingBottom: 10 },
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingBottom: 10
+  },
   title: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -77,13 +71,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     marginTop: 30
   },
-  scrollContent: { paddingBottom: 10 },
-  categoryItem: { alignItems: 'center', marginRight: 15, marginTop: 25 },
-  image: { width: 140, height: 140, borderRadius: 10, marginBottom: 5 },
-  categoryTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: Colors.light.text,
-    textAlign: 'center'
+  scrollContent: {
+    paddingBottom: 10
   }
 })

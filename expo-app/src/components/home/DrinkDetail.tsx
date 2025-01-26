@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
-  StyleSheet,
-  FlatList,
   Image,
   TouchableOpacity,
+  StyleSheet,
+  FlatList,
   ActivityIndicator
 } from 'react-native'
+import { useRouter } from 'expo-router'
 import axios from 'axios'
 
 type Drink = {
@@ -19,14 +20,17 @@ type Drink = {
 }
 
 export default function DrinksList () {
+  const router = useRouter()
   const [drinks, setDrinks] = useState<Drink[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchDrinks = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/drinks')
-        setDrinks(response.data.drinks || [])
+        const response = await axios.get<Drink[]>(
+          'http://localhost:3000/api/drinks'
+        )
+        setDrinks(response.data)
       } catch (error) {
         console.error('Error al cargar las bebidas:', error)
       } finally {
@@ -37,8 +41,8 @@ export default function DrinksList () {
     fetchDrinks()
   }, [])
 
-  const handleAddToCart = (id: number) => {
-    console.log(`Bebida con ID ${id} añadida al carrito.`)
+  const handleAddToCart = (drinkName: string) => {
+    console.log(`Añadido al carrito: ${drinkName}`)
   }
 
   if (loading) {
@@ -50,35 +54,32 @@ export default function DrinksList () {
     )
   }
 
-  if (!drinks.length) {
-    return (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>No se encontraron bebidas.</Text>
-      </View>
-    )
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nuestras bebidas</Text>
       <FlatList
         data={drinks}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <View style={styles.itemContent}>
-              <Image source={{ uri: item.image }} style={styles.image} />
+            <TouchableOpacity>
+              <Image
+                source={{ uri: item.image }}
+                style={styles.image}
+                resizeMode='contain'
+              />
               <View style={styles.textContainer}>
-                <Text style={styles.name}>{item.name}</Text>
+                <View style={styles.namePriceContainer}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.price}>${item.price}</Text>
+                </View>
                 <Text style={styles.content}>{item.content}</Text>
               </View>
-              <Text style={styles.price}>${item.price}</Text>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.cartButton}
-              onPress={() => handleAddToCart(item.id)}
+              onPress={() => handleAddToCart(item.name)}
             >
-              <Text style={styles.cartButtonText}>🛒</Text>
+              <Text style={styles.cartButtonText}>Agregar al carrito 🛒</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -93,11 +94,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#111',
     padding: 10
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 20
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loadingText: {
+    fontSize: 16,
+    color: '#FF5722',
+    marginTop: 10
   },
   item: {
     backgroundColor: '#222',
@@ -118,48 +123,38 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1
   },
+  namePriceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 5
+  },
   name: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff'
-  },
-  content: {
-    fontSize: 14,
-    color: '#ccc'
+    color: '#fff',
+    flex: 1
   },
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#FFC107'
+    color: '#FFC107',
+    textAlign: 'right'
+  },
+  content: {
+    fontSize: 14,
+    color: '#ccc'
   },
   cartButton: {
     marginTop: 10,
     backgroundColor: '#FF5722',
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10
+    paddingVertical: 10
   },
   cartButtonText: {
-    fontSize: 20,
-    color: '#fff'
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  loadingText: {
     fontSize: 16,
-    color: '#FF5722'
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  emptyText: {
-    fontSize: 16,
+    fontWeight: 'bold',
     color: '#fff'
   }
 })

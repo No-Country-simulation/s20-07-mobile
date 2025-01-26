@@ -56,8 +56,10 @@ export default function Pizzas () {
 
   return (
     <View style={styles.container}>
-      <BackArrow />
-      <Text style={styles.title}>Nuestras Pizzas</Text>
+      <View style={styles.headerContainer}>
+        <BackArrow />
+        <Text style={styles.title}>Nuestras Pizzas</Text>
+      </View>
       <FlatList
         data={pizzas}
         keyExtractor={item => item.id.toString()}
@@ -86,12 +88,17 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff'
   },
+  headerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
     color: '#333',
-    marginTop: 100
+    marginLeft: 10
   },
   item: {
     padding: 16,

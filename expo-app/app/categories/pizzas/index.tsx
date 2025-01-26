@@ -6,19 +6,17 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import axios from 'axios'
 
 // Define el tipo de una pizza
 type Pizza = {
   id: number
   name: string
-  image: string | null
   pizzaIngredients: { ingredient: { name: string } }[]
 }
 
-export default function CategoryItemsPage () {
-  const { categoryId } = useLocalSearchParams()
+export default function PizzasPage () {
   const [pizzas, setPizzas] = useState<Pizza[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -26,10 +24,7 @@ export default function CategoryItemsPage () {
   useEffect(() => {
     const fetchPizzas = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/${categoryId}`
-        )
-        console.log('Datos recibidos de la API:', response.data.pizzas)
+        const response = await axios.get('http://localhost:3000/api/pizzas')
         setPizzas(response.data.pizzas)
       } catch (error) {
         console.error('Error al cargar las pizzas:', error)
@@ -38,8 +33,8 @@ export default function CategoryItemsPage () {
       }
     }
 
-    if (categoryId) fetchPizzas()
-  }, [categoryId])
+    fetchPizzas()
+  }, [])
 
   if (loading) {
     return (
@@ -58,10 +53,7 @@ export default function CategoryItemsPage () {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => {
-              console.log('Navigating to:', `/detail/${item.id}`)
-              router.push(`/detail/${item.id}`)
-            }}
+            onPress={() => router.push(`/detail/${item.id}`)}
           >
             <Text style={styles.itemTitle}>{item.name}</Text>
             <Text style={styles.itemSubtitle}>
