@@ -69,6 +69,8 @@ export default function PizzaDetail () {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
+        {/* Flecha de retroceso */}
+
         <ActivityIndicator size='large' color='#FF5722' />
         <Text style={styles.loadingText}>Cargando detalle...</Text>
       </View>

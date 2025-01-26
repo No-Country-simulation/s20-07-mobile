@@ -5,8 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Text,
-  TouchableOpacity,
-  Image
+  TouchableOpacity
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '@/constants/Colors'
@@ -15,22 +14,29 @@ import { useRouter } from 'expo-router'
 
 export default function SearchBar () {
   const router = useRouter()
-  const { search, results } = useSearch()
+  const { search, results } = useSearch() // Obtén resultados de búsqueda
   const [query, setQuery] = useState('')
 
+  // Maneja la búsqueda
   const handleSearch = (text: string) => {
     setQuery(text)
     search(text)
   }
 
+  // Limpia la búsqueda
   const clearSearch = () => {
     setQuery('')
     search('')
   }
 
-  const handlePress = (id: number) => {
-    console.log('Navegando al detalle de la pizza:', id)
-    router.push(`/detail/${id}`) // Ajusta la ruta aquí
+  // Navega al detalle de pizzas o bebidas
+  const handlePress = (id: number, type: string) => {
+    console.log(`Navegando al detalle del ${type}: ${id}`)
+    if (type === 'pizza') {
+      router.push(`/detail/${id}`) // Ruta para pizzas
+    } else if (type === 'drink') {
+      router.push(`/detail-drink/${id}`) // Ruta para bebidas
+    }
   }
 
   return (
@@ -39,7 +45,7 @@ export default function SearchBar () {
         <Icon name='search' size={20} color={Colors.light.muted} />
         <TextInput
           style={styles.searchInput}
-          placeholder='Buscar pizzas...'
+          placeholder='Buscar pizzas o bebidas...'
           placeholderTextColor={Colors.light.muted}
           value={query}
           onChangeText={handleSearch}
@@ -50,7 +56,7 @@ export default function SearchBar () {
           </TouchableOpacity>
         )}
       </View>
-      {/* Resultados */}
+      {/* Lista de resultados */}
       {query.trim() && (
         <FlatList
           data={results}
@@ -58,11 +64,9 @@ export default function SearchBar () {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.resultItem}
-              onPress={() => handlePress(item.id)} // Navega al detalle
+              onPress={() => handlePress(item.id, item.type)} // Incluye el tipo (pizza o drink)
             >
-              <View style={styles.resultContent}>
-                <Text style={styles.resultText}>{item.name}</Text>
-              </View>
+              <Text style={styles.resultText}>{item.name}</Text>
             </TouchableOpacity>
           )}
           ListEmptyComponent={() => (
@@ -130,7 +134,8 @@ const styles = StyleSheet.create({
 //   StyleSheet,
 //   FlatList,
 //   Text,
-//   TouchableOpacity
+//   TouchableOpacity,
+//   Image
 // } from 'react-native'
 // import Icon from 'react-native-vector-icons/FontAwesome'
 // import { Colors } from '@/constants/Colors'
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
 
 //   const handlePress = (id: number) => {
 //     console.log('Navegando al detalle de la pizza:', id)
-//     router.push(`/detail-itemId/${id}`)
+//     router.push(`/detail/${id}`) // Ajusta la ruta aquí
 //   }
 
 //   return (
@@ -182,9 +187,11 @@ const styles = StyleSheet.create({
 //           renderItem={({ item }) => (
 //             <TouchableOpacity
 //               style={styles.resultItem}
-//               onPress={() => handlePress(item.id)}
+//               onPress={() => handlePress(item.id)} // Navega al detalle
 //             >
-//               <Text style={styles.resultText}>{item.name}</Text>
+//               <View style={styles.resultContent}>
+//                 <Text style={styles.resultText}>{item.name}</Text>
+//               </View>
 //             </TouchableOpacity>
 //           )}
 //           ListEmptyComponent={() => (
@@ -219,7 +226,19 @@ const styles = StyleSheet.create({
 //     padding: 10,
 //     borderBottomWidth: 1,
 //     borderBottomColor: '#ddd',
-//     backgroundColor: '#000000'
+//     backgroundColor: '#000000',
+//     flexDirection: 'row',
+//     alignItems: 'center'
+//   },
+//   resultContent: {
+//     flexDirection: 'row',
+//     alignItems: 'center'
+//   },
+//   resultImage: {
+//     width: 50,
+//     height: 50,
+//     borderRadius: 25,
+//     marginRight: 10
 //   },
 //   resultText: {
 //     fontSize: 16,
