@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Colors } from '@/constants/Colors'
+import BackArrow from '../BackArrow'
 
 interface CategoryItemProps {
   id: string
@@ -17,6 +18,7 @@ export default function CategoryItem ({
 }: CategoryItemProps) {
   return (
     <TouchableOpacity onPress={() => onPress(id)} style={styles.container}>
+      <BackArrow />
       <Image source={image} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
