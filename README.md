@@ -54,6 +54,7 @@ Bienvenido al repositorio de **[OhMyPizza](https://github.com/No-Country-simulat
 - [CartContext](./docs/cart-context.md): Implementación y uso del `CartContext`.
 - [Gestión del Carrito](./docs/cart.md): Documentación completa del módulo `Cart`.
 - [Página Principal (Home)](./docs/home.md): Documentación del módulo `Home`.
+- [Categories](./docs/categories.md): Documentación del módulo `Categories`.
 - [Setup del Proyecto](./docs/setup.md): Guía para configurar y ejecutar el proyecto.
 - [Arquitectura del Proyecto](./docs/architecture.md): Estructura del código y detalles técnicos.
 
@@ -61,19 +62,27 @@ Bienvenido al repositorio de **[OhMyPizza](https://github.com/No-Country-simulat
 
 ### **Backend y Frontend**
 1. *Clonar el repositorio*
+```bash
 git clone https://github.com/No-Country-simulation/s20-07-mobile.git
 cd s20-07-mobile
+```
 
 2. *Configurar y ejecutar el backend*
+```bash
 cd express-server
 npm install
 npm start
+```
 
 3. *Configurar y ejecutar el frontend*
+```bash
 cd ..
 cd expo-app
 npm install
 npm start
+```
 
 ## 📧 Contacto
 Para preguntas o sugerencias, puedes escribirnos a: **ohmypizza.nocountry@gmail.com**
+
+
