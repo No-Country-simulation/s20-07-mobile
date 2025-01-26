@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
 
 type Drink = {
   id: number
@@ -59,6 +60,7 @@ export default function DrinkDetail () {
 
   return (
     <View style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>{drink.name}</Text>
       <Image source={{ uri: drink.image }} style={styles.image} />
       <Text style={styles.content}>{drink.content}</Text>

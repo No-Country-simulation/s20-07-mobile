@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '../BackArrow'
 
 type Pizza = {
   id: number
@@ -55,6 +56,7 @@ export default function PizzaDetail () {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
+        <BackArrow />
         <ActivityIndicator size='large' color='#FF5722' />
         <Text style={styles.loadingText}>Cargando detalle...</Text>
       </View>
