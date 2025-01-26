@@ -9,6 +9,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
 
 type Drink = {
   id: number
@@ -60,6 +61,9 @@ export default function DrinksList () {
 
   return (
     <View style={styles.container}>
+      <View style={styles.backArrow}>
+        <BackArrow />
+      </View>
       <Text style={styles.title}>Nuestras bebidas</Text>
       <FlatList
         data={drinks}
@@ -161,5 +165,8 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     color: '#fff'
+  },
+  backArrow: {
+    zIndex: 30
   }
 })

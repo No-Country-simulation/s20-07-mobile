@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 import PizzasItem from './PizzasItem'
-import DrinkItem from './DrinkItem'
 
 const categories = [
   {
@@ -14,17 +13,17 @@ const categories = [
   {
     id: 'drinks',
     title: 'Bebidas',
-    image: require('../../../assets/images/categories/drinks.png')
+    image: require('../../../assets/images/categories/drinks3.png')
   },
   {
     id: 'promotions',
     title: 'Promociones',
-    image: require('../../../assets/images/categories/promotions.png')
+    image: require('../../../assets/images/categories/promotions4.png')
   },
   {
     id: 'desserts',
     title: 'Postres',
-    image: require('../../../assets/images/categories/dessert.png')
+    image: require('../../../assets/images/categories/dessert4.png')
   }
 ]
 
@@ -41,7 +40,7 @@ export default function CategoryList () {
       <Text style={styles.title}>Categorías</Text>
       <ScrollView
         horizontal
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false} // Oculta el indicador de scroll
         contentContainerStyle={styles.scrollContent}
       >
         {categories.map(category => (
@@ -62,16 +61,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
+    backgroundColor: '#111',
+    marginTop: 20
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     color: Colors.light.text,
     textAlign: 'left',
-    marginTop: 30
+    marginVertical: 20
   },
   scrollContent: {
-    paddingBottom: 10
+    flexDirection: 'row', // Asegura que los elementos estén en una fila
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    justifyContent: 'space-around'
   }
 })
