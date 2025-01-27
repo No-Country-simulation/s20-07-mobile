@@ -1,11 +1,25 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { useRouter } from 'expo-router'
 import CartIcon from './CartIcon'
 
 const Header = () => {
+  const [isHoveredTitle, setIsHoveredTitle] = useState(false)
+
+  const router = useRouter()
+
   return (
     <View style={styles.header}>
-      <Text style={styles.title}>Oh My Pizza</Text>
+      {/* Título con hover */}
+      <TouchableOpacity
+        onPress={() => router.push('/')}
+        onMouseEnter={() => setIsHoveredTitle(true)}
+        onMouseLeave={() => setIsHoveredTitle(false)}
+      >
+        <Text style={[styles.title, isHoveredTitle && styles.hoverTitle]}>
+          Oh My Pizza
+        </Text>
+      </TouchableOpacity>
       <CartIcon />
     </View>
   )
@@ -24,7 +38,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white'
+    color: '#FFF' // Blanco por defecto
+  },
+  hoverTitle: {
+    color: '#FFA500' // Naranja al hacer hover
+  },
+  cartContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    cursor: 'pointer' // Cambia el cursor al pasar sobre el carrito
   }
 })
 

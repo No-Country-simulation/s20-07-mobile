@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { FontAwesome } from '@expo/vector-icons' // Íconos
 import { useCart } from '@/contexts/CartContext'
-import { FontAwesome } from '@expo/vector-icons' // Font Awesome de react-native-vector-icons
-import { useRouter } from 'expo-router' // Para navegación con Expo
+import { useRouter } from 'expo-router'
 
 const CartIcon = () => {
-  const { cart } = useCart()
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0)
+  const { totalItems } = useCart()
   const router = useRouter()
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => router.push('/cart')} // Navega al carrito
+      onPress={() => router.push('/cart')}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <FontAwesome name='shopping-cart' size={40} color='#FFA500' />{' '}
-      {/* Ícono naranja */}
+      <FontAwesome
+        name='shopping-cart'
+        size={24}
+        color={isHovered ? '#FFA500' : '#FFFFFF'}
+      />
       {totalItems > 0 && (
         <View style={styles.badge}>
           <Text style={styles.badgeText}>{totalItems}</Text>
@@ -30,7 +35,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20
+    cursor: 'pointer'
   },
   badge: {
     position: 'absolute',
