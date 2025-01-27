@@ -33,7 +33,7 @@ export const Colors = {
     muted: '#AAA',
     border: '#333',
     button: '#EB6334', //naranja
-    hoverButton: '#758700',
+    hoverButton: '#758700', //verde
     filter: '#ffffff',
   },
 };
