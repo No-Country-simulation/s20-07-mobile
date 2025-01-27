@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect
+} from 'react'
 
 type CartItem = {
   id: number
@@ -12,7 +18,6 @@ type CartContextType = {
   addToCart: (item: CartItem) => void
   updateQuantity: (id: number, quantity: number) => void
   removeFromCart: (id: number) => void
-  totalItems: number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -21,14 +26,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
   const addToCart = (item: CartItem) => {
-    setCart(prev => {
-      const existingItem = prev.find(i => i.id === item.id)
+    if (item.quantity <= 0) return // Evitar cantidades inválidas
+    setCart(prevCart => {
+      const existingItem = prevCart.find(cartItem => cartItem.id === item.id)
       if (existingItem) {
-        return prev.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+        return prevCart.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+            : cartItem
         )
       }
-      return [...prev, item]
+      return [...prevCart, item]
     })
   }
 
@@ -44,11 +52,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart(prev => prev.filter(item => item.id !== id))
   }
 
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0)
+  useEffect(() => {
+    console.log('Carrito actualizado:', cart)
+  }, [cart])
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart, totalItems }}
+      value={{ cart, addToCart, updateQuantity, removeFromCart }}
     >
       {children}
     </CartContext.Provider>
@@ -58,7 +68,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 export const useCart = () => {
   const context = useContext(CartContext)
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider')
+    throw new Error('useCart debe ser usado dentro de un CartProvider')
   }
   return context
 }

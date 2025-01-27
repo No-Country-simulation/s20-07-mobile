@@ -8,10 +8,10 @@ import {
   ScrollView,
   ActivityIndicator
 } from 'react-native'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router' // Importar useRouter
 import axios from 'axios'
-import BackArrow from '../BackArrow'
 import { useCart } from '@/contexts/CartContext'
+import BackArrow from '../BackArrow'
 
 type Pizza = {
   id: number
@@ -19,7 +19,7 @@ type Pizza = {
   image: string | null
   description: string | null
   pizzaIngredients: { ingredient: { name: string } }[]
-  predefinedPizzas: { size: { name: string }; price: number }[] // Agrega precios por tamaño
+  predefinedPizzas: { size: { name: string }; price: number }[]
 }
 
 export default function PizzaDetail () {
@@ -27,6 +27,8 @@ export default function PizzaDetail () {
   const [pizza, setPizza] = useState<Pizza | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState<string>('Pequeña')
+  const { addToCart } = useCart()
+  const router = useRouter() // Usar useRouter
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -34,7 +36,6 @@ export default function PizzaDetail () {
         const response = await axios.get(
           `http://localhost:3000/api/pizzas/${itemId}`
         )
-        console.log('Datos de la pizza recibidos:', response.data.pizza)
         setPizza(response.data.pizza)
       } catch (error) {
         console.error('Error al cargar los detalles de la pizza:', error)
@@ -51,12 +52,24 @@ export default function PizzaDetail () {
   }
 
   const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
+    if (!pizza) return
+
+    const selectedPrice = pizza.predefinedPizzas.find(
+      size => size.size.name === selectedSize
+    )?.price
+
+    if (!selectedPrice) return
+
+    const item = {
+      id: pizza.id,
+      name: `${pizza.name}, Tamaño: ${selectedSize}`,
+      price: selectedPrice,
       quantity: 1
-    })
+    }
+
+    console.log('Ítem enviado al carrito:', item) // LOG PARA DEBUG
+
+    addToCart(item)
   }
 
   if (loading) {
@@ -79,32 +92,17 @@ export default function PizzaDetail () {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Título */}
-      <Text style={styles.title}>{pizza.name || 'Nombre no disponible'}</Text>
-
-      {/* Imagen */}
+      <Text style={styles.title}>{pizza.name}</Text>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: pizza.image || 'https://via.placeholder.com/250' }}
           style={styles.image}
         />
       </View>
-
-      {/* Descripción */}
       <Text style={styles.sectionTitle}>Descripción</Text>
       <Text style={styles.description}>
         {pizza.description || 'Descripción no disponible'}
       </Text>
-
-      {/* Ingredientes */}
-      <Text style={styles.sectionTitle}>Ingredientes</Text>
-      <Text style={styles.ingredients}>
-        {pizza.pizzaIngredients
-          ? pizza.pizzaIngredients.map(ing => ing.ingredient.name).join(', ')
-          : 'No hay ingredientes disponibles.'}
-      </Text>
-
-      {/* Selector de tamaño */}
       <Text style={styles.sectionTitle}>Selecciona el tamaño de tu pizza</Text>
       <View style={styles.sizeContainer}>
         {['Pequeña', 'Mediana', 'Grande'].map(size => (
@@ -127,8 +125,6 @@ export default function PizzaDetail () {
           </TouchableOpacity>
         ))}
       </View>
-
-      {/* Botón de añadir al carrito */}
       <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
         <Text style={styles.cartButtonText}>Añadir al carrito</Text>
       </TouchableOpacity>
@@ -145,12 +141,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#FFF',
     textAlign: 'center',
     marginBottom: 20
   },
   imageContainer: {
-    position: 'relative',
     alignItems: 'center',
     marginBottom: 20
   },
@@ -159,30 +154,15 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: 10
   },
-  heartIcon: {
-    position: 'absolute',
-    top: 10,
-    right: 10
-  },
-  heartText: {
-    fontSize: 24,
-    color: 'white'
-  },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#FFF',
     marginBottom: 10
   },
   description: {
     fontSize: 16,
-    color: '#ccc',
-    textAlign: 'justify',
-    marginBottom: 20
-  },
-  ingredients: {
-    fontSize: 16,
-    color: '#ccc',
+    color: '#CCC',
     marginBottom: 20
   },
   sizeContainer: {
@@ -203,7 +183,7 @@ const styles = StyleSheet.create({
   },
   sizeButtonText: {
     fontSize: 16,
-    color: '#fff'
+    color: '#FFF'
   },
   selectedSizeButtonText: {
     fontWeight: 'bold',
@@ -219,7 +199,7 @@ const styles = StyleSheet.create({
   cartButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff'
+    color: '#FFF'
   },
   loadingContainer: {
     flex: 1,

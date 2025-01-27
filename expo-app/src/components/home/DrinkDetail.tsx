@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
+import { useCart } from '@/contexts/CartContext'
 
 type Drink = {
   id: number
@@ -19,10 +20,11 @@ type Drink = {
   image: string
 }
 
-export default function DrinksList () {
+export default function DrinksDetail () {
   const router = useRouter()
   const [drinks, setDrinks] = useState<Drink[]>([])
   const [loading, setLoading] = useState(true)
+  const { addToCart } = useCart()
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -41,8 +43,15 @@ export default function DrinksList () {
     fetchDrinks()
   }, [])
 
-  const handleAddToCart = (drinkName: string) => {
-    console.log(`Añadido al carrito: ${drinkName}`)
+  const handleAddToCart = (drink: Drink) => {
+    addToCart({
+      id: drink.id,
+      name: drink.name,
+      price: drink.price,
+      quantity: 1
+    })
+
+    console.log(`Añadido al carrito: ${drink.name}`)
   }
 
   if (loading) {
@@ -77,7 +86,7 @@ export default function DrinksList () {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cartButton}
-              onPress={() => handleAddToCart(item.name)}
+              onPress={() => handleAddToCart(item)} // Pasa el objeto completo
             >
               <Text style={styles.cartButtonText}>Agregar al carrito 🛒</Text>
             </TouchableOpacity>
