@@ -12,7 +12,6 @@ type CartContextType = {
   addToCart: (item: CartItem) => void
   updateQuantity: (id: number, quantity: number) => void
   removeFromCart: (id: number) => void
-  totalItems: number
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -44,11 +43,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart(prev => prev.filter(item => item.id !== id))
   }
 
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0)
-
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart, totalItems }}
+      value={{ cart, addToCart, updateQuantity, removeFromCart }}
     >
       {children}
     </CartContext.Provider>
@@ -58,7 +55,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 export const useCart = () => {
   const context = useContext(CartContext)
   if (!context) {
-    throw new Error('useCart must be used within a CartProvider')
+    throw new Error('useCart debe ser usado dentro de un CartProvider')
   }
   return context
 }
