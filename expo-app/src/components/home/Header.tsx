@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
     color: '#FFF' // Blanco por defecto
   },
   hoverTitle: {
-    color: '#FFA500' // Naranja al hacer hover
+    color: '#EB6334'
   },
   cartContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    cursor: 'pointer' // Cambia el cursor al pasar sobre el carrito
+    cursor: 'pointer'
   }
 })
 

@@ -19,7 +19,7 @@ const CartIcon = () => {
       <FontAwesome
         name='shopping-cart'
         size={24}
-        color={isHovered ? '#FFA500' : '#FFFFFF'}
+        color={isHovered ? '#EB6334' : '#FFFFFF'}
       />
       {totalItems > 0 && (
         <View style={styles.badge}>
