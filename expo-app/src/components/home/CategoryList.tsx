@@ -1,16 +1,8 @@
-import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  ScrollView,
-  Animated,
-  TouchableOpacity
-} from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
+import PizzasItem from './PizzasItem'
 
 const categories = [
   {
@@ -21,17 +13,17 @@ const categories = [
   {
     id: 'drinks',
     title: 'Bebidas',
-    image: require('../../../assets/images/categories/drinks.png')
+    image: require('../../../assets/images/categories/drinks3.png')
   },
   {
     id: 'promotions',
     title: 'Promociones',
-    image: require('../../../assets/images/categories/promotions.png')
+    image: require('../../../assets/images/categories/promotions4.png')
   },
   {
     id: 'desserts',
     title: 'Postres',
-    image: require('../../../assets/images/categories/dessert.png')
+    image: require('../../../assets/images/categories/dessert4.png')
   }
 ]
 
@@ -48,20 +40,17 @@ export default function CategoryList () {
       <Text style={styles.title}>Categorías</Text>
       <ScrollView
         horizontal
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false} // Oculta el indicador de scroll
         contentContainerStyle={styles.scrollContent}
       >
         {categories.map(category => (
-          <TouchableOpacity
+          <PizzasItem
             key={category.id}
-            onPress={() => handlePress(category.id)}
-            style={styles.categoryItem}
-          >
-            <Image source={category.image} style={styles.image} />{' '}
-            {/* category.image */}
-            <Text style={styles.categoryTitle}>{category.title}</Text>{' '}
-            {/* category.title */}
-          </TouchableOpacity>
+            id={category.id}
+            title={category.title}
+            image={category.image}
+            onPress={handlePress}
+          />
         ))}
       </ScrollView>
     </View>
@@ -69,21 +58,24 @@ export default function CategoryList () {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 10, paddingBottom: 10 },
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+    backgroundColor: '#111',
+    marginTop: 20
+  },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     color: Colors.light.text,
     textAlign: 'left',
-    marginTop: 30
+    marginVertical: 20
   },
-  scrollContent: { paddingBottom: 10 },
-  categoryItem: { alignItems: 'center', marginRight: 15, marginTop: 25 },
-  image: { width: 140, height: 140, borderRadius: 10, marginBottom: 5 },
-  categoryTitle: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: Colors.light.text,
-    textAlign: 'center'
+  scrollContent: {
+    flexDirection: 'row', // Asegura que los elementos estén en una fila
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    justifyContent: 'space-around'
   }
 })

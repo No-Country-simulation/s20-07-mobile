@@ -1,31 +1,31 @@
 import React from 'react'
-import { Pressable, StyleSheet } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useRouter } from 'expo-router'
 
-const BackArrow = () => {
-  const navigation = useNavigation()
+export default function BackArrow () {
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back() // Navega a la pantalla anterior
+  }
 
   return (
-    <Pressable style={styles.backButton} onPress={() => navigation.goBack()}>
-      <Icon name='arrow-back' size={24} color='#ffffff' style={styles.icon} />
-    </Pressable>
+    <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+      <Ionicons name='arrow-back' size={24} color='#fff' />
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   backButton: {
     padding: 10,
-    borderRadius: 50,
-    backgroundColor: '#000000',
-    position: 'absolute',
-    top: 20,
-    left: 30,
-    zIndex: 1000
+    marginBottom: 16,
+    borderRadius: 5
   },
-  icon: {
-    alignSelf: 'center'
+  backText: {
+    fontSize: 25,
+    color: '#fff',
+    fontWeight: 'bold'
   }
 })
-
-export default BackArrow

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -12,13 +12,6 @@ import { FontAwesome } from '@expo/vector-icons'
 export default function CartScreen () {
   const { cart, updateQuantity, removeFromCart } = useCart()
   console.log('Contenido del carrito:', cart)
-
-  useEffect(() => {
-    console.log('Contenido del carrito en CartScreen:', cart)
-  }, [cart])
-
-  const [isHoveredContinue, setIsHoveredContinue] = useState(false)
-  const [isHoveredPay, setIsHoveredPay] = useState(false)
 
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -62,39 +55,19 @@ export default function CartScreen () {
           )}
         />
       )}
+
+      {/* Subtotales y botones */}
       <View style={styles.summaryContainer}>
         <Text style={styles.summaryText}>Subtotal: ${subtotal.toFixed(2)}</Text>
         <Text style={styles.summaryText}>Promo: ${promo.toFixed(2)}</Text>
         <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={[
-            styles.continueButton,
-            isHoveredContinue && styles.hoverButton
-          ]}
-          onMouseEnter={() => setIsHoveredContinue(true)}
-          onMouseLeave={() => setIsHoveredContinue(false)}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              isHoveredContinue && styles.hoverButtonText
-            ]}
-          >
-            Seguir Comprando
-          </Text>
+        <TouchableOpacity style={styles.continueButton}>
+          <Text style={styles.buttonText}>Seguir Comprando</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.payButton, isHoveredPay && styles.hoverButton]}
-          onMouseEnter={() => setIsHoveredPay(true)}
-          onMouseLeave={() => setIsHoveredPay(false)}
-        >
-          <Text
-            style={[styles.buttonText, isHoveredPay && styles.hoverButtonText]}
-          >
-            Pagar
-          </Text>
+        <TouchableOpacity style={styles.payButton}>
+          <Text style={styles.buttonText}>Pagar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -180,7 +153,7 @@ const styles = StyleSheet.create({
   },
   payButton: {
     flex: 1,
-    backgroundColor: '#EB6334',
+    backgroundColor: '#FFA500',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -190,11 +163,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#FFF'
-  },
-  hoverButton: {
-    backgroundColor: '#FFF'
-  },
-  hoverButtonText: {
-    color: '#000'
   }
 })

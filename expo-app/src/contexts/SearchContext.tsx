@@ -2,16 +2,17 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 import axios from 'axios'
 
 interface SearchContextType {
-  results: { id: number; name: string }[] // Solo devolverá ID y nombre
+  results: { id: number; name: string; type: string }[] // Incluye el tipo (pizza o drink)
   search: (query: string) => Promise<void>
 }
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined)
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
-  const [results, setResults] = useState<{ id: number; name: string }[]>([])
+  const [results, setResults] = useState<
+    { id: number; name: string; type: string }[]
+  >([])
 
-  // Función para eliminar acentos y normalizar texto
   const removeAccents = (str: string) => {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   }
@@ -19,31 +20,47 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const search = async (query: string) => {
     try {
       if (!query.trim()) {
-        setResults([]) // Si no hay texto, vacía los resultados
+        setResults([]) // Limpia los resultados si no hay texto
         return
       }
 
-      // Llamar a la API con el término de búsqueda
-      const response = await axios.get(`http://localhost:3000/api/pizzas`)
-      const allPizzas = response.data.pizzas || []
+      // Llama a la API para obtener pizzas y bebidas
+      const [pizzasResponse, drinksResponse] = await Promise.all([
+        axios.get('http://localhost:3000/api/pizzas'),
+        axios.get('http://localhost:3000/api/drinks')
+      ])
 
-      // Filtrar resultados ignorando acentos
-      const filteredResults = allPizzas.filter((pizza: any) =>
+      const pizzas = pizzasResponse.data.pizzas || []
+      const drinks = drinksResponse.data.drinks || []
+
+      // Filtra resultados y normaliza el texto
+      const filteredPizzas = pizzas.filter((pizza: any) =>
         removeAccents(pizza.name.toLowerCase()).includes(
           removeAccents(query.toLowerCase())
         )
       )
-
-      // Guardar los resultados filtrados
-      setResults(
-        filteredResults.map((pizza: any) => ({
-          id: pizza.id,
-          name: pizza.name
-        }))
+      const filteredDrinks = drinks.filter((drink: any) =>
+        removeAccents(drink.name.toLowerCase()).includes(
+          removeAccents(query.toLowerCase())
+        )
       )
+
+      // Combina resultados con el tipo correspondiente
+      setResults([
+        ...filteredPizzas.map((pizza: any) => ({
+          id: pizza.id,
+          name: pizza.name,
+          type: 'pizza'
+        })),
+        ...filteredDrinks.map((drink: any) => ({
+          id: drink.id,
+          name: drink.name,
+          type: 'drink'
+        }))
+      ])
     } catch (error) {
       console.error('Error al realizar la búsqueda:', error)
-      setResults([]) // Vaciar los resultados en caso de error
+      setResults([])
     }
   }
 

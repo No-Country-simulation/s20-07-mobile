@@ -26,13 +26,15 @@ export default function Banner () {
       <Pressable
         style={[
           styles.bannerButton,
-          isHovered && { backgroundColor: Colors.dark.hoverButton }
+          isHovered && { backgroundColor: Colors.light.background }
         ]}
         onPress={handlePress}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Text style={styles.bannerButtonText}>Empezar</Text>
+        <Text style={[styles.bannerText, isHovered && { color: 'black' }]}>
+          Empezar
+        </Text>
       </Pressable>
     </ImageBackground>
   )
