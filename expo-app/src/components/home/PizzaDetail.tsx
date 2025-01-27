@@ -11,6 +11,7 @@ import {
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '../BackArrow'
+import { useCart } from '@/contexts/CartContext'
 
 type Pizza = {
   id: number
@@ -50,7 +51,12 @@ export default function PizzaDetail () {
   }
 
   const handleAddToCart = () => {
-    console.log(`Añadido al carrito: ${pizza?.name}, Tamaño: ${selectedSize}`)
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1
+    })
   }
 
   if (loading) {
