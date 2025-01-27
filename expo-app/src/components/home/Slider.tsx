@@ -76,13 +76,15 @@ const HoverButton = () => {
     <Pressable
       style={[
         styles.button,
-        isHovered && { backgroundColor: Colors.dark.hoverButton }
+        isHovered && { backgroundColor: Colors.light.background }
       ]}
       onPress={handlePress}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Text style={styles.buttonText}>Empezar</Text>
+      <Text style={[styles.buttonText, isHovered && { color: 'black' }]}>
+        Empezar
+      </Text>
     </Pressable>
   )
 }
