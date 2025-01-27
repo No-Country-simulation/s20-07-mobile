@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect
+} from 'react'
 
 type CartItem = {
   id: number
@@ -20,14 +26,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
   const addToCart = (item: CartItem) => {
-    setCart(prev => {
-      const existingItem = prev.find(i => i.id === item.id)
+    if (item.quantity <= 0) return // Evitar cantidades inválidas
+    setCart(prevCart => {
+      const existingItem = prevCart.find(cartItem => cartItem.id === item.id)
       if (existingItem) {
-        return prev.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i
+        return prevCart.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+            : cartItem
         )
       }
-      return [...prev, item]
+      return [...prevCart, item]
     })
   }
 
@@ -42,6 +51,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const removeFromCart = (id: number) => {
     setCart(prev => prev.filter(item => item.id !== id))
   }
+
+  useEffect(() => {
+    console.log('Carrito actualizado:', cart)
+  }, [cart])
 
   return (
     <CartContext.Provider

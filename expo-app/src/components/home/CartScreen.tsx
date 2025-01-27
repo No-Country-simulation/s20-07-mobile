@@ -7,9 +7,18 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { useCart } from '@/contexts/CartContext'
+import { FontAwesome } from '@expo/vector-icons'
 
 export default function CartScreen () {
   const { cart, updateQuantity, removeFromCart } = useCart()
+  console.log('Contenido del carrito:', cart)
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
+  const promo = subtotal > 50 ? -5 : 0 // Ejemplo: $5 de descuento si el subtotal supera $50
+  const total = subtotal + promo
 
   return (
     <View style={styles.container}>
@@ -22,8 +31,10 @@ export default function CartScreen () {
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.price}>${item.price * item.quantity}</Text>
+              <View>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.price}>${item.price}</Text>
+              </View>
               <View style={styles.actions}>
                 <TouchableOpacity
                   onPress={() => updateQuantity(item.id, item.quantity - 1)}
@@ -37,13 +48,28 @@ export default function CartScreen () {
                   <Text style={styles.actionText}>+</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => removeFromCart(item.id)}>
-                  <Text style={styles.removeText}>Eliminar</Text>
+                  <FontAwesome name='times-circle' size={24} color='red' />
                 </TouchableOpacity>
               </View>
             </View>
           )}
         />
       )}
+
+      {/* Subtotales y botones */}
+      <View style={styles.summaryContainer}>
+        <Text style={styles.summaryText}>Subtotal: ${subtotal.toFixed(2)}</Text>
+        <Text style={styles.summaryText}>Promo: ${promo.toFixed(2)}</Text>
+        <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.continueButton}>
+          <Text style={styles.buttonText}>Seguir Comprando</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.payButton}>
+          <Text style={styles.buttonText}>Pagar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -51,13 +77,13 @@ export default function CartScreen () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#FFF' // Fondo blanco
+    backgroundColor: '#000',
+    padding: 16
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000', // Texto negro
+    color: '#FFF',
     marginBottom: 16
   },
   emptyText: {
@@ -66,21 +92,21 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   item: {
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#333',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#DDD'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   name: {
     fontSize: 18,
-    color: '#000'
+    color: '#FFF'
   },
   price: {
     fontSize: 16,
-    color: '#FFA500',
-    marginBottom: 8
+    color: '#FFA500'
   },
   actions: {
     flexDirection: 'row',
@@ -88,17 +114,54 @@ const styles = StyleSheet.create({
   },
   actionText: {
     fontSize: 18,
-    color: '#000',
+    color: '#FFF',
     paddingHorizontal: 8
   },
   quantity: {
     fontSize: 16,
-    color: '#000',
+    color: '#FFF',
     marginHorizontal: 8
   },
-  removeText: {
+  summaryContainer: {
+    borderTopWidth: 1,
+    borderTopColor: '#555',
+    paddingTop: 16,
+    marginTop: 16
+  },
+  summaryText: {
     fontSize: 16,
-    color: 'red',
-    marginLeft: 16
+    color: '#FFF'
+  },
+  totalText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFF',
+    marginTop: 8
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16
+  },
+  continueButton: {
+    flex: 1,
+    backgroundColor: '#555',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginRight: 8
+  },
+  payButton: {
+    flex: 1,
+    backgroundColor: '#FFA500',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginLeft: 8
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFF'
   }
 })

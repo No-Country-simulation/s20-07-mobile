@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -6,22 +6,26 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
+import { useCart } from '@/contexts/CartContext'
+import { FontAwesome } from '@expo/vector-icons'
 
 export default function CartScreen () {
-  const cart = [
-    { id: 1, name: 'Pizza Margarita', price: 20, quantity: 2 },
-    { id: 2, name: 'Pizza Pepperoni', price: 12, quantity: 1 }
-  ]
+  const { cart, updateQuantity, removeFromCart } = useCart()
+  console.log('Contenido del carrito:', cart)
 
-  const subtotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
-  const promoDiscount = subtotal > 30 ? 5 : 0
-  const total = subtotal - promoDiscount
+  useEffect(() => {
+    console.log('Contenido del carrito en CartScreen:', cart)
+  }, [cart])
 
   const [isHoveredContinue, setIsHoveredContinue] = useState(false)
   const [isHoveredPay, setIsHoveredPay] = useState(false)
+
+  const subtotal = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  )
+  const promo = subtotal > 50 ? -5 : 0 // Ejemplo: $5 de descuento si el subtotal supera $50
+  const total = subtotal + promo
 
   return (
     <View style={styles.container}>
@@ -29,87 +33,70 @@ export default function CartScreen () {
       {cart.length === 0 ? (
         <Text style={styles.emptyText}>Tu carrito está vacío.</Text>
       ) : (
-        <>
-          <FlatList
-            data={cart}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.item}>
+        <FlatList
+          data={cart}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <View>
                 <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.price}>${item.price * item.quantity}</Text>
-                <View style={styles.actions}>
-                  <TouchableOpacity
-                    onPress={() => console.log(`Restar 1 a ${item.name}`)}
-                  >
-                    <Text style={styles.actionText}>-</Text>
-                  </TouchableOpacity>
-                  <Text style={styles.quantity}>{item.quantity}</Text>
-                  <TouchableOpacity
-                    onPress={() => console.log(`Sumar 1 a ${item.name}`)}
-                  >
-                    <Text style={styles.actionText}>+</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => console.log(`Eliminar ${item.name}`)}
-                  >
-                    <Text style={styles.removeText}>Eliminar</Text>
-                  </TouchableOpacity>
-                </View>
+                <Text style={styles.price}>${item.price}</Text>
               </View>
-            )}
-          />
-
-          <View style={styles.summary}>
-            <Text style={styles.summaryText}>
-              Subtotal: ${subtotal.toFixed(2)}
-            </Text>
-            <Text style={styles.summaryText}>
-              Promo: -${promoDiscount.toFixed(2)}
-            </Text>
-            <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
-          </View>
-
-          <View style={styles.buttons}>
-            {/* Botón de Seguir Comprando */}
-            <TouchableOpacity
-              style={[styles.button, isHoveredContinue && styles.buttonHover]}
-              onPress={() => console.log('Seguir comprando')}
-              onMouseEnter={() => setIsHoveredContinue(true)}
-              onMouseLeave={() => setIsHoveredContinue(false)}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  isHoveredContinue && styles.buttonHoverText
-                ]}
-              >
-                Seguir Comprando
-              </Text>
-            </TouchableOpacity>
-
-            {/* Botón de Pagar */}
-            <TouchableOpacity
-              style={[
-                styles.button,
-                styles.payButton,
-                isHoveredPay && styles.buttonHover
-              ]}
-              onPress={() => console.log('Pagar')}
-              onMouseEnter={() => setIsHoveredPay(true)}
-              onMouseLeave={() => setIsHoveredPay(false)}
-            >
-              <Text
-                style={[
-                  styles.buttonText,
-                  isHoveredPay && styles.buttonHoverText
-                ]}
-              >
-                Pagar
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </>
+              <View style={styles.actions}>
+                <TouchableOpacity
+                  onPress={() => updateQuantity(item.id, item.quantity - 1)}
+                >
+                  <Text style={styles.actionText}>-</Text>
+                </TouchableOpacity>
+                <Text style={styles.quantity}>{item.quantity}</Text>
+                <TouchableOpacity
+                  onPress={() => updateQuantity(item.id, item.quantity + 1)}
+                >
+                  <Text style={styles.actionText}>+</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                  <FontAwesome name='times-circle' size={24} color='red' />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        />
       )}
+      <View style={styles.summaryContainer}>
+        <Text style={styles.summaryText}>Subtotal: ${subtotal.toFixed(2)}</Text>
+        <Text style={styles.summaryText}>Promo: ${promo.toFixed(2)}</Text>
+        <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[
+            styles.continueButton,
+            isHoveredContinue && styles.hoverButton
+          ]}
+          onMouseEnter={() => setIsHoveredContinue(true)}
+          onMouseLeave={() => setIsHoveredContinue(false)}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              isHoveredContinue && styles.hoverButtonText
+            ]}
+          >
+            Seguir Comprando
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.payButton, isHoveredPay && styles.hoverButton]}
+          onMouseEnter={() => setIsHoveredPay(true)}
+          onMouseLeave={() => setIsHoveredPay(false)}
+        >
+          <Text
+            style={[styles.buttonText, isHoveredPay && styles.hoverButtonText]}
+          >
+            Pagar
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -117,8 +104,8 @@ export default function CartScreen () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    padding: 16
   },
   title: {
     fontSize: 24,
@@ -135,7 +122,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#333',
     padding: 16,
     borderRadius: 8,
-    marginBottom: 8
+    marginBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   name: {
     fontSize: 18,
@@ -143,8 +133,7 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 16,
-    color: '#FFA500',
-    marginBottom: 8
+    color: '#FFA500'
   },
   actions: {
     flexDirection: 'row',
@@ -160,52 +149,52 @@ const styles = StyleSheet.create({
     color: '#FFF',
     marginHorizontal: 8
   },
-  removeText: {
-    fontSize: 16,
-    color: 'red',
-    marginLeft: 16
-  },
-  summary: {
+  summaryContainer: {
     borderTopWidth: 1,
-    borderTopColor: '#444',
-    marginTop: 16,
-    paddingTop: 16
+    borderTopColor: '#555',
+    paddingTop: 16,
+    marginTop: 16
   },
   summaryText: {
     fontSize: 16,
-    color: '#FFF',
-    marginBottom: 4
+    color: '#FFF'
   },
   totalText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFF'
+    color: '#FFF',
+    marginTop: 8
   },
-  buttons: {
+  buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16
   },
-  button: {
+  continueButton: {
     flex: 1,
     backgroundColor: '#555',
-    padding: 12,
+    padding: 16,
     borderRadius: 8,
     alignItems: 'center',
-    marginHorizontal: 4
+    marginRight: 8
   },
   payButton: {
-    backgroundColor: '#FFA500'
-  },
-  buttonHover: {
-    backgroundColor: '#FFF'
+    flex: 1,
+    backgroundColor: '#EB6334',
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginLeft: 8
   },
   buttonText: {
-    color: '#FFF',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#FFF'
   },
-  buttonHoverText: {
+  hoverButton: {
+    backgroundColor: '#FFF'
+  },
+  hoverButtonText: {
     color: '#000'
   }
 })

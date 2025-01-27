@@ -3,15 +3,18 @@ import { UserProvider } from './UserContext'
 import { CartProvider } from './CartContext'
 import { SearchProvider } from './SearchContext'
 import { CategoryProvider } from './CategoryContext'
+import { PizzaProvider } from './PizzaContext'
 
 export function AppProviders ({ children }: { children: ReactNode }) {
   return (
     <UserProvider>
-      <CartProvider>
-        <SearchProvider>
-          <CategoryProvider>{children}</CategoryProvider>
-        </SearchProvider>
-      </CartProvider>
+      <PizzaProvider>
+        <CartProvider>
+          <SearchProvider>
+            <CategoryProvider>{children}</CategoryProvider>
+          </SearchProvider>
+        </CartProvider>
+      </PizzaProvider>
     </UserProvider>
   )
 }

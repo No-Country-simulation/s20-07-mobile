@@ -8,7 +8,7 @@ import {
   ScrollView,
   ActivityIndicator
 } from 'react-native'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router' // Importar useRouter
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext'
 import BackArrow from '../BackArrow'
@@ -27,7 +27,8 @@ export default function PizzaDetail () {
   const [pizza, setPizza] = useState<Pizza | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState<string>('Pequeña')
-  const { addToCart } = useCart() // Importa `addToCart` del contexto
+  const { addToCart } = useCart()
+  const router = useRouter() // Usar useRouter
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -59,14 +60,16 @@ export default function PizzaDetail () {
 
     if (!selectedPrice) return
 
-    addToCart({
+    const item = {
       id: pizza.id,
-      name: `${pizza.name} (${selectedSize})`,
+      name: `${pizza.name}, Tamaño: ${selectedSize}`,
       price: selectedPrice,
       quantity: 1
-    })
+    }
 
-    console.log(`${pizza.name} (${selectedSize}) añadido al carrito`)
+    console.log('Ítem enviado al carrito:', item) // LOG PARA DEBUG
+
+    addToCart(item)
   }
 
   if (loading) {
