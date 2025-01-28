@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
+import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
 
 type Drink = {
   id: number
@@ -22,6 +23,7 @@ export default function DrinksPage () {
   const [drinks, setDrinks] = useState<Drink[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const { addToCart } = useCart() // Obtener la función para agregar al carrito
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -37,6 +39,20 @@ export default function DrinksPage () {
 
     fetchDrinks()
   }, [])
+
+  const handleAddToCart = (drink: Drink) => {
+    const item = {
+      id: `drink-${drink.id}`, // ID único para bebidas
+      name: drink.name,
+      image: drink.image,
+      size: 'Bebida', // Para diferenciar en el carrito
+      price: drink.price,
+      quantity: 1
+    }
+
+    addToCart(item)
+    console.log('🛒 Bebida agregada al carrito:', item)
+  }
 
   if (loading) {
     return (
@@ -60,6 +76,12 @@ export default function DrinksPage () {
               <Text style={styles.itemSubtitle}>{item.content}</Text>
               <Text style={styles.price}>${item.price.toFixed(2)}</Text>
             </View>
+            <TouchableOpacity
+              style={styles.addButton}
+              onPress={() => handleAddToCart(item)}
+            >
+              <Text style={styles.addButtonText}>+</Text>
+            </TouchableOpacity>
           </View>
         )}
       />
@@ -109,6 +131,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     color: '#FFC107'
+  },
+  addButton: {
+    backgroundColor: '#FF5722',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  addButtonText: {
+    fontSize: 20,
+    color: '#fff',
+    fontWeight: 'bold'
   },
   loadingContainer: {
     flex: 1,
