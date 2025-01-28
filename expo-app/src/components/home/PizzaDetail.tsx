@@ -27,8 +27,9 @@ export default function PizzaDetail () {
   const [pizza, setPizza] = useState<Pizza | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSize, setSelectedSize] = useState<string>('Pequeña')
+  const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
   const { addToCart } = useCart()
-  const router = useRouter() // Usar useRouter
+  const router = useRouter()
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -52,13 +53,7 @@ export default function PizzaDetail () {
   }
 
   const handleAddToCart = () => {
-    if (!pizza) return
-
-    const selectedPrice = pizza.predefinedPizzas.find(
-      size => size.size.name === selectedSize
-    )?.price
-
-    if (!selectedPrice) return
+    if (!pizza || !selectedPrice) return
 
     const item = {
       id: pizza.id,
@@ -67,10 +62,13 @@ export default function PizzaDetail () {
       quantity: 1
     }
 
-    console.log('Ítem enviado al carrito:', item) // LOG PARA DEBUG
-
     addToCart(item)
   }
+
+  //   console.log('Ítem enviado al carrito:', item) // LOG PARA DEBUG
+
+  //   addToCart(item)
+  // }
 
   if (loading) {
     return (
