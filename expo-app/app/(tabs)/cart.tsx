@@ -38,6 +38,7 @@ export default function CartScreen () {
   const total = subtotal + promo
 
   const handlePay = () => {
+    clearCart()
     setOrderSuccess(true)
   }
 
