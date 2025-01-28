@@ -93,20 +93,21 @@ export default function CartScreen () {
                 </View>
                 <View style={styles.actions}>
                   <TouchableOpacity
-                    onPress={() =>
-                      updateQuantity(item.id, item.size, item.quantity - 1)
-                    }
+                    onPress={() => updateQuantity(item.id, item.quantity - 1)}
                   >
                     <Text style={styles.actionText}>-</Text>
                   </TouchableOpacity>
-                  <Text style={styles.quantity}>{item.quantity}</Text>
+
+                  <Text style={styles.quantity}>
+                    {isNaN(item.quantity) ? 1 : item.quantity}
+                  </Text>
+
                   <TouchableOpacity
-                    onPress={() =>
-                      updateQuantity(item.id, item.size, item.quantity + 1)
-                    }
+                    onPress={() => updateQuantity(item.id, item.quantity + 1)}
                   >
                     <Text style={styles.actionText}>+</Text>
                   </TouchableOpacity>
+
                   <TouchableOpacity
                     onPress={() => removeFromCart(item.id, item.size)}
                   >
@@ -135,8 +136,17 @@ export default function CartScreen () {
         <TouchableOpacity style={styles.continueButton} onPress={handleGoHome}>
           <Text style={styles.buttonText}>Seguir Comprando</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.payButton} onPress={handlePay}>
-          <Text style={styles.buttonText}>Pagar</Text>
+        <TouchableOpacity
+          style={[
+            styles.payButton,
+            cart.length === 0 && styles.disabledButton // Aplica estilo si está vacío
+          ]}
+          onPress={handlePay}
+          disabled={cart.length === 0} // Deshabilita si no hay productos
+        >
+          <Text style={styles.buttonText}>
+            {cart.length === 0 ? 'Carrito vacío' : 'Pagar'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -223,6 +233,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold'
+  },
+  disabledButton: {
+    backgroundColor: '#777', // Color grisáceo para indicar que está deshabilitado
+    opacity: 0.6 // Reduce opacidad
   }
 })
 
