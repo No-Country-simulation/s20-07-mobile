@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.dark.button,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
     borderRadius: 10,
     transition: 'background-color 0.3s'
   },
