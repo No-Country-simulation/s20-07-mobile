@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
@@ -8,12 +8,14 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { useCart } from '@/contexts/CartContext'
-import { FontAwesome } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import BackArrow from '@/components/BackArrow'
 import axios from 'axios'
 
 export default function CartScreen () {
   const { cart, updateQuantity, removeFromCart, setCart } = useCart()
+  const [orderSuccess, setOrderSuccess] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -35,6 +37,27 @@ export default function CartScreen () {
   const promo = subtotal > 50 ? -5 : 0 // Ejemplo: $5 de descuento si el subtotal supera $50
   const total = subtotal + promo
 
+  const handlePay = () => {
+    setOrderSuccess(true)
+  }
+
+  const handleGoHome = () => {
+    router.push('/') // Navega a la pantalla de inicio (Home)
+  }
+
+  if (orderSuccess) {
+    return (
+      <View style={styles.successContainer}>
+        <Text style={styles.successText}>
+          🎉 Felicidades, su orden ha sido creada con éxito 😊
+        </Text>
+        <TouchableOpacity style={styles.backButton} onPress={handleGoHome}>
+          <Text style={styles.buttonText}>Seguir Comprando</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <BackArrow />
@@ -43,9 +66,9 @@ export default function CartScreen () {
         <Text style={styles.emptyText}>Tu carrito está vacío.</Text>
       ) : (
         <FlatList
-          data={cart.filter(item => item && item.id && item.price)}
-          keyExtractor={(item, index) =>
-            item?.id ? item.id.toString() : index.toString()
+          data={cart}
+          keyExtractor={
+            (item, index) => `${item.id}-${item.size}` // Identificador único basado en id y tamaño
           }
           renderItem={({ item }) => (
             <View style={styles.item}>
@@ -57,6 +80,7 @@ export default function CartScreen () {
               />
               <View style={styles.itemDetails}>
                 <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.size}>Tamaño: {item.size}</Text>
                 <Text style={styles.price}>${item.price.toFixed(2)}</Text>
               </View>
               <View style={styles.actions}>
@@ -79,19 +103,16 @@ export default function CartScreen () {
           )}
         />
       )}
-      {/* Resumen del carrito */}
       <View style={styles.summaryContainer}>
         <Text style={styles.summaryText}>Subtotal: ${subtotal.toFixed(2)}</Text>
         <Text style={styles.summaryText}>Promo: ${promo.toFixed(2)}</Text>
         <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
       </View>
-
-      {/* Botones */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.continueButton}>
+        <TouchableOpacity style={styles.continueButton} onPress={handleGoHome}>
           <Text style={styles.buttonText}>Seguir Comprando</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.payButton}>
+        <TouchableOpacity style={styles.payButton} onPress={handlePay}>
           <Text style={styles.buttonText}>Pagar</Text>
         </TouchableOpacity>
       </View>
@@ -111,14 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10
   },
-  itemImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    marginRight: 10
-  },
-  itemInfo: { flex: 1 },
-  name: { fontSize: 16, color: '#fff', marginBottom: 5 },
+  name: { fontSize: 16, color: '#fff' },
   price: { fontSize: 14, color: '#FFC107' },
   actions: { flexDirection: 'row', alignItems: 'center' },
   actionText: { fontSize: 18, color: '#FFC107', paddingHorizontal: 10 },
@@ -152,5 +166,21 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     alignItems: 'center'
   },
-  buttonText: { fontSize: 16, color: '#fff', fontWeight: 'bold' }
+  buttonText: { fontSize: 16, color: '#fff', fontWeight: 'bold' },
+  successContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1E1E1E',
+    padding: 20
+  },
+  successText: { fontSize: 20, color: '#fff', textAlign: 'center' },
+  backButton: {
+    backgroundColor: '#FF5722',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20
+  },
+  itemImage: { width: 50, height: 50, borderRadius: 8 },
+  itemDetails: { flex: 1, marginLeft: 10 }
 })

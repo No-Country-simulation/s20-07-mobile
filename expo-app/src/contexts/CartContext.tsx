@@ -4,6 +4,7 @@ type CartItem = {
   id: number
   name: string
   image: string | null
+  size: string
   price: number
   quantity: number
 }
@@ -26,15 +27,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const addToCart = (item: CartItem) => {
     setCart(prevCart => {
-      const existingItem = prevCart.find(cartItem => cartItem.id === item.id)
+      const existingItem = prevCart.find(
+        cartItem => cartItem.id === item.id && cartItem.size === item.size
+      )
       if (existingItem) {
-        return prevCart.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem
-        )
+        console.log('El artículo ya está en el carrito con este tamaño.')
+        return prevCart // No agrega duplicados con el mismo tamaño
       }
-      return [...prevCart, item]
+      return [...prevCart, item] // Agrega un nuevo artículo con tamaño único
     })
   }
 

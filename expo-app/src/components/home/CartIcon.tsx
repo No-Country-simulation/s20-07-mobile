@@ -41,9 +41,6 @@ const styles = StyleSheet.create({
     cursor: 'pointer', // Añade el estilo de cursor para la web
     padding: 10
   },
-  hoverContainer: {
-    backgroundColor: 'rgba(255, 165, 0, 0.1)' // Fondo translúcido naranja al hover
-  },
   badge: {
     position: 'absolute',
     top: -5,

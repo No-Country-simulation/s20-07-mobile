@@ -70,6 +70,7 @@ export default function PizzaDetail () {
       id: pizza.id,
       name: `${pizza.name} (${selectedSize})`,
       image: pizza.image, // Incluye la imagen
+      size: selectedSize, // Tamaño seleccionado
       price: selectedPrice,
       quantity: 1
     }
