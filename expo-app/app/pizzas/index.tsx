@@ -11,6 +11,19 @@ import axios from 'axios'
 import { useRouter } from 'expo-router'
 import BackArrow from '@/components/BackArrow'
 
+// Definición de tipos (puedes mover esto a un archivo como `types.ts` si es compartido)
+export type Ingredient = {
+  name: string
+}
+
+export type Pizza = {
+  id: number
+  name: string
+  image: string | null
+  pizzaIngredients: { ingredient: Ingredient }[]
+  predefinedPizzas: { size: { name: string }; price: number }[]
+}
+
 export default function Pizzas () {
   const router = useRouter()
   const [pizzas, setPizzas] = useState<Pizza[]>([])
@@ -51,7 +64,7 @@ export default function Pizzas () {
 
   const handlePress = (pizzaId: string) => {
     console.log('Navegando al detalle de la pizza:', pizzaId)
-    router.push(`/detail-itemId/${pizzaId}`)
+    //router.push(`/detail-itemId/${pizzaId}`)
   }
 
   return (
@@ -71,8 +84,8 @@ export default function Pizzas () {
             <Text style={styles.name}>{item.name}</Text>
             <Text style={styles.ingredients}>
               Ingredientes:{' '}
-              {item.pizzaIngredients
-                .map((ing: Ingredient) => ing.name)
+              {pizza.pizzaIngredients
+                .map(ing => ing.ingredient.name)
                 .join(', ')}
             </Text>
           </TouchableOpacity>
@@ -105,10 +118,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 8,
     backgroundColor: '#f9f9f9',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
     elevation: 2
   },
   name: {

@@ -1,23 +1,20 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect
-} from 'react'
+import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 type CartItem = {
   id: number
   name: string
+  image: string | null
   price: number
   quantity: number
 }
 
 type CartContextType = {
   cart: CartItem[]
+  totalItems: number
   addToCart: (item: CartItem) => void
   updateQuantity: (id: number, quantity: number) => void
   removeFromCart: (id: number) => void
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -25,8 +22,9 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
+
   const addToCart = (item: CartItem) => {
-    if (item.quantity <= 0) return // Evitar cantidades inválidas
     setCart(prevCart => {
       const existingItem = prevCart.find(cartItem => cartItem.id === item.id)
       if (existingItem) {
@@ -52,13 +50,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCart(prev => prev.filter(item => item.id !== id))
   }
 
-  useEffect(() => {
-    console.log('Carrito actualizado:', cart)
-  }, [cart])
-
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart }}
+      value={{
+        cart,
+        totalItems,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        setCart
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -68,7 +69,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 export const useCart = () => {
   const context = useContext(CartContext)
   if (!context) {
-    throw new Error('useCart debe ser usado dentro de un CartProvider')
+    throw new Error('useCart debe usarse dentro de un CartProvider')
   }
   return context
 }

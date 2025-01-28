@@ -28,12 +28,15 @@ export const PizzaProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchPizzas = async () => {
       try {
-        const response = await fetch('https://pizzapi.herokuapp.com/pizzas')
+        const response = await fetch('http://localhost:3000/api/pizzas')
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
         const data = await response.json()
         setPizzas(data)
         setFeaturedPizzas(data.filter((pizza: Pizza) => pizza.id < 5))
-      } catch (error) {
-        setError(error.message)
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong')
       } finally {
         setLoading(false)
       }
@@ -41,4 +44,22 @@ export const PizzaProvider: React.FC<{ children: React.ReactNode }> = ({
 
     fetchPizzas()
   }, [])
+
+  return (
+    <PizzaContext.Provider value={{ pizzas, featuredPizzas, loading, error }}>
+      {children}
+    </PizzaContext.Provider>
+  )
 }
+
+export const usePizza = () => {
+  const context = useContext(PizzaContext)
+
+  if (!context) {
+    throw new Error('usePizza must be used within a PizzaProvider')
+  }
+
+  return context
+}
+
+export default PizzaContext
