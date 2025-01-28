@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   bannerButton: {
     backgroundColor: Colors.dark.button,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 10,
     transition: 'background-color 0.3s'
   },
