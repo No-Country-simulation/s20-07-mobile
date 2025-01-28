@@ -74,7 +74,9 @@ export default function CartScreen () {
             <View style={styles.item}>
               <Image
                 source={{
-                  uri: item.image || 'https://via.placeholder.com/50'
+                  uri:
+                    item.image ||
+                    'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg'
                 }}
                 style={styles.itemImage}
               />
