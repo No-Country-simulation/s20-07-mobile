@@ -21,7 +21,7 @@ export default function CartScreen () {
     const fetchCart = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/cart')
-        setCart(response.data.cart) // Sincroniza el carrito con la API
+        setCart(response.data.cart)
       } catch (error) {
         console.error('Error al cargar el carrito:', error)
       }
@@ -42,7 +42,7 @@ export default function CartScreen () {
   }
 
   const handleGoHome = () => {
-    router.push('/') // Navega a la pantalla de inicio (Home)
+    router.push('/')
   }
 
   if (orderSuccess) {
@@ -76,7 +76,15 @@ export default function CartScreen () {
             keyExtractor={(item, index) => `${item.id}-${item.size}`}
             renderItem={({ item }) => (
               <View style={styles.item}>
-                <Image source={{ uri: item.image }} style={styles.itemImage} />
+                <Image
+                  source={{
+                    uri:
+                      item.image ||
+                      'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg' // Imagen por defecto
+                  }}
+                  style={styles.itemImage}
+                />
+
                 <View style={styles.itemDetails}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.size}>Tamaño: {item.size}</Text>
@@ -195,7 +203,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 20
   },
-  itemImage: { width: 50, height: 50, borderRadius: 8 },
+  itemImage: {
+    width: 50,
+    borderRadius: 8,
+    marginRight: 10
+  },
   itemDetails: { flex: 1, marginLeft: 10 },
   clearCartButton: {
     backgroundColor: '#FF0000',
