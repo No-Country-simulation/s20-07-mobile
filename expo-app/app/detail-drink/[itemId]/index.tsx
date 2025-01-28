@@ -10,6 +10,7 @@ import {
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
+import { useCart } from '@/contexts/CartContext' // Importa el contexto del carrito
 
 type Drink = {
   id: number
@@ -23,6 +24,7 @@ export default function DrinkDetail () {
   const { itemId } = useLocalSearchParams<{ itemId: string }>()
   const [drink, setDrink] = useState<Drink | null>(null)
   const [loading, setLoading] = useState(true)
+  const { addToCart } = useCart() // Obtén la función para agregar al carrito
 
   useEffect(() => {
     const fetchDrink = async () => {
@@ -40,6 +42,22 @@ export default function DrinkDetail () {
 
     if (itemId) fetchDrink()
   }, [itemId])
+
+  const handleAddToCart = () => {
+    if (!drink) return
+
+    const item = {
+      id: `drink-${drink.id}`, // ID único para bebidas
+      name: drink.name,
+      image: drink.image,
+      size: 'Bebida', // Para diferenciarlo en el carrito
+      price: drink.price,
+      quantity: 1
+    }
+
+    addToCart(item)
+    console.log('🛒 Bebida agregada al carrito:', item)
+  }
 
   if (loading) {
     return (
@@ -64,11 +82,8 @@ export default function DrinkDetail () {
       <Text style={styles.title}>{drink.name}</Text>
       <Image source={{ uri: drink.image }} style={styles.image} />
       <Text style={styles.content}>{drink.content}</Text>
-      <Text style={styles.price}>${drink.price}</Text>
-      <TouchableOpacity
-        style={styles.cartButton}
-        onPress={() => console.log(`Añadido al carrito: ${drink.name}`)}
-      >
+      <Text style={styles.price}>${drink.price.toFixed(2)}</Text>
+      <TouchableOpacity style={styles.cartButton} onPress={handleAddToCart}>
         <Text style={styles.cartButtonText}>Añadir al carrito</Text>
       </TouchableOpacity>
     </View>
