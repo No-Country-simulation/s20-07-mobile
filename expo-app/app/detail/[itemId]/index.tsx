@@ -64,17 +64,20 @@ export default function PizzaDetail () {
 
   const handleAddToCart = () => {
     if (!pizza || !selectedPrice) {
-      console.error('⚠️ Pizza o precio no definidos.')
+      console.error('Pizza o precio no definidos.')
       return
     }
 
-    const item = {
-      id: pizza.id,
+    const uniqueId = `${pizza.id}-${selectedSize}-${Date.now()}` // Ahora es string
+
+    const item: CartItem = {
+      id: uniqueId, // ID único como string
+      pizzaId: pizza.id, // Mantiene el ID original
       name: `${pizza.name} (${selectedSize})`,
       image: pizza.image,
       size: selectedSize,
       price: selectedPrice,
-      quantity: 1 // Se acumula en `addToCart`
+      quantity: 1
     }
 
     addToCart(item)

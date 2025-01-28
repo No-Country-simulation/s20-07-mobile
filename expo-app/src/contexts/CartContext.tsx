@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type CartItem = {
-  id: number
+  id: string
+  pizzaId: number
   name: string
   image: string | null
   size: string
@@ -69,22 +70,30 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     })
   }
 
-  const updateQuantity = (id: number, size: string, quantity: number) => {
-    setCart(prevCart =>
-      prevCart.map(item =>
-        item.id === id && item.size === size
-          ? { ...item, quantity: Math.max(1, quantity) }
-          : item
-      )
-    )
+  const updateQuantity = (id: string, quantity: number) => {
+    console.log(`🔄 Intentando actualizar cantidad de ID: ${id} a ${quantity}`)
+
+    setCart(prevCart => {
+      return prevCart.map(item => {
+        if (item.id === id) {
+          const newQuantity = Math.max(1, quantity) // Asegura que no sea menor que 1
+          console.log(`✅ Nueva cantidad para ${item.name}: ${newQuantity}`)
+          return { ...item, quantity: newQuantity }
+        }
+        return item
+      })
+    })
   }
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
 
-  const removeFromCart = (id: number, size: string) => {
-    setCart(prev =>
-      prev.filter(item => !(item.id === id && item.size === size))
-    )
+  const removeFromCart = (id: string) => {
+    if (!id) {
+      console.warn('⚠️ Intento de eliminar un item sin ID')
+      return
+    }
+
+    setCart(prevCart => prevCart.filter(item => item.id !== id))
   }
 
   const clearCart = () => {
@@ -95,10 +104,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     <CartContext.Provider
       value={{
         cart,
-        totalItems, // Cambia `cart.length` por `totalItems`
+        totalItems: cart.reduce((sum, item) => sum + item.quantity, 0), // Asegura que totalItems se calcula correctamente
         addToCart,
-        updateQuantity,
-        removeFromCart,
+        updateQuantity: updateQuantity || (() => {}), // Previene que se pase undefined
+        removeFromCart: removeFromCart || (() => {}), // Previene que se pase undefined
         setCart,
         clearCart
       }}
