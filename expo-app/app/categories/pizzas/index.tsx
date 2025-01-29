@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
 
@@ -71,28 +72,28 @@ export default function PizzasPage () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: screenWidth * 0.05,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   item: {
-    padding: 15,
-    marginBottom: 10,
+    padding: screenWidth * 0.04,
+    marginBottom: screenHeight * 0.02,
     backgroundColor: '#222',
-    borderRadius: 8
+    borderRadius: screenWidth * 0.02
   },
   itemTitle: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#fff'
   },
   itemSubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.035,
     color: '#ccc'
   },
   loadingContainer: {
@@ -102,6 +103,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: '#fff',
-    fontSize: 16
+    fontSize: screenWidth * 0.04
   }
 })

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Text } from 'react-native'
 import { Colors } from '@/constants/Colors'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 
 export default function TermsAndConditions () {
   return (
@@ -39,26 +40,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.dark.background,
-    padding: 20
+    padding: screenWidth * 0.05
   },
   title: {
-    fontSize: 24,
+    fontSize: screenWidth * 0.06,
     fontWeight: 'bold',
     color: Colors.dark.orangeText,
-    marginBottom: 20,
+    marginBottom: screenHeight * 0.03,
     textAlign: 'center'
   },
   subTitle: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: Colors.dark.orangeText,
-    marginTop: 20,
-    marginBottom: 10
+    marginTop: screenHeight * 0.03,
+    marginBottom: screenHeight * 0.015
   },
   paragraph: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.04,
     color: Colors.light.text,
-    lineHeight: 22,
+    lineHeight: screenHeight * 0.03,
     textAlign: 'justify'
   }
 })

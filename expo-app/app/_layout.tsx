@@ -11,7 +11,6 @@ import { useFonts } from 'expo-font'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { AppProviders } from '@/contexts/AppProviders'
-import Header from '@/components/home/Header'
 
 // Evitar que la pantalla de carga se oculte antes de tiempo
 SplashScreen.preventAutoHideAsync()
@@ -36,7 +35,6 @@ export default function RootLayout () {
   return (
     <AppProviders>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Header />
         <Stack>
           {/* Rutas principales */}
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
