@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
@@ -23,7 +24,7 @@ export default function DrinksPage () {
   const [drinks, setDrinks] = useState<Drink[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const { addToCart } = useCart() // Obtener la función para agregar al carrito
+  const { addToCart } = useCart()
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -92,55 +93,55 @@ export default function DrinksPage () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: screenWidth * 0.05,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 15,
-    marginBottom: 10,
+    padding: screenWidth * 0.04,
+    marginBottom: screenHeight * 0.02,
     backgroundColor: '#222',
-    borderRadius: 8
+    borderRadius: screenWidth * 0.02
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 8,
-    marginRight: 10
+    width: screenWidth * 0.12,
+    height: screenWidth * 0.12,
+    borderRadius: screenWidth * 0.02,
+    marginRight: screenWidth * 0.03
   },
   textContainer: {
     flex: 1
   },
   itemTitle: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#fff'
   },
   itemSubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.035,
     color: '#ccc'
   },
   price: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.035,
     fontWeight: 'bold',
     color: '#FFC107'
   },
   addButton: {
     backgroundColor: '#FF5722',
-    padding: 10,
-    borderRadius: 5,
+    padding: screenHeight * 0.015,
+    borderRadius: screenWidth * 0.02,
     alignItems: 'center',
     justifyContent: 'center'
   },
   addButtonText: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.04,
     color: '#fff',
     fontWeight: 'bold'
   },
@@ -151,6 +152,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: '#fff',
-    fontSize: 16
+    fontSize: screenWidth * 0.04
   }
 })

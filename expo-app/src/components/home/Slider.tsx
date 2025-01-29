@@ -9,6 +9,7 @@ import {
   Pressable,
   Animated
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { Colors } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
 
@@ -20,8 +21,6 @@ const sliderImages = [
   require('../../../assets/images/slider/slider5.png'),
   require('../../../assets/images/slider/slider6.png')
 ]
-
-const screenWidth = Dimensions.get('window').width
 
 export default function Slider () {
   const scrollViewRef = useRef<ScrollView>(null)
@@ -82,9 +81,9 @@ const HoverButton = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Text style={[styles.buttonText, isHovered && { color: 'black' }]}>
+      {/* <Text style={[styles.buttonText, isHovered && { color: 'black' }]}>
         Empezar
-      </Text>
+      </Text> */}
     </Pressable>
   )
 }
@@ -122,52 +121,51 @@ const SliderImage = ({ image }: { image: any }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
-    position: 'relative'
+    marginBottom: screenHeight * 0.03
   },
   overlay: {
     position: 'absolute',
     top: '50%',
     left: 0,
     right: 0,
-    transform: [{ translateY: -50 }],
+    transform: [{ translateY: -screenHeight * 0.05 }],
     zIndex: 10,
     alignItems: 'center'
   },
   title: {
-    color: Colors.light.text,
-    fontSize: 20,
+    color: '#FFFFFF',
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: screenHeight * 0.01
   },
-  button: {
-    backgroundColor: Colors.dark.button,
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    borderRadius: 10,
-    transition: 'background-color 0.3s'
-  },
-  buttonText: {
-    color: Colors.light.text,
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
+  // button: {
+  //   backgroundColor: Colors.dark.button,
+  //   paddingVertical: 15,
+  //   paddingHorizontal: 15,
+  //   borderRadius: 10,
+  //   transition: 'background-color 0.3s'
+  // },
+  // buttonText: {
+  //   color: Colors.light.text,
+  //   fontSize: 20,
+  //   fontWeight: 'bold'
+  // },
   slider: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: screenHeight * 0.015
   },
   sliderContent: {
-    paddingHorizontal: 10
+    paddingHorizontal: screenWidth * 0.03
   },
   slide: {
     width: screenWidth / 2.5,
-    marginRight: 10,
+    marginRight: screenWidth * 0.03,
     justifyContent: 'center',
     alignItems: 'center'
   },
   image: {
     width: '100%',
-    height: 150,
-    borderRadius: 10
+    height: screenHeight * 0.2,
+    borderRadius: screenWidth * 0.025
   }
 })

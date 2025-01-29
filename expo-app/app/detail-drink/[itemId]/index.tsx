@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ActivityIndicator
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
@@ -93,42 +94,42 @@ export default function DrinkDetail () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: screenWidth * 0.05,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: 24,
+    fontSize: screenWidth * 0.06,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.03
   },
   image: {
     width: '100%',
-    height: 250,
+    height: screenHeight * 0.35,
     borderRadius: 10,
-    marginBottom: 20
+    marginBottom: screenHeight * 0.03
   },
   content: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     color: '#ccc',
-    marginBottom: 10
+    marginBottom: screenHeight * 0.015
   },
   price: {
-    fontSize: 22,
+    fontSize: screenWidth * 0.055,
     fontWeight: 'bold',
     color: '#FFC107',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.025
   },
   cartButton: {
     width: '100%',
-    padding: 15,
+    padding: screenHeight * 0.02,
     backgroundColor: '#FF5722',
     borderRadius: 10,
     alignItems: 'center'
   },
   cartButtonText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     color: '#fff',
     fontWeight: 'bold'
   },
@@ -138,8 +139,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   loadingText: {
-    marginTop: 10,
-    fontSize: 16,
+    marginTop: screenHeight * 0.01,
+    fontSize: screenWidth * 0.04,
     color: '#FF5722'
   },
   errorContainer: {
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   errorText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     color: 'red'
   }
 })

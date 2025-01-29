@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 
 export default function Promotions () {
   return (
@@ -17,15 +18,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20
+    padding: screenWidth * 0.05
   },
   title: {
-    fontSize: 24,
+    fontSize: screenWidth * 0.06,
     fontWeight: 'bold',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.03
   },
   text: {
-    fontSize: 16,
-    textAlign: 'center'
+    fontSize: screenWidth * 0.045,
+    textAlign: 'center',
+    paddingHorizontal: screenWidth * 0.05
   }
 })

@@ -8,6 +8,7 @@ import {
   ScrollView,
   ActivityIndicator
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
@@ -152,61 +153,81 @@ export default function PizzaDetail () {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, padding: 20, backgroundColor: '#1E1E1E' },
+  container: {
+    flexGrow: 1,
+    padding: screenWidth * 0.05,
+    backgroundColor: '#1E1E1E'
+  },
   title: {
-    fontSize: 28,
+    fontSize: screenWidth * 0.07,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.03
   },
-  imageContainer: { alignItems: 'center', marginBottom: 20 },
-  image: { width: '100%', height: 250, borderRadius: 10 },
+  imageContainer: { alignItems: 'center', marginBottom: screenHeight * 0.03 },
+  image: {
+    width: '100%',
+    height: screenHeight * 0.35,
+    borderRadius: 10
+  },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 10,
-    marginTop: 20
+    marginBottom: screenHeight * 0.015,
+    marginTop: screenHeight * 0.03
   },
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   sizeButton: {
     flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
+    marginHorizontal: screenWidth * 0.015,
+    paddingVertical: screenHeight * 0.015,
     backgroundColor: '#333',
     alignItems: 'center'
   },
   selectedSizeButton: { backgroundColor: '#FFC107' },
-  sizeButtonText: { fontSize: 16, color: '#fff' },
+  sizeButtonText: { fontSize: screenWidth * 0.04, color: '#fff' },
   selectedSizeButtonText: { fontWeight: 'bold', color: '#000' },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
-  priceLabel: { fontSize: 18, color: '#fff' },
-  priceValue: { fontSize: 18, fontWeight: 'bold', color: '#FFC107' },
+  priceLabel: { fontSize: screenWidth * 0.045, color: '#fff' },
+  priceValue: {
+    fontSize: screenWidth * 0.045,
+    fontWeight: 'bold',
+    color: '#FFC107'
+  },
   cartButton: {
-    padding: 15,
+    padding: screenHeight * 0.02,
     backgroundColor: '#FF5722',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: screenHeight * 0.02,
     borderRadius: 10
   },
-  cartButtonText: { fontSize: 18, fontWeight: 'bold', color: '#fff' },
+  cartButtonText: {
+    fontSize: screenWidth * 0.045,
+    fontWeight: 'bold',
+    color: '#fff'
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1E1E1E'
   },
-  loadingText: { fontSize: 16, color: '#FF5722', marginTop: 10 }
+  loadingText: {
+    fontSize: screenWidth * 0.04,
+    color: '#FF5722',
+    marginTop: screenHeight * 0.01
+  }
 })
 
 // mockPizza
