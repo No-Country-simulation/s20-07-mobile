@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: screenWidth * 0.025,
     paddingHorizontal: screenWidth * 0.04,
-    paddingVertical: screenHeight * 0.03
+    paddingVertical: screenHeight * 0.01
   },
   searchInput: {
     flex: 1,

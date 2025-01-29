@@ -11,15 +11,13 @@ import Footer from '@/components/Footer'
 export default function Home () {
   return (
     <View style={styles.container}>
-      {/* 🔹 Header + SearchBar en un solo bloque fijo */}
+      {/* 🔹 Fijo: Header + SearchBar */}
       <SafeAreaView style={styles.fixedHeader}>
         <Header />
-        <View style={styles.searchContainer}>
-          <SearchBar />
-        </View>
+        <SearchBar />
       </SafeAreaView>
 
-      {/* 🔹 Todo lo demás se desplaza */}
+      {/* 🔹 Todo lo demás será desplazable */}
       <ScrollView
         style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContent}
@@ -40,16 +38,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   fixedHeader: {
-    backgroundColor: '#000',
-    paddingBottom: 0
-  },
-  searchContainer: {
-    marginTop: -5,
-    paddingHorizontal: screenWidth * 0.03,
-    position: 'sticky'
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    backgroundColor: '#000'
   },
   scrollContainer: {
-    flex: 1
+    flex: 1,
+    marginTop: screenHeight * 0.12 // Ajuste para que no se sobreponga con el Header + SearchBar
   },
   scrollContent: {
     flexGrow: 1,

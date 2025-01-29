@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.light.background,
-    marginTop: screenHeight * 0.05
+    marginTop: screenHeight * 0.1
   },
   bannerText: {
     color: Colors.light.text,
