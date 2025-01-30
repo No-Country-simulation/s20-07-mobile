@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FFFFFF',
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.01
   },

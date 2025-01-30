@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: screenHeight * 0.04
   },
   title: {
-    fontSize: screenWidth * 0.055,
+    fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
     color: '#FFF'
   },

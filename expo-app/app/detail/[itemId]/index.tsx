@@ -13,6 +13,7 @@ import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
 import { useCart } from '@/contexts/CartContext'
+import Header from '@/components/home/Header'
 
 type Pizza = {
   id: number
@@ -96,6 +97,7 @@ export default function PizzaDetail () {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Header />
       <BackArrow />
       <Text style={styles.title}>{pizza?.name || 'Nombre no disponible'}</Text>
       <View style={styles.imageContainer}>

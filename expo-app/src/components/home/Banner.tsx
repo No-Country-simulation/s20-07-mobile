@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   bannerText: {
     color: Colors.light.text,
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.01
   },
