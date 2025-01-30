@@ -20,7 +20,7 @@ export default function Banner () {
 
   return (
     <ImageBackground
-      source={require('../../../assets/images/products/pizza-banner.png')}
+      source={require('../../../assets/images/products/pizza-banner-original.png')}
       style={styles.banner}
     >
       <Text style={styles.bannerText}>¡Crea tu pizza personalizada!</Text>

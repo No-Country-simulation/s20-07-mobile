@@ -1,5 +1,4 @@
-import React { createContext, useContext, useState, ReactNode } from 'react'
-
+import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 type FavoritesContextType = {
   favorites: number[]
@@ -7,7 +6,9 @@ type FavoritesContextType = {
   removeFromFavorites: (id: number) => void
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined)
+const FavoritesContext = createContext<FavoritesContextType | undefined>(
+  undefined
+)
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const [favorites, setFavorites] = useState<number[]>([])
@@ -21,9 +22,10 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
+    <FavoritesContext.Provider
+      value={{ favorites, addToFavorites, removeFromFavorites }}
+    >
       {children}
     </FavoritesContext.Provider>
   )
 }
-

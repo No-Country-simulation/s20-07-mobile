@@ -4,6 +4,7 @@ import { CartProvider } from './CartContext'
 import { SearchProvider } from './SearchContext'
 import { CategoryProvider } from './CategoryContext'
 import { PizzaProvider } from './PizzaContext'
+import { FavoritesProvider } from './FavoritesContext'
 
 export function AppProviders ({ children }: { children: ReactNode }) {
   return (
@@ -11,7 +12,9 @@ export function AppProviders ({ children }: { children: ReactNode }) {
       <PizzaProvider>
         <CartProvider>
           <SearchProvider>
-            <CategoryProvider>{children}</CategoryProvider>
+            <CategoryProvider>
+              <FavoritesProvider>{children}</FavoritesProvider>
+            </CategoryProvider>
           </SearchProvider>
         </CartProvider>
       </PizzaProvider>

@@ -10,8 +10,8 @@ import {
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
-import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
-
+import { useCart } from '@/contexts/CartContext'
+import Header from '@/components/home/Header'
 type Drink = {
   id: number
   name: string
@@ -65,6 +65,7 @@ export default function DrinksPage () {
 
   return (
     <View style={styles.container}>
+      <Header />
       <Text style={styles.title}>Nuestras Bebidas</Text>
       <FlatList
         data={drinks}
