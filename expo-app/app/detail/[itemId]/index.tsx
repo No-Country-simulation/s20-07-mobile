@@ -159,11 +159,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E'
   },
   title: {
-    fontSize: screenWidth * 0.07,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    marginBottom: screenHeight * 0.03
+    marginBottom: screenHeight * 0.01,
+    marginTop: screenHeight * 0.01
   },
   imageContainer: { alignItems: 'center', marginBottom: screenHeight * 0.03 },
   image: {
@@ -172,11 +173,11 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   sectionTitle: {
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.02,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: screenHeight * 0.015,
-    marginTop: screenHeight * 0.03
+    marginBottom: screenHeight * 0.01,
+    marginTop: screenHeight * 0.01
   },
   sizeContainer: {
     flexDirection: 'row',
@@ -185,13 +186,14 @@ const styles = StyleSheet.create({
   },
   sizeButton: {
     flex: 1,
-    marginHorizontal: screenWidth * 0.015,
-    paddingVertical: screenHeight * 0.015,
+    marginHorizontal: screenWidth * 0.01,
+    paddingVertical: screenHeight * 0.01,
     backgroundColor: '#333',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10
   },
-  selectedSizeButton: { backgroundColor: '#FFC107' },
-  sizeButtonText: { fontSize: screenWidth * 0.04, color: '#fff' },
+  selectedSizeButton: { backgroundColor: '#EB6334' },
+  sizeButtonText: { fontSize: screenWidth * 0.02, color: '#fff' },
   selectedSizeButtonText: { fontWeight: 'bold', color: '#000' },
   priceContainer: {
     flexDirection: 'row',
@@ -199,21 +201,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: screenHeight * 0.02
   },
-  priceLabel: { fontSize: screenWidth * 0.045, color: '#fff' },
+  priceLabel: {
+    fontSize: screenWidth * 0.02,
+    color: '#fff',
+    fontWeight: 'bold'
+  },
   priceValue: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.02,
     fontWeight: 'bold',
     color: '#FFC107'
   },
   cartButton: {
-    padding: screenHeight * 0.02,
+    padding: screenHeight * 0.01,
     backgroundColor: '#FF5722',
     alignItems: 'center',
-    marginTop: screenHeight * 0.02,
+    marginTop: screenHeight * 0.01,
     borderRadius: 10
   },
   cartButtonText: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.025,
     fontWeight: 'bold',
     color: '#fff'
   },
@@ -224,7 +230,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E'
   },
   loadingText: {
-    fontSize: screenWidth * 0.04,
+    fontSize: screenWidth * 0.03,
     color: '#FF5722',
     marginTop: screenHeight * 0.01
   }

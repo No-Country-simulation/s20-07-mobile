@@ -54,19 +54,19 @@ const styles = StyleSheet.create({
   },
   bannerText: {
     color: Colors.light.text,
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.025,
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.01
   },
   bannerButton: {
     backgroundColor: Colors.dark.button,
-    paddingVertical: screenHeight * 0.015,
-    paddingHorizontal: screenWidth * 0.04,
+    paddingVertical: screenHeight * 0.01,
+    paddingHorizontal: screenWidth * 0.03,
     borderRadius: screenWidth * 0.02
   },
   bannerButtonText: {
     color: Colors.light.text,
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold'
   }
 })

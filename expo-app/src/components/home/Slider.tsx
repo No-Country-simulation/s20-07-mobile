@@ -30,7 +30,7 @@ export default function Slider () {
       if (scrollViewRef.current) {
         currentIndex = (currentIndex + 1) % sliderImages.length
         scrollViewRef.current.scrollTo({
-          x: currentIndex * (screenWidth / 2.5),
+          x: currentIndex * (screenWidth / 2),
           animated: true
         })
       }
@@ -128,13 +128,13 @@ const styles = StyleSheet.create({
     top: '50%',
     left: 0,
     right: 0,
-    transform: [{ translateY: -screenHeight * 0.05 }],
+    transform: [{ translateY: -screenHeight * 0.02 }],
     zIndex: 10,
     alignItems: 'center'
   },
   title: {
     color: '#FFFFFF',
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.01
   },

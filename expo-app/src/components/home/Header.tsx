@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1
   },
   title: {
-    fontSize: screenWidth * 0.055,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#FFF'
   },
