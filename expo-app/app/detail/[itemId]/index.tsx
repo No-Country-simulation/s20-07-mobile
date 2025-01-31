@@ -13,6 +13,7 @@ import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
 import { useCart } from '@/contexts/CartContext'
+import { useFavorites } from '@/contexts/FavoritesContext'
 import Header from '@/components/home/Header'
 
 type Pizza = {
@@ -31,6 +32,7 @@ export default function PizzaDetail () {
   const [selectedSize, setSelectedSize] = useState<string>('')
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
   const { addToCart } = useCart()
+  const { addFavorite, removeFavorite, favorites } = useFavorites()
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -70,7 +72,7 @@ export default function PizzaDetail () {
       return
     }
 
-    const uniqueId = `${pizza.id}-${selectedSize}-${Date.now()}` // Ahora es string
+    const uniqueId = `${pizza.id}-${selectedSize}-${Date.now()}`
 
     const item: CartItem = {
       id: uniqueId, // ID único como string
@@ -86,6 +88,20 @@ export default function PizzaDetail () {
     console.log('🛒 Pizza agregada al carrito:', item)
   }
 
+  const handleAddFavorite = () => {
+    if (!pizza) return
+
+    // Verificamos si la pizza ya está en favoritos
+    const isAlreadyFavorite = favorites.some(fav => fav.id === pizza.id)
+
+    if (!isAlreadyFavorite) {
+      console.log(`✅ Agregando a favoritos: ${pizza.name} (ID: ${pizza.id})`)
+      addFavorite(pizza)
+    } else {
+      console.log(`⚠️ La pizza ${pizza.name} ya está en favoritos.`)
+    }
+  }
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -94,6 +110,9 @@ export default function PizzaDetail () {
       </View>
     )
   }
+
+  const isFavorite = favorites.some(fav => fav.id === pizza?.id) // ✅ Verifica si está en favoritos
+  console.log(`📌 Pizza ID ${pizza?.id}, ¿Está en favoritos?`, isFavorite)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -109,6 +128,15 @@ export default function PizzaDetail () {
           }}
           style={styles.image}
         />
+        {/* 🔹 Corazón posicionado sobre la imagen en la esquina superior derecha */}
+        <TouchableOpacity
+          style={styles.heartIcon}
+          onPress={handleAddFavorite} // 🔥 Ahora usa la función correcta
+        >
+          <Text style={isFavorite ? styles.heartFilled : styles.heartEmpty}>
+            ❤️
+          </Text>
+        </TouchableOpacity>
       </View>
       <Text style={styles.sectionTitle}>Ingredientes</Text>
       {pizza?.pizzaIngredients.map(ingredient => (
@@ -160,6 +188,9 @@ const styles = StyleSheet.create({
     padding: screenWidth * 0.05,
     backgroundColor: '#1E1E1E'
   },
+  imageWrapper: {
+    position: 'relative'
+  },
   title: {
     fontSize: screenWidth * 0.07,
     fontWeight: 'bold',
@@ -172,6 +203,22 @@ const styles = StyleSheet.create({
     width: '100%',
     height: screenHeight * 0.35,
     borderRadius: 10
+  },
+  heartIcon: {
+    position: 'absolute',
+    top: screenHeight * 0.01,
+    right: screenWidth * 0.03,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 20,
+    padding: screenHeight * 0.005
+  },
+  heartEmpty: {
+    fontSize: screenWidth * 0.07,
+    color: '#000'
+  },
+  heartFilled: {
+    fontSize: screenWidth * 0.07,
+    color: '#FF0000'
   },
   sectionTitle: {
     fontSize: screenWidth * 0.05,
@@ -229,6 +276,22 @@ const styles = StyleSheet.create({
     fontSize: screenWidth * 0.04,
     color: '#FF5722',
     marginTop: screenHeight * 0.01
+  },
+  heartIcon: {
+    position: 'absolute',
+    top: screenHeight * 0.02,
+    right: screenWidth * 0.05,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 20,
+    padding: screenHeight * 0.01
+  },
+  heartEmpty: {
+    fontSize: screenWidth * 0.06,
+    color: '#000'
+  },
+  heartFilled: {
+    fontSize: screenWidth * 0.06,
+    color: '#FF0000'
   }
 })
 

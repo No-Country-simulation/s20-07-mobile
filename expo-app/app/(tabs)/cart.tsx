@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
     borderRadius: screenWidth * 0.02,
     marginBottom: screenHeight * 0.02
   },
-  name: { fontSize: screenWidth * 0.04, color: '#fff' },
-  price: { fontSize: screenWidth * 0.035, color: '#FFC107' },
+  name: { fontSize: screenWidth * 0.03, color: '#fff' },
+  price: { fontSize: screenWidth * 0.03, color: '#FFC107' },
   actions: { flexDirection: 'row', alignItems: 'center' },
   actionText: {
     fontSize: screenWidth * 0.045,

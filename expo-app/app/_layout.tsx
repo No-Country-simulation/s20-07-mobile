@@ -52,6 +52,7 @@ export default function RootLayout () {
             name='featured-pizzas'
             options={{ title: 'Destacadas' }}
           />
+          <Stack.Screen name='favorites' options={{ title: 'Favoritos' }} />
           <Stack.Screen
             name='terms-and-conditions'
             options={{ title: 'Términos y Condiciones' }}

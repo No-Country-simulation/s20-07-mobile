@@ -7,6 +7,7 @@ import Banner from '@/components/home/Banner'
 import CategoryList from '@/components/home/CategoryList'
 import Slider from '@/components/home/Slider'
 import Footer from '@/components/Footer'
+import Favorites from '@/components/home/Favorites'
 
 export default function Home () {
   return (
@@ -17,7 +18,7 @@ export default function Home () {
         <View
           style={{
             height: screenHeight * 0.05,
-            width: screenHeight * 0.63,
+            width: screenHeight * 0.8,
             borderRadius: screenHeight * 0.3,
             backgroundColor: '#FFF',
             alignSelf: 'center',
@@ -37,6 +38,7 @@ export default function Home () {
         <Banner />
         <CategoryList />
         <Slider />
+        <Favorites />
         <Footer />
       </ScrollView>
     </View>
