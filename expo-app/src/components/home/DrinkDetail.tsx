@@ -8,6 +8,7 @@ import {
   FlatList,
   ActivityIndicator
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext'
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111',
-    padding: 10
+    padding: screenWidth * 0.04
   },
   loadingContainer: {
     flex: 1,
@@ -109,25 +110,25 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   loadingText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.04,
     color: '#FF5722',
-    marginTop: 10
+    marginTop: screenHeight * 0.01
   },
   item: {
     backgroundColor: '#222',
-    borderRadius: 10,
-    marginBottom: 10,
-    padding: 10
+    borderRadius: screenWidth * 0.025,
+    marginBottom: screenHeight * 0.015,
+    padding: screenWidth * 0.04
   },
   itemContent: {
     flexDirection: 'row',
     alignItems: 'center'
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    marginRight: 10
+    width: screenWidth * 0.12,
+    height: screenWidth * 0.12,
+    borderRadius: screenWidth * 0.03,
+    marginRight: screenWidth * 0.03
   },
   textContainer: {
     flex: 1
@@ -136,33 +137,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 5
+    marginBottom: screenHeight * 0.005
   },
   name: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#fff',
     flex: 1
   },
   price: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#FFC107',
     textAlign: 'right'
   },
   content: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.04,
     color: '#ccc'
   },
   cartButton: {
-    marginTop: 10,
+    marginTop: screenHeight * 0.02,
     backgroundColor: '#FF5722',
-    borderRadius: 10,
+    borderRadius: screenWidth * 0.025,
     alignItems: 'center',
-    paddingVertical: 10
+    paddingVertical: screenHeight * 0.015
   },
   cartButtonText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#fff'
   }

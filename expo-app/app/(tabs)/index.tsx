@@ -1,47 +1,35 @@
 import React from 'react'
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  useWindowDimensions
-} from 'react-native'
-import Slider from '@/components/home/Slider'
-import CategoryList from '@/components/home/CategoryList'
+import { ScrollView, StyleSheet, View, SafeAreaView } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
+import Header from '@/components/home/Header'
 import SearchBar from '@/components/home/SearchBar'
 import Banner from '@/components/home/Banner'
+import CategoryList from '@/components/home/CategoryList'
+import Slider from '@/components/home/Slider'
 import Footer from '@/components/Footer'
-import { mockPizza } from '@/mocks/mocksPizza'
 
 export default function Home () {
-  const { height, width } = useWindowDimensions()
-
   return (
     <View style={styles.container}>
-      {/* Header fijo (SearchBar + Banner) */}
+      {/* 🔹 Header + SearchBar en un solo bloque fijo */}
       <SafeAreaView style={styles.fixedHeader}>
-        <SearchBar />
-        <Banner />
+        <Header />
+        <View style={styles.searchContainer}>
+          <SearchBar />
+        </View>
       </SafeAreaView>
 
-      {/* Categorías desplazables */}
+      {/* 🔹 Todo lo demás se desplaza */}
       <ScrollView
-        style={[styles.scrollContainer, { height: height - 300 }]}
+        style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        <Banner />
         <CategoryList />
-      </ScrollView>
-
-      {/* Slider fijo */}
-      <View style={[styles.sliderContainer, { width }]}>
         <Slider />
-      </View>
-
-      {/* Footer fijo */}
-      <SafeAreaView style={[styles.fixedFooter, { width }]}>
         <Footer />
-      </SafeAreaView>
+      </ScrollView>
     </View>
   )
 }
@@ -52,32 +40,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   fixedHeader: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    paddingBottom: 0
+  },
+  searchContainer: {
+    marginTop: -5,
+    paddingHorizontal: screenWidth * 0.03,
+    position: 'sticky'
   },
   scrollContainer: {
-    marginTop: 200,
-    marginBottom: 160
+    flex: 1
   },
   scrollContent: {
-    paddingHorizontal: 10
-  },
-  sliderContainer: {
-    position: 'absolute',
-    bottom: 60,
-    zIndex: 10,
-    backgroundColor: '#000'
-  },
-  fixedFooter: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10,
-    backgroundColor: '#000'
+    flexGrow: 1,
+    paddingHorizontal: screenWidth * 0.03
   }
 })

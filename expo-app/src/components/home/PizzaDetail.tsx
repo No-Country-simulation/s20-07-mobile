@@ -8,6 +8,7 @@ import {
   ScrollView,
   ActivityIndicator
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useLocalSearchParams, useRouter } from 'expo-router' // Importar useRouter
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext'
@@ -133,46 +134,46 @@ export default function PizzaDetail () {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 20,
+    padding: screenWidth * 0.05,
     backgroundColor: '#1E1E1E'
   },
   title: {
-    fontSize: 28,
+    fontSize: screenWidth * 0.07,
     fontWeight: 'bold',
     color: '#FFF',
     textAlign: 'center',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   imageContainer: {
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   image: {
     width: '100%',
-    height: 250,
-    borderRadius: 10
+    height: screenHeight * 0.3,
+    borderRadius: screenWidth * 0.03
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#FFF',
-    marginBottom: 10
+    marginBottom: screenHeight * 0.01
   },
   description: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     color: '#CCC',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02
   },
   sizeButton: {
     flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 10,
+    marginHorizontal: screenWidth * 0.02,
+    paddingVertical: screenHeight * 0.015,
+    borderRadius: screenWidth * 0.03,
     backgroundColor: '#333',
     alignItems: 'center'
   },
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFC107'
   },
   sizeButtonText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     color: '#FFF'
   },
   selectedSizeButtonText: {
@@ -188,14 +189,14 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   cartButton: {
-    padding: 15,
-    borderRadius: 10,
+    padding: screenHeight * 0.02,
+    borderRadius: screenWidth * 0.03,
     backgroundColor: '#FF5722',
     alignItems: 'center',
-    marginTop: 20
+    marginTop: screenHeight * 0.02
   },
   cartButtonText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#FFF'
   },
@@ -206,9 +207,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E'
   },
   loadingText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.04,
     color: '#FF5722',
-    marginTop: 10
+    marginTop: screenHeight * 0.01
   },
   errorContainer: {
     flex: 1,
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E'
   },
   errorText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     color: 'red'
   }
 })

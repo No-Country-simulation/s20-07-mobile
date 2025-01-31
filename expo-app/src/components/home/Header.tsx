@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import CartIcon from './CartIcon'
 
@@ -30,15 +31,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: screenWidth * 0.04,
+    paddingVertical: screenHeight * 0.015,
     backgroundColor: '#000',
     borderBottomWidth: 1
   },
   title: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
-    color: '#FFF' // Blanco por defecto
+    color: '#FFF'
   },
   hoverTitle: {
     color: '#EB6334'
@@ -46,8 +47,7 @@ const styles = StyleSheet.create({
   cartContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    cursor: 'pointer'
+    padding: screenWidth * 0.025
   }
 })
 

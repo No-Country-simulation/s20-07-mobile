@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import { Colors } from '@/constants/Colors'
 import PizzasItem from './PizzasItem'
@@ -19,12 +20,12 @@ const categories = [
     id: 'promotions',
     title: 'Promociones',
     image: require('../../../assets/images/categories/promotions4.png')
-  },
-  {
-    id: 'desserts',
-    title: 'Postres',
-    image: require('../../../assets/images/categories/dessert4.png')
   }
+  // {
+  //   id: 'desserts',
+  //   title: 'Postres',
+  //   image: require('../../../assets/images/categories/dessert4.png')
+  // }
 ]
 
 export default function CategoryList () {
@@ -60,22 +61,21 @@ export default function CategoryList () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-    backgroundColor: '#111',
-    marginTop: 20
+    paddingHorizontal: screenWidth * 0.025,
+    paddingBottom: screenHeight * 0.02,
+    backgroundColor: '#111'
   },
   title: {
-    fontSize: 24,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: Colors.light.text,
     textAlign: 'left',
-    marginVertical: 20
+    marginVertical: screenHeight * 0.03
   },
   scrollContent: {
-    flexDirection: 'row', // Asegura que los elementos estén en una fila
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: screenWidth * 0.02,
     justifyContent: 'space-around'
   }
 })

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { Colors } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
 
@@ -37,25 +38,23 @@ export default function Footer () {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative', // Ajustable para desplazarse con el contenido
-    padding: 20,
+    padding: screenWidth * 0.05,
     backgroundColor: '#000',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: Colors.light.border // Línea decorativa
+    borderTopColor: '#777'
   },
   text: {
-    color: Colors.light.text,
-    fontSize: 12,
+    color: '#FFFFFF',
+    fontSize: screenWidth * 0.02,
     textAlign: 'left'
   },
   linkText: {
-    color: Colors.dark.orangeText, // Color inicial del texto
-    fontSize: 12,
+    color: '#FF5722',
+    fontSize: screenWidth * 0.02,
     textDecorationLine: 'none',
-    textAlign: 'right',
-    transition: 'color 0.3s' // Suavizar el cambio de color
+    textAlign: 'right'
   }
 })

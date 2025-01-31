@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useCart } from '@/contexts/CartContext'
 import { FontAwesome } from '@expo/vector-icons'
 
@@ -78,34 +79,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: 16
+    padding: screenWidth * 0.04
   },
   title: {
-    fontSize: 24,
+    fontSize: screenWidth * 0.06,
     fontWeight: 'bold',
     color: '#FFF',
-    marginBottom: 16
+    marginBottom: screenHeight * 0.02
   },
   emptyText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.045,
     color: '#777',
     textAlign: 'center'
   },
   item: {
     backgroundColor: '#333',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16,
+    padding: screenWidth * 0.04,
+    borderRadius: screenWidth * 0.02,
+    marginBottom: screenHeight * 0.02,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
   name: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.05,
     color: '#FFF'
   },
   price: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     color: '#FFA500'
   },
   actions: {
@@ -113,54 +114,54 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   actionText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.05,
     color: '#FFF',
-    paddingHorizontal: 8
+    paddingHorizontal: screenWidth * 0.02
   },
   quantity: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     color: '#FFF',
-    marginHorizontal: 8
+    marginHorizontal: screenWidth * 0.03
   },
   summaryContainer: {
     borderTopWidth: 1,
     borderTopColor: '#555',
-    paddingTop: 16,
-    marginTop: 16
+    paddingTop: screenHeight * 0.02,
+    marginTop: screenHeight * 0.02
   },
   summaryText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     color: '#FFF'
   },
   totalText: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#FFF',
-    marginTop: 8
+    marginTop: screenHeight * 0.01
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16
+    marginTop: screenHeight * 0.02
   },
   continueButton: {
     flex: 1,
     backgroundColor: '#555',
-    padding: 16,
-    borderRadius: 8,
+    padding: screenWidth * 0.04,
+    borderRadius: screenWidth * 0.02,
     alignItems: 'center',
-    marginRight: 8
+    marginRight: screenWidth * 0.02
   },
   payButton: {
     flex: 1,
     backgroundColor: '#FFA500',
-    padding: 16,
-    borderRadius: 8,
+    padding: screenWidth * 0.04,
+    borderRadius: screenWidth * 0.02,
     alignItems: 'center',
-    marginLeft: 8
+    marginLeft: screenWidth * 0.02
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: screenWidth * 0.045,
     fontWeight: 'bold',
     color: '#FFF'
   }

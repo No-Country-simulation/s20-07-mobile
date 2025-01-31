@@ -6,8 +6,10 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
 
 // Define el tipo de una pizza
 type Pizza = {
@@ -46,6 +48,7 @@ export default function PizzasPage () {
 
   return (
     <View style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>Nuestras Pizzas</Text>
       <FlatList
         data={pizzas}
@@ -71,28 +74,29 @@ export default function PizzasPage () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: screenWidth * 0.06,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: 20,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 20
+    marginBottom: screenHeight * 0.02,
+    marginTop: screenHeight * 0.02
   },
   item: {
-    padding: 15,
-    marginBottom: 10,
+    padding: screenWidth * 0.04,
+    marginBottom: screenHeight * 0.02,
     backgroundColor: '#222',
-    borderRadius: 8
+    borderRadius: screenWidth * 0.02
   },
   itemTitle: {
-    fontSize: 18,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff'
   },
   itemSubtitle: {
-    fontSize: 14,
+    fontSize: screenWidth * 0.02,
     color: '#ccc'
   },
   loadingContainer: {
@@ -102,6 +106,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: '#fff',
-    fontSize: 16
+    fontSize: screenWidth * 0.04
   }
 })

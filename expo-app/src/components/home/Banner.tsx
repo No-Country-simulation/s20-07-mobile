@@ -6,6 +6,7 @@ import {
   ImageBackground,
   Pressable
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { Colors } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
 
@@ -43,29 +44,29 @@ export default function Banner () {
 const styles = StyleSheet.create({
   banner: {
     width: '100%',
-    height: 150,
-    borderRadius: 10,
+    height: screenHeight * 0.2, // 20% de la pantalla
+    borderRadius: screenWidth * 0.02,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.light.background
+    backgroundColor: Colors.light.background,
+    marginTop: screenHeight * 0.05
   },
   bannerText: {
     color: Colors.light.text,
-    fontSize: 20,
+    fontSize: screenWidth * 0.025,
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: screenHeight * 0.01
   },
   bannerButton: {
     backgroundColor: Colors.dark.button,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    transition: 'background-color 0.3s'
+    paddingVertical: screenHeight * 0.01,
+    paddingHorizontal: screenWidth * 0.03,
+    borderRadius: screenWidth * 0.02
   },
   bannerButtonText: {
     color: Colors.light.text,
-    fontSize: 16,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold'
   }
 })

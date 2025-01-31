@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native'
+import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useCart } from '@/contexts/CartContext'
 import { useRouter } from 'expo-router'
 import BackArrow from '@/components/BackArrow'
@@ -152,59 +153,91 @@ export default function CartScreen () {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#000', padding: 10 },
-  title: { fontSize: 24, color: '#fff', fontWeight: 'bold', marginBottom: 20 },
-  emptyText: { fontSize: 18, color: '#fff', textAlign: 'center' },
+  container: { flex: 1, backgroundColor: '#000', padding: screenWidth * 0.02 },
+  title: {
+    fontSize: screenWidth * 0.04,
+    color: '#fff',
+    fontWeight: 'bold',
+    marginBottom: screenHeight * 0.02
+  },
+  emptyText: {
+    fontSize: screenWidth * 0.03,
+    color: '#fff',
+    textAlign: 'center'
+  },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: screenWidth * 0.03,
     backgroundColor: '#333',
-    borderRadius: 8,
-    marginBottom: 10
+    borderRadius: screenWidth * 0.02,
+    marginBottom: screenHeight * 0.02
   },
-  name: { fontSize: 16, color: '#fff' },
-  price: { fontSize: 14, color: '#FFC107' },
+  name: { fontSize: screenWidth * 0.03, color: '#fff' },
+  price: { fontSize: screenWidth * 0.03, color: '#FFC107' },
   actions: { flexDirection: 'row', alignItems: 'center' },
-  actionText: { fontSize: 18, color: '#FFC107', paddingHorizontal: 10 },
-  removeText: { fontSize: 14, color: '#FF0000', paddingHorizontal: 10 },
-  quantity: { fontSize: 16, color: '#fff', paddingHorizontal: 10 },
+  actionText: {
+    fontSize: screenWidth * 0.03,
+    color: '#FFC107',
+    paddingHorizontal: screenWidth * 0.03
+  },
+  removeText: {
+    fontSize: screenWidth * 0.03,
+    color: '#FF0000',
+    paddingHorizontal: screenWidth * 0.03
+  },
+  quantity: {
+    fontSize: screenWidth * 0.03,
+    color: '#fff',
+    paddingHorizontal: screenWidth * 0.03
+  },
   summaryContainer: {
-    paddingVertical: 10,
+    paddingVertical: screenHeight * 0.02,
     borderTopWidth: 1,
     borderTopColor: '#555'
   },
-  summaryText: { fontSize: 16, color: '#fff', marginBottom: 5 },
-  totalText: { fontSize: 18, color: '#FFC107', fontWeight: 'bold' },
+  summaryText: {
+    fontSize: screenWidth * 0.03,
+    color: '#fff',
+    marginBottom: screenHeight * 0.01
+  },
+  totalText: {
+    fontSize: screenWidth * 0.03,
+    color: '#FFC107',
+    fontWeight: 'bold'
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20
+    marginTop: screenHeight * 0.02
   },
   continueButton: {
     flex: 1,
     backgroundColor: 'rgba(255, 87, 34, 0.2)',
-    padding: 15,
-    borderRadius: 10,
-    marginRight: 5,
+    padding: screenHeight * 0.02,
+    borderRadius: screenWidth * 0.02,
+    marginRight: screenWidth * 0.02,
     alignItems: 'center',
-    borderColor: '#FF5722', // Borde naranja para un contraste sutil
+    borderColor: '#FF5722',
     borderWidth: 1
   },
   payButton: {
     flex: 1,
     backgroundColor: '#FF5722',
-    padding: 15,
-    borderRadius: 10,
-    marginLeft: 5,
+    padding: screenHeight * 0.02,
+    borderRadius: screenWidth * 0.02,
+    marginLeft: screenWidth * 0.02,
     alignItems: 'center'
   },
   buttonText: {
-    fontSize: 16,
-    color: '#fff', // Texto blanco para mantener contraste
+    fontSize: screenWidth * 0.03,
+    color: '#fff',
     fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.5)', // Sombra para destacar el texto
-    textShadowOffset: { width: 1, height: 1 },
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: {
+      width: screenWidth * 0.003,
+      height: screenHeight * 0.003
+    },
     textShadowRadius: 2
   },
   successContainer: {
@@ -212,43 +245,50 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#1E1E1E',
-    padding: 20
+    padding: screenHeight * 0.03
   },
-  successText: { fontSize: 20, color: '#fff', textAlign: 'center' },
+  successText: {
+    fontSize: screenWidth * 0.03,
+    color: '#fff',
+    textAlign: 'center'
+  },
   backButton: {
     backgroundColor: '#FF5722',
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 20
+    padding: screenHeight * 0.02,
+    borderRadius: screenWidth * 0.02,
+    marginTop: screenHeight * 0.02
   },
   itemImage: {
-    width: 50,
-    borderRadius: 8,
-    marginRight: 10
+    width: screenWidth * 0.1,
+    height: screenWidth * 0.1,
+    borderRadius: screenWidth * 0.02,
+    marginRight: screenWidth * 0.03
   },
-  itemDetails: { flex: 1, marginLeft: 10 },
+  itemDetails: { flex: 1, marginLeft: screenWidth * 0.03 },
   clearCartButton: {
-    backgroundColor: 'rgba(255, 87, 34, 0.2)', // Naranja con opacidad (Color RGBA)
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: 'rgba(255, 87, 34, 0.2)',
+    padding: screenHeight * 0.02,
+    borderRadius: screenWidth * 0.02,
     alignItems: 'center',
-    marginVertical: 10,
-    width: '30%',
+    marginVertical: screenHeight * 0.02,
+    width: screenWidth * 0.3,
     alignSelf: 'center',
-    borderColor: '#FF5722', // Borde naranja para un contraste sutil
+    borderColor: '#FF5722',
     borderWidth: 1
   },
   clearCartText: {
-    color: '#FFFFFF', // Texto blanco para resaltar
-    fontSize: 14,
+    color: '#FFFFFF',
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.5)', // Sombras para destacar el texto
-    textShadowOffset: { width: 1, height: 1 },
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: {
+      width: screenWidth * 0.003,
+      height: screenHeight * 0.003
+    },
     textShadowRadius: 2
   },
-
   disabledButton: {
-    backgroundColor: '#777', // Color grisáceo para indicar que está deshabilitado
-    opacity: 0.6 // Reduce opacidad
+    backgroundColor: '#777',
+    opacity: 0.3
   }
 })
