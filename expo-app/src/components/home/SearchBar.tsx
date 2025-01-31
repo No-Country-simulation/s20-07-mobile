@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: screenWidth * 0.025,
+    borderRadius: screenWidth * 0.02,
     paddingHorizontal: screenWidth * 0.04,
-    paddingVertical: screenHeight * 0.03
+    paddingVertical: screenHeight * 0.01
   },
   searchInput: {
     flex: 1,

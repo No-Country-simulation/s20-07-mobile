@@ -20,7 +20,7 @@ export default function Banner () {
 
   return (
     <ImageBackground
-      source={require('../../../assets/images/products/pizza-banner.png')}
+      source={require('../../../assets/images/products/pizza-banner-original.png')}
       style={styles.banner}
     >
       <Text style={styles.bannerText}>¡Crea tu pizza personalizada!</Text>
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.light.background,
-    marginTop: screenHeight * 0.05
+    marginTop: screenHeight * 0.1
   },
   bannerText: {
     color: Colors.light.text,
-    fontSize: screenWidth * 0.025,
+    fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.01
   },

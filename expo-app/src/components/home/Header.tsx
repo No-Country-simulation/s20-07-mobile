@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: screenWidth * 0.04,
     paddingVertical: screenHeight * 0.015,
     backgroundColor: '#000',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    marginTop: screenHeight * 0.04
   },
   title: {
     fontSize: screenWidth * 0.03,

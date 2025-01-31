@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#111'
   },
   title: {
-    fontSize: screenWidth * 0.03,
+    fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
     color: Colors.light.text,
     textAlign: 'left',
