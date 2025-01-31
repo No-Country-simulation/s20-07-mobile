@@ -155,13 +155,13 @@ export default function CartScreen () {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#000', padding: screenWidth * 0.02 },
   title: {
-    fontSize: screenWidth * 0.06,
+    fontSize: screenWidth * 0.04,
     color: '#fff',
     fontWeight: 'bold',
     marginBottom: screenHeight * 0.02
   },
   emptyText: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.03,
     color: '#fff',
     textAlign: 'center'
   },
@@ -177,17 +177,17 @@ const styles = StyleSheet.create({
   price: { fontSize: screenWidth * 0.03, color: '#FFC107' },
   actions: { flexDirection: 'row', alignItems: 'center' },
   actionText: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.03,
     color: '#FFC107',
     paddingHorizontal: screenWidth * 0.03
   },
   removeText: {
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.03,
     color: '#FF0000',
     paddingHorizontal: screenWidth * 0.03
   },
   quantity: {
-    fontSize: screenWidth * 0.04,
+    fontSize: screenWidth * 0.03,
     color: '#fff',
     paddingHorizontal: screenWidth * 0.03
   },
@@ -197,12 +197,12 @@ const styles = StyleSheet.create({
     borderTopColor: '#555'
   },
   summaryText: {
-    fontSize: screenWidth * 0.04,
+    fontSize: screenWidth * 0.03,
     color: '#fff',
     marginBottom: screenHeight * 0.01
   },
   totalText: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.03,
     color: '#FFC107',
     fontWeight: 'bold'
   },
@@ -230,13 +230,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonText: {
-    fontSize: screenWidth * 0.04,
+    fontSize: screenWidth * 0.03,
     color: '#fff',
     fontWeight: 'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: {
-      width: screenWidth * 0.005,
-      height: screenHeight * 0.005
+      width: screenWidth * 0.003,
+      height: screenHeight * 0.003
     },
     textShadowRadius: 2
   },
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
     padding: screenHeight * 0.03
   },
   successText: {
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.03,
     color: '#fff',
     textAlign: 'center'
   },
@@ -259,8 +259,8 @@ const styles = StyleSheet.create({
     marginTop: screenHeight * 0.02
   },
   itemImage: {
-    width: screenWidth * 0.12,
-    height: screenWidth * 0.12,
+    width: screenWidth * 0.1,
+    height: screenWidth * 0.1,
     borderRadius: screenWidth * 0.02,
     marginRight: screenWidth * 0.03
   },
@@ -278,17 +278,17 @@ const styles = StyleSheet.create({
   },
   clearCartText: {
     color: '#FFFFFF',
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: {
-      width: screenWidth * 0.005,
-      height: screenHeight * 0.005
+      width: screenWidth * 0.003,
+      height: screenHeight * 0.003
     },
     textShadowRadius: 2
   },
   disabledButton: {
     backgroundColor: '#777',
-    opacity: 0.6
+    opacity: 0.3
   }
 })

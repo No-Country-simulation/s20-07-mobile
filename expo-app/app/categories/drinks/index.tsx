@@ -10,8 +10,9 @@ import {
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
-import { useCart } from '@/contexts/CartContext'
-import Header from '@/components/home/Header'
+import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
+import BackArrow from '@/components/BackArrow'
+
 type Drink = {
   id: number
   name: string
@@ -65,7 +66,7 @@ export default function DrinksPage () {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <BackArrow />
       <Text style={styles.title}>Nuestras Bebidas</Text>
       <FlatList
         data={drinks}
@@ -94,26 +95,27 @@ export default function DrinksPage () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: screenWidth * 0.05,
+    padding: screenWidth * 0.06,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: screenHeight * 0.02
+    marginBottom: screenHeight * 0.02,
+    marginTop: screenHeight * 0.03
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: screenWidth * 0.04,
+    padding: screenWidth * 0.02,
     marginBottom: screenHeight * 0.02,
     backgroundColor: '#222',
     borderRadius: screenWidth * 0.02
   },
   image: {
-    width: screenWidth * 0.12,
-    height: screenWidth * 0.12,
+    width: screenWidth * 0.1,
+    height: screenWidth * 0.1,
     borderRadius: screenWidth * 0.02,
     marginRight: screenWidth * 0.03
   },
@@ -121,16 +123,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
   itemTitle: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.02,
     fontWeight: 'bold',
     color: '#fff'
   },
   itemSubtitle: {
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.02,
     color: '#ccc'
   },
   price: {
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.02,
     fontWeight: 'bold',
     color: '#FFC107'
   },
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   addButtonText: {
-    fontSize: screenWidth * 0.04,
+    fontSize: screenWidth * 0.02,
     color: '#fff',
     fontWeight: 'bold'
   },
@@ -153,6 +155,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     color: '#fff',
-    fontSize: screenWidth * 0.04
+    fontSize: screenWidth * 0.03
   }
 })

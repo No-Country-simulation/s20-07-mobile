@@ -9,6 +9,7 @@ import {
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
 
 // Define el tipo de una pizza
 type Pizza = {
@@ -47,6 +48,7 @@ export default function PizzasPage () {
 
   return (
     <View style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>Nuestras Pizzas</Text>
       <FlatList
         data={pizzas}
@@ -72,14 +74,15 @@ export default function PizzasPage () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: screenWidth * 0.05,
+    padding: screenWidth * 0.06,
     backgroundColor: '#111'
   },
   title: {
-    fontSize: screenWidth * 0.05,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: screenHeight * 0.02
+    marginBottom: screenHeight * 0.02,
+    marginTop: screenHeight * 0.02
   },
   item: {
     padding: screenWidth * 0.04,
@@ -88,12 +91,12 @@ const styles = StyleSheet.create({
     borderRadius: screenWidth * 0.02
   },
   itemTitle: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.03,
     fontWeight: 'bold',
     color: '#fff'
   },
   itemSubtitle: {
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.02,
     color: '#ccc'
   },
   loadingContainer: {

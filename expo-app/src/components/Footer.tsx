@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#FFFFFF',
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.02,
     textAlign: 'left'
   },
   linkText: {
     color: '#FF5722',
-    fontSize: screenWidth * 0.035,
+    fontSize: screenWidth * 0.02,
     textDecorationLine: 'none',
     textAlign: 'right'
   }
