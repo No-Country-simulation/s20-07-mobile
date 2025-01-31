@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router'
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
 import BackArrow from '@/components/BackArrow'
+import Header from '@/components/home/Header'
 
 type Drink = {
   id: number
@@ -66,6 +67,7 @@ export default function DrinksPage () {
 
   return (
     <View style={styles.container}>
+      <Header />
       <BackArrow />
       <Text style={styles.title}>Nuestras Bebidas</Text>
       <FlatList

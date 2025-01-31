@@ -18,11 +18,10 @@ export default function Home () {
         <View
           style={{
             height: screenHeight * 0.05,
-            width: screenHeight * 0.8,
+            width: screenHeight * 0.55,
             borderRadius: screenHeight * 0.3,
             backgroundColor: '#FFF',
-            alignSelf: 'center',
-            marginTop: screenHeight * 0.02
+            alignSelf: 'center'
           }}
         >
           <SearchBar />

@@ -158,14 +158,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: screenWidth * 0.03
   },
   slide: {
-    width: screenWidth / 2.5,
+    width: screenWidth / 3,
     marginRight: screenWidth * 0.03,
     justifyContent: 'center',
     alignItems: 'center'
   },
   image: {
     width: '100%',
-    height: screenHeight * 0.2,
-    borderRadius: screenWidth * 0.025
+    height: screenHeight * 0.13,
+    borderRadius: screenWidth * 0.025,
+    borderWidth: 1
   }
 })
