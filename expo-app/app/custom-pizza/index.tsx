@@ -8,7 +8,7 @@ const CustomPizzaScreen = () => {
   const router = useRouter();
 
   // Estado para tamaños y precios
-  const [sizes, setSizes] = useState<{ name: string; basePrice: number; }[]>([]);
+  const [sizes, setSizes] = useState<{ id: number, name: string; basePrice: number; }[]>([]);
   /*  */
   const [ingredients, setIngredients] = useState<{
     id: number,
@@ -17,7 +17,14 @@ const CustomPizzaScreen = () => {
   }[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedSize, setSelectedSize] = useState<{ id: number, name: string; basePrice: number; } | {}>({});
+
+  /* piña => revisa si en este array  selectedIngredients está piña. Si está la saca, si no está la pone*/
+  const [selectedIngredients, setSelectedIngredients] = useState<{
+    id: number,
+    name: string,
+    extraCost: number;
+  }[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
