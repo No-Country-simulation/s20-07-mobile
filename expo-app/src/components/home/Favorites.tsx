@@ -27,7 +27,14 @@ export default function Favorites () {
           numColumns={3} // 👉 Muestra en una cuadrícula
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <Image source={{ uri: item.image }} style={styles.image} />
+              <Image
+                source={{
+                  uri:
+                    item.image ||
+                    'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg'
+                }}
+                style={styles.image}
+              />
               <TouchableOpacity
                 style={styles.heartIcon}
                 onPress={() => removeFavorite(item.id)}

@@ -16,13 +16,25 @@ import { useCart } from '@/contexts/CartContext'
 import { useFavorites } from '@/contexts/FavoritesContext'
 import Header from '@/components/home/Header'
 
+// Definiendo correctamente el tipo Pizza
 type Pizza = {
-  id: number
+  id: string
   name: string
   image: string | null
   ingredients: string
   pizzaIngredients: { ingredient: { name: string } }[]
   predefinedPizzas: { size: { name: string }; price: number }[]
+}
+
+// Definir el tipo para el carrito
+interface CartItem {
+  id: string
+  pizzaId: string
+  name: string
+  image: string | null
+  size: string
+  price: number
+  quantity: number
 }
 
 export default function PizzaDetail () {
@@ -42,13 +54,21 @@ export default function PizzaDetail () {
         )
         const fetchedPizza = response.data.pizza
 
+        if (!fetchedPizza || typeof fetchedPizza.id === 'undefined') {
+          console.error(
+            `❌ Error: La pizza no tiene un ID válido. Respuesta recibida:`,
+            fetchedPizza
+          )
+        }
+
         setPizza({
-          id: fetchedPizza.id,
-          name: fetchedPizza.name,
-          image: fetchedPizza.image,
-          ingredients: fetchedPizza.ingredients,
-          pizzaIngredients: fetchedPizza.pizzaIngredients,
-          predefinedPizzas: fetchedPizza.predefinedPizzas
+          id: fetchedPizza.id ? String(fetchedPizza.id) : `temp-${Date.now()}`, // 🔹 Evita undefined
+          name: fetchedPizza.name || 'Nombre desconocido',
+          image: fetchedPizza.image || null,
+          ingredients:
+            fetchedPizza.ingredients || 'Ingredientes no disponibles',
+          pizzaIngredients: fetchedPizza.pizzaIngredients || [],
+          predefinedPizzas: fetchedPizza.predefinedPizzas || []
         })
 
         // Establecer el precio y tamaño por defecto
@@ -75,8 +95,8 @@ export default function PizzaDetail () {
     const uniqueId = `${pizza.id}-${selectedSize}-${Date.now()}`
 
     const item: CartItem = {
-      id: uniqueId, // ID único como string
-      pizzaId: pizza.id, // Mantiene el ID original
+      id: uniqueId,
+      pizzaId: pizza.id,
       name: `${pizza.name} (${selectedSize})`,
       image: pizza.image,
       size: selectedSize,
@@ -88,17 +108,26 @@ export default function PizzaDetail () {
     console.log('🛒 Pizza agregada al carrito:', item)
   }
 
-  const handleAddFavorite = () => {
-    if (!pizza) return
+  const handleToggleFavorite = () => {
+    if (!pizza || !pizza.id) {
+      console.error('❌ Error: La pizza no tiene un ID válido.')
+      return
+    }
 
-    // Verificamos si la pizza ya está en favoritos
-    const isAlreadyFavorite = favorites.some(fav => fav.id === pizza.id)
+    const pizzaId = String(pizza.id)
 
-    if (!isAlreadyFavorite) {
-      console.log(`✅ Agregando a favoritos: ${pizza.name} (ID: ${pizza.id})`)
-      addFavorite(pizza)
+    const isAlreadyFavorite = favorites.some(fav => fav.id === pizzaId)
+
+    if (isAlreadyFavorite) {
+      console.log(`🗑️ Eliminando de favoritos: ${pizza.name} (ID: ${pizza.id})`)
+      removeFavorite(pizza.id)
     } else {
-      console.log(`⚠️ La pizza ${pizza.name} ya está en favoritos.`)
+      console.log(`✅ Agregando a favoritos: ${pizza.name} (ID: ${pizza.id})`)
+      addFavorite({
+        id: String(pizza.id),
+        name: pizza.name,
+        image: pizza.image
+      })
     }
   }
 
@@ -111,7 +140,9 @@ export default function PizzaDetail () {
     )
   }
 
-  const isFavorite = favorites.some(fav => fav.id === pizza?.id) // ✅ Verifica si está en favoritos
+  const isFavorite = pizza?.id
+    ? favorites.some(fav => String(fav.id) === String(pizza.id))
+    : false
   console.log(`📌 Pizza ID ${pizza?.id}, ¿Está en favoritos?`, isFavorite)
 
   return (
@@ -131,13 +162,14 @@ export default function PizzaDetail () {
         {/* 🔹 Corazón posicionado sobre la imagen en la esquina superior derecha */}
         <TouchableOpacity
           style={styles.heartIcon}
-          onPress={handleAddFavorite} // 🔥 Ahora usa la función correcta
+          onPress={handleToggleFavorite}
         >
           <Text style={isFavorite ? styles.heartFilled : styles.heartEmpty}>
             ❤️
           </Text>
         </TouchableOpacity>
       </View>
+
       <Text style={styles.sectionTitle}>Ingredientes</Text>
       {pizza?.pizzaIngredients.map(ingredient => (
         <Text key={ingredient.ingredient.name} style={{ color: '#fff' }}>
@@ -204,22 +236,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: screenHeight * 0.35,
     borderRadius: 10
-  },
-  heartIcon: {
-    position: 'absolute',
-    top: screenHeight * 0.01,
-    right: screenWidth * 0.03,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderRadius: 20,
-    padding: screenHeight * 0.005
-  },
-  heartEmpty: {
-    fontSize: screenWidth * 0.07,
-    color: '#000'
-  },
-  heartFilled: {
-    fontSize: screenWidth * 0.07,
-    color: '#FF0000'
   },
   sectionTitle: {
     fontSize: screenWidth * 0.02,
@@ -291,14 +307,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: screenHeight * 0.01
   },
-  heartEmpty: {
-    fontSize: screenWidth * 0.06,
-    color: '#000'
-  },
-  heartFilled: {
-    fontSize: screenWidth * 0.06,
-    color: '#FF0000'
-  }
+  heartEmpty: { fontSize: screenWidth * 0.06, color: '#000' },
+  heartFilled: { fontSize: screenWidth * 0.06, color: '#FF0000' }
 })
 
 // mockPizza
