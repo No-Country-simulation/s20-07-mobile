@@ -11,6 +11,8 @@ import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useLocalSearchParams } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
+import Header from '@/components/home/Header'
+import { useNavigation } from 'expo-router'
 import { useCart } from '@/contexts/CartContext' // Importa el contexto del carrito
 
 type Drink = {
@@ -25,7 +27,12 @@ export default function DrinkDetail () {
   const { itemId } = useLocalSearchParams<{ itemId: string }>()
   const [drink, setDrink] = useState<Drink | null>(null)
   const [loading, setLoading] = useState(true)
-  const { addToCart } = useCart() // Obtén la función para agregar al carrito
+  const { addToCart } = useCart()
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
 
   useEffect(() => {
     const fetchDrink = async () => {
@@ -80,6 +87,8 @@ export default function DrinkDetail () {
   return (
     <View style={styles.container}>
       <BackArrow />
+
+      <Header />
       <Text style={styles.title}>{drink.name}</Text>
       <Image source={{ uri: drink.image }} style={styles.image} />
       <Text style={styles.content}>{drink.content}</Text>

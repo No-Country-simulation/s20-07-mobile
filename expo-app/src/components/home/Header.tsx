@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: screenWidth * 0.04,
+    paddingHorizontal: screenWidth * 0.08,
     paddingVertical: screenHeight * 0.015,
     backgroundColor: '#000',
     borderBottomWidth: 1,
     marginTop: screenHeight * 0.04
   },
   title: {
-    fontSize: screenWidth * 0.03,
+    fontSize: screenWidth * 0.05,
     fontWeight: 'bold',
     color: '#FFF'
   },

@@ -27,15 +27,15 @@ export default function FavoritesScreen () {
           numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.item} // Agrega un estilo para margen y ajuste
-              onPress={() => router.push(`/detail/${item.id}`)} // 📌 Redirección al detalle
+              style={styles.item}
+              onPress={() => router.push(`/detail/${item.id}`)}
             >
               {/* Imagen */}
               <Image
                 source={{
                   uri:
                     item.image ||
-                    'https://www.clarin.com/2022/10/05/utIOlIIyB_2000x1500__1.jpg'
+                    'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg'
                 }}
                 style={styles.image}
               />

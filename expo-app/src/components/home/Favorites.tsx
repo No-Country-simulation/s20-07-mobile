@@ -7,12 +7,15 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
+import { useRouter } from 'expo-router'
+import { screenHeight, screenWidth } from '@/utils/dimensions'
 import { useFavorites } from '@/contexts/FavoritesContext'
 
 export default function Favorites () {
   const { favorites, removeFavorite } = useFavorites()
+  const router = useRouter()
 
-  console.log('📌 Favoritos actuales:', favorites) // 🔹 Verifica si hay datos
+  console.log('📌 Favoritos actuales:', favorites)
 
   return (
     <View style={styles.container}>
@@ -24,9 +27,13 @@ export default function Favorites () {
         <FlatList
           data={favorites}
           keyExtractor={item => item.id}
-          numColumns={3} // 👉 Muestra en una cuadrícula
+          numColumns={3}
           renderItem={({ item }) => (
             <View style={styles.item}>
+              <TouchableOpacity
+                style={styles.item}
+                onPress={() => router.push(`/detail/${item.id}`)} // 🔹 Ahora sí funciona el click
+              ></TouchableOpacity>
               <Image
                 source={{
                   uri:
@@ -51,14 +58,16 @@ export default function Favorites () {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: '#111'
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#111',
+    marginTop: screenHeight * 0.02
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 10
+    marginBottom: 15
   },
   emptyText: {
     color: '#ccc',

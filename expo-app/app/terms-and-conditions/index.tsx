@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, Text } from 'react-native'
 import { Colors } from '@/constants/Colors'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
+import { useNavigation } from 'expo-router'
+import BackArrow from '@/components/BackArrow'
 
 export default function TermsAndConditions () {
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
+
   return (
     <ScrollView style={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>Términos y Condiciones</Text>
       <Text style={styles.paragraph}>
         Al utilizar esta aplicación, aceptas los siguientes términos y

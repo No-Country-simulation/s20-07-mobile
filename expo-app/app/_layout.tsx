@@ -40,6 +40,7 @@ export default function RootLayout () {
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
 
           {/* Rutas adicionales */}
+          <Stack.Screen name='cart' options={{ title: 'Detalle' }} />
           <Stack.Screen
             name='custom-pizzas'
             options={{ title: 'Personalizadas' }}
