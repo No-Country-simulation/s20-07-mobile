@@ -32,17 +32,20 @@ const categories = [
 export default function CategoryList () {
   const router = useRouter()
 
-  const categoryRoutes: Record<string, string> = {
+  const categoryRoutes: Record<
+    string,
+    '/categories/pizzas' | '/categories/drinks'
+  > = {
     pizzas: '/categories/pizzas',
     drinks: '/categories/drinks'
   }
 
   const handlePress = (categoryId: string) => {
-    const route = categoryRoutes[categoryId]
-    if (route) {
-      router.push(route)
+    const path = categoryRoutes[categoryId]
+    if (path) {
+      router.push(path)
     } else {
-      console.error(`No existe una ruta para la categoría: ${categoryId}`)
+      console.error('Categoría inválida:', categoryId)
     }
   }
 

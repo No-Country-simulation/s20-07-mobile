@@ -22,13 +22,6 @@ const CustomPizzaScreen = () => {
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const navigation = useNavigation() //linea agregada por Adriana
-
-  //useEffect para ocultar el header / agregado por Adriana
-  useEffect(() => {
-    navigation.setOptions({ headerShown: false })
-  }, [navigation])
-  //--------------------------------------------
 
   useEffect(() => {
     const fetchSizes = async () => {

@@ -2,13 +2,12 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface CartItem {
-  id: string
+  id: number
   name: string
-  image: string
+  image?: string
   size: string
   price: number
   quantity: number
-  pizzaId?: string
 }
 
 type CartContextType = {
