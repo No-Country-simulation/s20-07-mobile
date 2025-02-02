@@ -20,7 +20,7 @@ const categories = [
   {
     id: 'drinks',
     title: 'Bebidas',
-    image: require('../../../assets/images/categories/drinks3.png')
+    image: require('../../../assets/images/categories/drinks4.svg')
   },
   {
     id: 'promotions',
