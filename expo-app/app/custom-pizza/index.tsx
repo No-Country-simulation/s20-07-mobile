@@ -8,7 +8,6 @@ import {
   FlatList,
   ActivityIndicator
 } from 'react-native'
-import { useNavigation } from 'expo-router'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
@@ -17,11 +16,67 @@ const CustomPizzaScreen = () => {
   const router = useRouter()
 
   // Estado para tamaños y precios
-  const [sizes, setSizes] = useState<{ name: string; basePrice: number }[]>([])
-  const [selectedSize, setSelectedSize] = useState<string>('')
+  const [sizes, setSizes] = useState<
+    { id: number; name: string; basePrice: number }[]
+  >([])
+  /*  */
+  const [ingredients, setIngredients] = useState<
+    {
+      id: number
+      name: string
+      extraCost: number
+    }[]
+  >([])
+  const [totalPrice, setTotalPrice] = useState<number>(0)
+
+  const [selectedSize, setSelectedSize] = useState<
+    { id: number; name: string; basePrice: number } | {}
+  >({})
+
+  /* piña => revisa si en este array  selectedIngredients está piña. Si está la saca, si no está la pone*/
+  const [selectedIngredients, setSelectedIngredients] = useState<
+    {
+      id: number
+      name: string
+      extraCost: number
+    }[]
+  >([])
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  const onSubmit = async () => {
+    // Armar la pizza personalizada
+  }
+  /* 
+      chica - muzzarella - piña
+      crearla en la base de datos (hacer post a la api con cierta in formación)
+  
+      POST http://localhost:3000/api/custom-pizzas
+      {
+      "customPizza": {
+          "sizeId": 1,
+          "ingredients": [
+              {
+                  "id": 1,
+                  "name": "Salsa de tomate",
+                  "extraCost": 0.5
+              },
+              {
+                  "id": 30,
+                  "name": "Queso provolone",
+                  "extraCost": 1.8
+              },
+              {
+                  "id": 8,
+                  "name": "Aceitunas verdes",
+                  "extraCost": 0.8
+              }
+          ]
+      }
+    }
+      agregarla al carrito
+  */
 
   useEffect(() => {
     const fetchSizes = async () => {
