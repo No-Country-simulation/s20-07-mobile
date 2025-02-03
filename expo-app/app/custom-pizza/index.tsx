@@ -16,19 +16,19 @@ import axios from 'axios'
 const CustomPizzaScreen = () => {
   const router = useRouter()
 
-  // Estado para tamaños, precios e ingredientes
+
   const [sizes, setSizes] = useState<{ name: string; basePrice: number }[]>([])
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null)
   const [ingredients, setIngredients] = useState<
-    { id: number; name: string; price: number }[]
-  >([])
+    { id: number; name: string; price: number }[]>([])
   const [selectedIngredients, setSelectedIngredients] = useState<
     { id: number; name: string; price: number }[]
   >([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [quantity, setQuantity] = useState(1)
+
 
   useEffect(() => {
     const fetchSizesAndIngredients = async () => {
@@ -113,6 +113,10 @@ const CustomPizzaScreen = () => {
   const decreaseQuantity = () => {
     setQuantity(prev => (prev > 1 ? prev - 1 : 1))
   }
+    };
+  
+    fetchSizesAndIngredients();
+  }, []);
 
   if (loading) {
     return (
@@ -139,6 +143,8 @@ const CustomPizzaScreen = () => {
           style={styles.closeButton}
         >
           <AntDesign name='close' size={28} color='white' />
+        <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
+          <AntDesign name="close" size={28} color="white" />
         </TouchableOpacity>
         <Text style={styles.title}>¡Vamos a crear tu pizza!</Text>
       </View>
@@ -231,7 +237,7 @@ const CustomPizzaScreen = () => {
           ${calculateTotalPrice().toFixed(2)}
         </Text>
       </View>
-    </View>
+             </View>
   )
 }
 
@@ -245,6 +251,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 20
   },
+  scrollContainer: {
+    flex: 1,
+    marginTop: 20,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -254,7 +264,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   title: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
     fontWeight: 'bold'
   },
@@ -285,6 +295,10 @@ const styles = StyleSheet.create({
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  sizeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   sizeButton: {
     flex: 1,
@@ -324,7 +338,37 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 10
   },
-  checkbox: {
+  selectedSizeButton: {
+    backgroundColor: "#EB6334",
+  },
+  sizeButtonText: {
+    fontSize: 16,
+    color: "#fff",
+  },
+  selectedSizeButtonText: {
+    fontWeight: "bold",
+    color: "#000",
+  },
+  ingredientsContainer: {
+    marginTop: 20,
+  },
+  ingredientRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  ingredientName: {
+    color: "#fff",
+    fontSize: 16,
+    flex: 1,
+  },
+  ingredientPrice: {
+    color: "#fff",
+    fontSize: 16,
+    marginRight: 10,
+  },
+    checkbox: {
     width: 20,
     height: 20,
     borderWidth: 1,
@@ -346,6 +390,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFC107'
+  },
+  priceContainer: {
+    marginTop: 40,
+    alignItems: "center",
+  },
+  priceLabel: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  priceValue: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFC107",
   },
   errorText: {
     color: '#f00',
