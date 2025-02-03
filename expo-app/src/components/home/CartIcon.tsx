@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  hoverContainer: {
+    backgroundColor: '#333'
   }
 })
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Colors } from '@/constants/Colors'
+import { screenHeight, screenWidth } from '@/utils/dimensions'
 
 interface CategoryItemProps {
   id: string
@@ -30,15 +31,15 @@ const styles = StyleSheet.create({
     marginTop: 25
   },
   image: {
-    width: 140,
-    height: 140,
-    borderRadius: 10,
-    marginBottom: 5
+    width: screenWidth * 0.25,
+    height: screenWidth * 0.25,
+    borderRadius: screenWidth * 0.05
   },
   title: {
     fontSize: 14,
     fontWeight: 'bold',
     color: Colors.light.text,
+    marginTop: screenHeight * 0.01,
     textAlign: 'center'
   }
 })

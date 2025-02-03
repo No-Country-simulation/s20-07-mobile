@@ -9,9 +9,11 @@ import {
 } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
+import { useNavigation } from 'expo-router'
 import axios from 'axios'
 import { useCart } from '@/contexts/CartContext' // Importar el contexto del carrito
 import BackArrow from '@/components/BackArrow'
+import Header from '@/components/home/Header'
 
 type Drink = {
   id: number
@@ -26,6 +28,11 @@ export default function DrinksPage () {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const { addToCart } = useCart()
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
 
   useEffect(() => {
     const fetchDrinks = async () => {
@@ -67,6 +74,7 @@ export default function DrinksPage () {
   return (
     <View style={styles.container}>
       <BackArrow />
+      <Header />
       <Text style={styles.title}>Nuestras Bebidas</Text>
       <FlatList
         data={drinks}

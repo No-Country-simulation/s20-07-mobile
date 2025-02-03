@@ -26,8 +26,10 @@ export default function SearchBar () {
 
   // Limpia la búsqueda
   const clearSearch = () => {
-    setQuery('')
-    search('')
+    setTimeout(() => {
+      setQuery('')
+      search('')
+    }, 500) // Agrega un pequeño retraso para evitar que se cierre instantáneamente
   }
 
   // Navega al detalle de pizzas o bebidas
@@ -41,7 +43,13 @@ export default function SearchBar () {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+        maxHeight: screenHeight * 0.3,
+        paddingHorizontal: screenWidth * 0.03
+      }}
+    >
       <View style={styles.searchBar}>
         <Icon name='search' size={20} color={Colors.light.muted} />
         <TextInput
@@ -86,7 +94,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: screenWidth * 0.02,
     paddingHorizontal: screenWidth * 0.04,
-    paddingVertical: screenHeight * 0.01
+    paddingVertical: screenHeight * 0.02,
+    width: '100%',
+    alignSelf: 'center',
+    marginTop: screenHeight * 0.02
   },
   searchInput: {
     flex: 1,

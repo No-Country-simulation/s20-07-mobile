@@ -15,16 +15,7 @@ export default function Home () {
       {/* 🔹 Fijo: Header + SearchBar */}
       <SafeAreaView style={styles.fixedHeader}>
         <Header />
-        <View
-          style={{
-            height: screenHeight * 0.05,
-            width: screenHeight * 0.8,
-            borderRadius: screenHeight * 0.3,
-            backgroundColor: '#FFF',
-            alignSelf: 'center',
-            marginTop: screenHeight * 0.02
-          }}
-        >
+        <View>
           <SearchBar />
         </View>
       </SafeAreaView>

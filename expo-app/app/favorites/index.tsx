@@ -7,10 +7,12 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
+import { useRouter } from 'expo-router'
 import { useFavorites } from '@/contexts/FavoritesContext'
 
 export default function FavoritesScreen () {
   const { favorites, removeFavorite } = useFavorites()
+  const router = useRouter()
 
   return (
     <View style={styles.container}>
@@ -21,14 +23,24 @@ export default function FavoritesScreen () {
       ) : (
         <FlatList
           data={favorites}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           numColumns={2}
           renderItem={({ item }) => (
-            <View style={styles.item}>
-              {/* 🔹 Imagen de la pizza */}
-              <Image source={{ uri: item.image }} style={styles.image} />
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => router.push(`/detail/${item.id}`)}
+            >
+              {/* Imagen */}
+              <Image
+                source={{
+                  uri:
+                    item.image ||
+                    'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg'
+                }}
+                style={styles.image}
+              />
 
-              {/* 🔹 Botón del corazón para eliminar de favoritos */}
+              {/* Icono de eliminar de favoritos */}
               <TouchableOpacity
                 style={styles.heartIcon}
                 onPress={() => removeFavorite(item.id)}
@@ -36,9 +48,9 @@ export default function FavoritesScreen () {
                 <Text style={styles.heartFilled}>❤️</Text>
               </TouchableOpacity>
 
-              {/* 🔹 Nombre de la pizza */}
+              {/* Nombre */}
               <Text style={styles.pizzaName}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
       )}

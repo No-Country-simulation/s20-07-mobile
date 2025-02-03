@@ -74,7 +74,6 @@ export default function PizzaDetail () {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <BackArrow />
         <ActivityIndicator size='large' color='#FF5722' />
         <Text style={styles.loadingText}>Cargando detalle...</Text>
       </View>
@@ -91,6 +90,7 @@ export default function PizzaDetail () {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <BackArrow />
       <Text style={styles.title}>{pizza.name}</Text>
       <View style={styles.imageContainer}>
         <Image
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: screenHeight * 0.02
+    marginBottom: screenHeight * 0.03
   },
   sizeButton: {
     flex: 1,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFC107'
   },
   sizeButtonText: {
-    fontSize: screenWidth * 0.045,
+    fontSize: screenWidth * 0.45,
     color: '#FFF'
   },
   selectedSizeButtonText: {

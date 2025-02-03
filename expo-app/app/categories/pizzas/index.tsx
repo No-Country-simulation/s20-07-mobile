@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
+import { useNavigation } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
 
@@ -22,6 +23,11 @@ export default function PizzasPage () {
   const [pizzas, setPizzas] = useState<Pizza[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
 
   useEffect(() => {
     const fetchPizzas = async () => {

@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-type CartItem = {
-  id: string
-  pizzaId: number
+interface CartItem {
+  id: number
   name: string
-  image: string | null
+  image?: string
   size: string
   price: number
   quantity: number

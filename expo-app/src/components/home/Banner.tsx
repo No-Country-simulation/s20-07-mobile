@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  Pressable
+  Pressable,
+  Platform
 } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { Colors } from '@/constants/Colors'
@@ -19,29 +20,38 @@ export default function Banner () {
   }
 
   return (
-    <ImageBackground
-      source={require('../../../assets/images/products/pizza-banner-original.png')}
-      style={styles.banner}
-    >
-      <Text style={styles.bannerText}>¡Crea tu pizza personalizada!</Text>
-      <Pressable
-        style={[
-          styles.bannerButton,
-          isHovered && { backgroundColor: Colors.light.background }
-        ]}
-        onPress={handlePress}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+    <View style={styles.bannerContainer}>
+      <ImageBackground
+        source={require('../../../assets/images/products/pizza-banner-original.png')}
+        style={styles.banner}
       >
-        <Text style={[styles.bannerText, isHovered && { color: 'black' }]}>
-          Empezar
-        </Text>
-      </Pressable>
-    </ImageBackground>
+        <Text style={styles.bannerText}>¡Crea tu pizza personalizada!</Text>
+        <Pressable
+          style={[
+            styles.bannerButton,
+            isHovered && { backgroundColor: Colors.light.background }
+          ]}
+          onPress={handlePress}
+          {...(Platform.OS === 'web' //solo se usa para web no lo reconoce React Native
+            ? {
+                onMouseEnter: () => console.log('Hover in'),
+                onMouseLeave: () => console.log('Hover out')
+              }
+            : {})} // Solo para la web
+        >
+          <Text style={[styles.bannerText, isHovered && { color: 'black' }]}>
+            Empezar
+          </Text>
+        </Pressable>
+      </ImageBackground>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  bannerContainer: {
+    flex: 1
+  },
   banner: {
     width: '100%',
     height: screenHeight * 0.2, // 20% de la pantalla
@@ -50,19 +60,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.light.background,
-    marginTop: screenHeight * 0.1
+    marginTop: screenHeight * 0.12
   },
   bannerText: {
     color: Colors.light.text,
     fontSize: screenWidth * 0.04,
     fontWeight: 'bold',
-    marginBottom: screenHeight * 0.01
+    marginBottom: screenHeight * 0.01,
+    paddingHorizontal: screenWidth * 0.03
   },
   bannerButton: {
     backgroundColor: Colors.dark.button,
     paddingVertical: screenHeight * 0.01,
     paddingHorizontal: screenWidth * 0.03,
-    borderRadius: screenWidth * 0.02
+    borderRadius: screenWidth * 0.02,
+    marginBottom: screenHeight * 0.05
   },
   bannerButtonText: {
     color: Colors.light.text,

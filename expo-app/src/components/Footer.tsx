@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Platform } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { Colors } from '@/constants/Colors'
 import { useRouter } from 'expo-router'
@@ -19,9 +19,13 @@ export default function Footer () {
 
       {/* Link a Términos y Condiciones */}
       <Pressable
-        onPress={handlePress}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onPress={() => router.push('../../terms-and-conditions')}
+        {...(Platform.OS === 'web' //solo se usa en la web para celulares no funciona React Native no la reconoce onMOuseEnter y onMOuseLeave
+          ? {
+              onMouseEnter: () => console.log('Hover in'),
+              onMouseLeave: () => console.log('Hover out')
+            }
+          : {})}
       >
         <Text
           style={[
@@ -44,16 +48,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#777'
+    borderTopColor: '#777',
+    marginTop: screenHeight * 0.001
   },
   text: {
     color: '#FFFFFF',
-    fontSize: screenWidth * 0.02,
+    fontSize: screenWidth * 0.03,
     textAlign: 'left'
   },
   linkText: {
     color: '#FF5722',
-    fontSize: screenWidth * 0.02,
+    fontSize: screenWidth * 0.03,
     textDecorationLine: 'none',
     textAlign: 'right'
   }
