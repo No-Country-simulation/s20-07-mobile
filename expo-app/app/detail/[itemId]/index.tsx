@@ -16,6 +16,7 @@ import BackArrow from '@/components/BackArrow'
 import { useCart } from '@/contexts/CartContext'
 import { useFavorites } from '@/contexts/FavoritesContext'
 import Header from '@/components/home/Header'
+import { FontAwesome } from '@expo/vector-icons'
 
 // Definiendo correctamente el tipo Pizza
 type Pizza = {
@@ -170,9 +171,13 @@ export default function PizzaDetail () {
           style={styles.heartIcon}
           onPress={handleToggleFavorite}
         >
-          <Text style={isFavorite ? styles.heartFilled : styles.heartEmpty}>
-            ❤️
-          </Text>
+          <TouchableOpacity onPress={handleToggleFavorite}>
+            <FontAwesome
+              name='heart'
+              size={30}
+              color={isFavorite ? '#FF0000' : '#FFFFFF'}
+            />
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
 
@@ -235,7 +240,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     marginBottom: screenHeight * 0.01,
-    marginTop: screenHeight * 0.01
+    marginTop: screenHeight * 0.0
   },
   imageContainer: { alignItems: 'center', marginBottom: screenHeight * 0.03 },
   image: {
@@ -253,7 +258,7 @@ const styles = StyleSheet.create({
   sizeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: screenHeight * 0.02
+    marginBottom: screenHeight * 0.03
   },
   sizeButton: {
     flex: 1,
