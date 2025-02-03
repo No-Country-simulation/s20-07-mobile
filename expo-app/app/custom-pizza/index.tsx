@@ -11,10 +11,18 @@ import {
 } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
+import { useNavigation } from 'expo-router' //agregado por Adriana para eliminar espacio arriba
 import axios from 'axios'
 
 const CustomPizzaScreen = () => {
   const router = useRouter()
+  const navigation = useNavigation() //linea de código agregada por Adriana para eliminar espacio arriba
+
+  // lineas de código agregado por Adriana para eliminar espacio arriba
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
+  //--------------------------------------------
 
   // Estado para tamaños, precios e ingredientes
   const [sizes, setSizes] = useState<{ name: string; basePrice: number }[]>([])
