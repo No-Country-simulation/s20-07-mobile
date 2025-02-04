@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   TouchableOpacity
-} from 'react-native'
-import { screenWidth, screenHeight } from '@/utils/dimensions'
-import { useRouter } from 'expo-router'
-import { useNavigation } from 'expo-router'
-import axios from 'axios'
-import BackArrow from '@/components/BackArrow'
+} from 'react-native';
+import { screenWidth, screenHeight } from '@/utils/dimensions';
+import { useRouter } from 'expo-router';
+import { useNavigation } from 'expo-router';
+import axios from 'axios';
+import BackArrow from '@/components/BackArrow';
 
 // Define el tipo de una pizza
 type Pizza = {
-  id: number
-  name: string
-  pizzaIngredients: { ingredient: { name: string } }[]
-}
+  id: number;
+  name: string;
+  pizzaIngredients: { ingredient: { name: string; }; }[];
+};
 
-export default function PizzasPage () {
-  const [pizzas, setPizzas] = useState<Pizza[]>([])
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
-  const navigation = useNavigation()
+export default function PizzasPage() {
+  const [pizzas, setPizzas] = useState<Pizza[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    navigation.setOptions({ headerShown: false })
-  }, [navigation])
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
 
   useEffect(() => {
     const fetchPizzas = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/pizzas')
-        setPizzas(response.data.pizzas)
+        const response = await axios.get('http://localhost:3000/api/pizzas');
+        setPizzas(response.data.pizzas);
       } catch (error) {
-        console.error('Error al cargar las pizzas:', error)
+        console.error('Error al cargar las pizzas:', error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchPizzas()
-  }, [])
+    fetchPizzas();
+  }, []);
 
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <Text style={styles.loadingText}>Cargando pizzas...</Text>
       </View>
-    )
+    );
   }
 
   return (
@@ -74,7 +74,7 @@ export default function PizzasPage () {
         )}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: screenWidth * 0.04
   }
-})
+});

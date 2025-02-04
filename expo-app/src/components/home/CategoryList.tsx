@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity
-} from 'react-native'
-import { screenWidth, screenHeight } from '@/utils/dimensions'
-import { useRouter } from 'expo-router'
-import { Colors } from '@/constants/Colors'
-import PizzasItem from './PizzasItem'
+} from 'react-native';
+import { screenWidth, screenHeight } from '@/utils/dimensions';
+import { useRouter } from 'expo-router';
+import { Colors } from '@/constants/Colors';
+import PizzasItem from './PizzasItem';
 
 const categories = [
   {
@@ -27,27 +27,28 @@ const categories = [
     title: 'Promociones',
     image: require('../../../assets/images/categories/promotions4.png')
   }
-]
+];
 
-export default function CategoryList () {
-  const router = useRouter()
+export default function CategoryList() {
+  const router = useRouter();
 
   const categoryRoutes: Record<
     string,
-    '/categories/pizzas' | '/categories/drinks'
+    '/categories/pizzas' | '/categories/drinks' | '/promotions'
   > = {
     pizzas: '/categories/pizzas',
-    drinks: '/categories/drinks'
-  }
+    drinks: '/categories/drinks',
+    promotions: '/promotions'
+  };
 
   const handlePress = (categoryId: string) => {
-    const path = categoryRoutes[categoryId]
+    const path = categoryRoutes[categoryId];
     if (path) {
-      router.push(path)
+      router.push(path);
     } else {
-      console.error('Categoría inválida:', categoryId)
+      console.error('Categoría inválida:', categoryId);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -71,7 +72,7 @@ export default function CategoryList () {
         ))}
       </ScrollView>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -105,4 +106,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginBottom: screenHeight * 0.01
   }
-})
+});
