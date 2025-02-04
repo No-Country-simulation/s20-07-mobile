@@ -50,7 +50,9 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     if (!favorites.some(fav => fav.id === favorite.id)) {
       const updatedFavorite = {
         ...favorite,
-        image: favorite.image || 'https://via.placeholder.com/150' // 🔥 Imagen por defecto si falta
+        image:
+          favorite.image ||
+          'https://www.clarin.com/2022/10/05/utIOlIIyB_2000x1500__1.jpg' // 🔥 Imagen por defecto si falta
       }
 
       const updatedFavorites = [...favorites, updatedFavorite]

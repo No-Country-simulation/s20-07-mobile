@@ -47,11 +47,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 10,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    paddingTop: screenHeight * 0.05,
+    paddingBottom: screenHeight * 0.02
   },
   scrollContainer: {
     flex: 1,
-    marginTop: screenHeight * 0.12 // Ajuste para que no se sobreponga con el Header + SearchBar
+    marginTop: screenHeight * 0.12
   },
   scrollContent: {
     flexGrow: 1,
