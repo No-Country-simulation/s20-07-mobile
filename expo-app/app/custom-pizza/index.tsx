@@ -8,11 +8,11 @@ const CustomPizzaScreen = () => {
   const router = useRouter();
 
   // Estado para tamaños, precios e ingredientes
-  const [sizes, setSizes] = useState<{ name: string; basePrice: number }[]>([]);
+  const [sizes, setSizes] = useState<{ name: string; basePrice: number; }[]>([]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedPrice, setSelectedPrice] = useState<number | null>(null);
-  const [ingredients, setIngredients] = useState<{ id: number; name: string; price: number }[]>([]);
-  const [selectedIngredients, setSelectedIngredients] = useState<{ id: number; name: string; price: number }[]>([]);
+  const [ingredients, setIngredients] = useState<{ id: number; name: string; price: number; }[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<{ id: number; name: string; price: number; }[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -22,15 +22,15 @@ const CustomPizzaScreen = () => {
       try {
         const sizesResponse = await axios.get("http://localhost:3000/api/sizes");
         const ingredientsResponse = await axios.get("http://localhost:3000/api/ingredients");
-  
+
         // Accediendo correctamente a los datos
-        const { sizes } = sizesResponse.data; 
-        const { ingredients } = ingredientsResponse.data; 
+        const { sizes } = sizesResponse.data;
+        const { ingredients } = ingredientsResponse.data;
         const normalizedIngredients = normalizeIngredients(ingredients);
-  
+
         setSizes(sizes); // Guardando tamaños
         setIngredients(normalizedIngredients); // Guardando ingredientes
-  
+
         if (Array.isArray(sizes) && sizes.length > 0) {
           setSelectedSize(sizes[0].name);
           setSelectedPrice(sizes[0].basePrice);
@@ -42,11 +42,11 @@ const CustomPizzaScreen = () => {
         setLoading(false);
       }
     };
-  
+
     fetchSizesAndIngredients();
   }, []);
 
-  const normalizeIngredients = (ingredients: { id: number; name?: string; nombre?: string; Costoextra?: number; extraCost?: number; Costeextra?: number; "costo adicional"?: number }[]) => {
+  const normalizeIngredients = (ingredients: { id: number; name?: string; nombre?: string; Costoextra?: number; extraCost?: number; Costeextra?: number; "costo adicional"?: number; }[]) => {
     return ingredients.map((ingredient) => ({
       id: ingredient.id,
       name: ingredient.name || ingredient.nombre || "Ingrediente desconocido",
@@ -59,7 +59,7 @@ const CustomPizzaScreen = () => {
     }));
   };
 
-  const toggleIngredient = (ingredient: { id: number; name: string; price: number }) => {
+  const toggleIngredient = (ingredient: { id: number; name: string; price: number; }) => {
     setSelectedIngredients((prevSelected) => {
       if (prevSelected.includes(ingredient)) {
         return prevSelected.filter((item) => item !== ingredient);
@@ -137,41 +137,41 @@ const CustomPizzaScreen = () => {
 
       {/* Selección de ingredientes */}
       <ScrollView style={styles.ingredientsContainer}>
-      {ingredients.map((ingredient) => (
-        <View key={ingredient.id} style={styles.ingredientRow}>
-          <Text style={styles.ingredientName}>{ingredient.name}</Text>
-          <Text style={styles.ingredientPrice}>${ingredient.price.toFixed(2)}</Text>
-          <TouchableOpacity
-            onPress={() => toggleIngredient(ingredient)}
-            style={styles.checkbox}
-          >
-            {selectedIngredients.includes(ingredient) && (
-              <AntDesign name="check" size={16} color="#ffc107" />
-            )}
-          </TouchableOpacity>
-        </View>
+        {ingredients.map((ingredient) => (
+          <View key={ingredient.id} style={styles.ingredientRow}>
+            <Text style={styles.ingredientName}>{ingredient.name}</Text>
+            <Text style={styles.ingredientPrice}>${ingredient.price.toFixed(2)}</Text>
+            <TouchableOpacity
+              onPress={() => toggleIngredient(ingredient)}
+              style={styles.checkbox}
+            >
+              {selectedIngredients.includes(ingredient) && (
+                <AntDesign name="check" size={16} color="#ffc107" />
+              )}
+            </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
 
       {/* Resumen del pedido */}
       <View style={styles.orderSummaryContainer}>
-          <Text style={styles.orderTitle}>Tu pedido</Text>
-          <View style={styles.orderRow}>
-            <View style={styles.quantityControls}>
-              <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
-                <AntDesign name="minus" size={16} color="#EB6334" />
-              </TouchableOpacity>
-              <Text style={styles.quantityText}>{quantity}</Text>
-              <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
-                <AntDesign name="plus" size={16} color="#EB6334" />
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity style={styles.addButton}>
-              <Text style={styles.addButtonText}>Agregar</Text>
+        <Text style={styles.orderTitle}>Tu pedido</Text>
+        <View style={styles.orderRow}>
+          <View style={styles.quantityControls}>
+            <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
+              <AntDesign name="minus" size={16} color="#EB6334" />
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
+              <AntDesign name="plus" size={16} color="#EB6334" />
             </TouchableOpacity>
           </View>
-          <Text style={styles.totalPrice}>${calculateTotalPrice().toFixed(2)}</Text>
+          <TouchableOpacity style={styles.addButton}>
+            <Text style={styles.addButtonText}>Agregar</Text>
+          </TouchableOpacity>
         </View>
+        <Text style={styles.totalPrice}>${calculateTotalPrice().toFixed(2)}</Text>
+      </View>
 
 
     </View>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   pizzaPreviewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 80,
+    marginTop: 120,
   },
   pizzaBase: {
     width: 200,
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+    marginTop: 20,
   },
   sizeContainer: {
     flexDirection: "row",
