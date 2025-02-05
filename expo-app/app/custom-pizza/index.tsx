@@ -9,12 +9,16 @@ import {
   FlatList,
   ScrollView
 } from 'react-native'
+import { useNavigation } from 'expo-router'
 import { AntDesign } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import axios from 'axios'
+import BackArrow from '@/components/BackArrow'
+import { useCart } from '@/contexts/CartContext'
 
 const CustomPizzaScreen = () => {
   const router = useRouter()
+  const { addToCart } = useCart()
 
   // Estado para tamaños, precios e ingredientes
   const [sizes, setSizes] = useState<{ name: string; basePrice: number }[]>([])
@@ -29,6 +33,11 @@ const CustomPizzaScreen = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [quantity, setQuantity] = useState(1)
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false })
+  }, [navigation])
 
   useEffect(() => {
     const fetchSizesAndIngredients = async () => {
@@ -103,7 +112,9 @@ const CustomPizzaScreen = () => {
       (sum, ingredient) => sum + ingredient.price,
       0
     )
-    return (selectedPrice || 0) + ingredientsPrice
+
+    const total = ((selectedPrice || 0) + ingredientsPrice) * quantity
+    return total
   }
 
   const increaseQuantity = () => {
@@ -130,16 +141,40 @@ const CustomPizzaScreen = () => {
     )
   }
 
+  const handleAddToCart = () => {
+    if (selectedIngredients.length < 4) {
+      setError(
+        'Para personalizar tu pizza, debes seleccionar mínimo cuatro ingredientes. Gracias por elegirnos 😊'
+      )
+      return
+    }
+
+    const newPizza = {
+      id: new Date().getTime(),
+      name: 'Pizza Personalizada',
+      size: selectedSize,
+      price: calculateTotalPrice(), // ✅ Incluye tamaño, ingredientes y cantidad
+      quantity,
+      image:
+        'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg',
+      ingredients: selectedIngredients.map(ing => ing.name)
+    }
+
+    addToCart(newPizza)
+    router.push('/cart')
+  }
+
   return (
     <View style={styles.container}>
       {/* Encabezado con ícono y título */}
+      <BackArrow />
       <View style={styles.header}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.back()}
           style={styles.closeButton}
         >
           <AntDesign name='close' size={28} color='white' />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text style={styles.title}>¡Vamos a crear tu pizza!</Text>
       </View>
 
@@ -208,6 +243,19 @@ const CustomPizzaScreen = () => {
       <View style={styles.orderSummaryContainer}>
         <Text style={styles.orderTitle}>Tu pedido</Text>
         <View style={styles.orderRow}>
+          <TouchableOpacity
+            onPress={() => {
+              setSelectedIngredients([])
+              setSelectedSize(sizes[0].name)
+              setSelectedPrice(sizes[0].basePrice)
+              setQuantity(1)
+            }}
+            style={styles.clearButton}
+          >
+            <AntDesign name='closecircle' size={24} color='#EB6334' />
+          </TouchableOpacity>
+
+          {/* ✅ Controles de cantidad */}
           <View style={styles.quantityControls}>
             <TouchableOpacity
               onPress={decreaseQuantity}
@@ -223,13 +271,22 @@ const CustomPizzaScreen = () => {
               <AntDesign name='plus' size={16} color='#EB6334' />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.addButton}>
-            <Text style={styles.addButtonText}>Agregar</Text>
-          </TouchableOpacity>
         </View>
         <Text style={styles.totalPrice}>
-          ${calculateTotalPrice().toFixed(2)}
+          Total: ${calculateTotalPrice().toFixed(2)}
         </Text>
+      </View>
+      <View style={styles.orderSummaryContainer}>
+        <TouchableOpacity
+          onPress={handleAddToCart}
+          style={[
+            styles.addButton,
+            selectedIngredients.length < 4 && styles.disabledButton
+          ]}
+          disabled={selectedIngredients.length < 4}
+        >
+          <Text style={styles.addButtonText}>Agregar al carrito</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -239,7 +296,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: 16
+    padding: 16,
+    paddingTop: 40
   },
   scrollContainer: {
     flex: 1,
@@ -256,7 +314,9 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center',
+    flex: 1
   },
   pizzaPreviewContainer: {
     justifyContent: 'center',
@@ -353,8 +413,6 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   orderSummaryContainer: {
-    marginTop: 20,
-    padding: 10,
     backgroundColor: '#333',
     borderRadius: 10
   },
@@ -365,9 +423,11 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   orderRow: {
-    flexDirection: 'row',
+    flexDirection: 'row', // ✅ Todo en una línea
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between', // ✅ Distribución uniforme
+    paddingHorizontal: 10,
+    marginVertical: 10
   },
   quantityControls: {
     flexDirection: 'row',
@@ -397,11 +457,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   totalPrice: {
-    marginTop: 10,
     fontSize: 18,
     color: '#FFC107',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'right'
+  },
+  clearButton: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  errorMessage: {
+    color: '#FFC107',
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  disabledButton: {
+    backgroundColor: '#555' // ❌ Botón gris cuando está deshabilitado
   }
 })
 
