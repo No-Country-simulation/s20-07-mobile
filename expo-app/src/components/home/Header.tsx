@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
 import { useRouter } from 'expo-router'
 import CartIcon from './CartIcon'
@@ -18,7 +18,10 @@ const Header = () => {
         onMouseLeave={() => setIsHoveredTitle(false)}
       >
         <Text style={[styles.title, isHoveredTitle && styles.hoverTitle]}>
-          Oh My Pizza
+          <Image
+            source={require('../../../assets/images/products/logo.svg')}
+            style={{ width: screenWidth * 0.2, height: screenWidth * 0.2 }}
+          ></Image>
         </Text>
       </TouchableOpacity>
       <CartIcon />
@@ -33,9 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: screenWidth * 0.08,
     paddingVertical: screenHeight * 0.015,
-    backgroundColor: '#000',
-    borderBottomWidth: 1,
-    marginTop: screenHeight * 0.04
+    backgroundColor: '#000'
   },
   title: {
     fontSize: screenWidth * 0.05,
