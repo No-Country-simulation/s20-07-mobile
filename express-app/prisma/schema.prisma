@@ -9,44 +9,137 @@ datasource db {
 
 model Pizza {
   id               Int               @id @default(autoincrement())
-  name             String            @unique // Ejemplo: "Mozzarella"
+  name             String            @unique
+  featured         Boolean           @default(false)
+  haveDiscount     Boolean           @default(false)
+  image            String?
+  pizzaIngredients PizzaIngredient[]
   predefinedPizzas PredefinedPizza[]
-  isCustom         Boolean           @default(false) // Diferencia entre prediseñada y personalizada
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-
-  PizzaIngredient PizzaIngredient[]
-}
-
-model PredefinedPizza {
-  id        Int      @id @default(autoincrement())
-  pizzaId   Int
-  sizeId    Int
-  price     Float
-  pizza     Pizza    @relation(fields: [pizzaId], references: [id])
-  size      Size     @relation(fields: [sizeId], references: [id])
-  createdAt DateTime @default(now())
 }
 
 model Size {
-  id        Int               @id @default(autoincrement())
-  name      String            @unique // Ejemplo: "chica", "mediana", "grande"
-  cm        Int // Ejemplo 40
-  basePrice Float // Precio base para este tamaño
-  pizzas    PredefinedPizza[]
+  id           Int               @id @default(autoincrement())
+  name         String            @unique
+  basePrice    Float
+  cm           Int
+  customPizzas CustomPizza[]
+  pizzas       PredefinedPizza[]
 }
 
 model Ingredient {
-  id        Int               @id @default(autoincrement())
-  name      String            @unique
-  extraCost Float // Costo adicional por este ingrediente
-  pizzas    PizzaIngredient[]
+  id                     Int                     @id @default(autoincrement())
+  name                   String                  @unique
+  extraCost              Float
+  customPizzaIngredients CustomPizzaIngredient[]
+  pizzas                 PizzaIngredient[]
+}
+
+model PredefinedPizza {
+  id         Int         @id @default(autoincrement())
+  pizzaId    Int
+  sizeId     Int
+  price      Float
+  type       String      @default("predefinedPizza")
+  OrderItems OrderItem[]
+  pizza      Pizza       @relation(fields: [pizzaId], references: [id])
+  size       Size        @relation(fields: [sizeId], references: [id])
+
+  @@index([pizzaId], map: "PredefinedPizza_pizzaId_fkey")
+  @@index([sizeId], map: "PredefinedPizza_sizeId_fkey")
+}
+
+// NO DEBE TENER "PRICE", YA QUE EL PRECIO SE CALCULA DEPENDIENDO DE LOS INGREDIENTES Y EL TAMAÑO DE LA PIZZA!!!
+model CustomPizza {
+  id          Int                     @id @default(autoincrement())
+  userId      Int?
+  sizeId      Int
+  name        String?
+  type        String                  @default("customPizza")
+  size        Size                    @relation(fields: [sizeId], references: [id])
+  user        User?                   @relation(fields: [userId], references: [id])
+  ingredients CustomPizzaIngredient[]
+  orderItems  OrderItem[]
+
+  @@index([sizeId], map: "CustomPizza_sizeId_fkey")
+  @@index([userId], map: "CustomPizza_userId_fkey")
 }
 
 model PizzaIngredient {
   id           Int        @id @default(autoincrement())
   pizzaId      Int
   ingredientId Int
-  pizza        Pizza      @relation(fields: [pizzaId], references: [id])
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  pizza        Pizza      @relation(fields: [pizzaId], references: [id])
+
+  @@index([ingredientId], map: "PizzaIngredient_ingredientId_fkey")
+  @@index([pizzaId], map: "PizzaIngredient_pizzaId_fkey")
+}
+
+model CustomPizzaIngredient {
+  id            Int         @id @default(autoincrement())
+  customPizzaId Int
+  ingredientId  Int
+  customPizza   CustomPizza @relation(fields: [customPizzaId], references: [id])
+  ingredient    Ingredient  @relation(fields: [ingredientId], references: [id])
+
+  @@index([customPizzaId], map: "CustomPizzaIngredient_customPizzaId_fkey")
+  @@index([ingredientId], map: "CustomPizzaIngredient_ingredientId_fkey")
+}
+
+model Drink {
+  id          Int         @id @default(autoincrement())
+  name        String
+  content     String
+  price       Float
+  image       String?
+  isAlcoholic Boolean     @default(false)
+  type        String      @default("drink")
+  orderItems  OrderItem[]
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  password     String
+  customPizzas CustomPizza[]
+  orders       Order[]
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int?
+  totalPrice Float
+  discount   Float? // Este campo fue eliminado
+  status     OrderStatus @default(PROCESSING)
+  user       User?       @relation(fields: [userId], references: [id])
+  orderItems OrderItem[]
+
+  @@index([userId], map: "Order_userId_fkey")
+}
+
+model OrderItem {
+  id                Int              @id @default(autoincrement())
+  orderId           Int
+  predefinedPizzaId Int?
+  customPizzaId     Int?
+  quantity          Int
+  price             Float
+  drinkId           Int?
+  customPizza       CustomPizza?     @relation(fields: [customPizzaId], references: [id])
+  drink             Drink?           @relation(fields: [drinkId], references: [id])
+  order             Order            @relation(fields: [orderId], references: [id])
+  predefinedPizza   PredefinedPizza? @relation(fields: [predefinedPizzaId], references: [id])
+
+  @@index([customPizzaId], map: "OrderItem_customPizzaId_fkey")
+  @@index([drinkId], map: "OrderItem_drinkId_fkey")
+  @@index([orderId], map: "OrderItem_orderId_fkey")
+  @@index([predefinedPizzaId], map: "OrderItem_predefinedPizzaId_fkey")
+}
+
+enum OrderStatus {
+  PROCESSING
+  PREPARING
+  READY
+  DELIVERING
+  DELIVERED
 }

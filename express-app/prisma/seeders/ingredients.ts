@@ -6,7 +6,7 @@ export const ingredientes = [
   { id: 5, name: 'Champiñones', extraCost: 1.0 },
   { id: 6, name: 'Cebolla', extraCost: 0.6 },
   { id: 7, name: 'Pimientos verdes', extraCost: 0.7 },
-  { id: 8, name: 'Aceitunas verde', extraCost: 0.8 },
+  { id: 8, name: 'Aceitunas verdes', extraCost: 0.8 },
   { id: 9, name: 'Aceitunas negras', extraCost: 0.8 },
   { id: 10, name: 'Salchicha', extraCost: 1.8 },
   { id: 11, name: 'Panceta', extraCost: 2.2 },
