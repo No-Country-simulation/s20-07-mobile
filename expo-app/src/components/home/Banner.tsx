@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.light.background,
-    marginTop: screenHeight * 0.12
+    marginTop: screenHeight * 0.2
   },
   bannerText: {
     color: Colors.light.text,

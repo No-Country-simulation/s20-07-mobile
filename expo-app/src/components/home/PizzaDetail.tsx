@@ -36,7 +36,7 @@ export default function PizzaDetail () {
     const fetchPizza = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/pizzas/${itemId}`
+          `http://192.168.100.125:3000/api/pizzas/${itemId}`
         )
         setPizza(response.data.pizza)
       } catch (error) {
@@ -94,7 +94,11 @@ export default function PizzaDetail () {
       <Text style={styles.title}>{pizza.name}</Text>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: pizza.image || 'https://via.placeholder.com/250' }}
+          source={{
+            uri:
+              pizza.image ||
+              'https://www.clarin.com/2022/10/05/utIOlIIyB_2000x1500__1.jpg'
+          }}
           style={styles.image}
         />
       </View>

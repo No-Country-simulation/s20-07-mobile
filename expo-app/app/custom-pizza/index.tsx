@@ -202,9 +202,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   pizzaPreviewContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 120
   },
   pizzaBase: {
     width: 200,
@@ -222,9 +222,9 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 20
   },
   sizeContainer: {
     flexDirection: "row",
