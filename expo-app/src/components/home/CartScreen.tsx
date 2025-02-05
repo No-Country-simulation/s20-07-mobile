@@ -90,17 +90,29 @@ export default function CartScreen () {
                 </View>
                 <View style={styles.actions}>
                   <TouchableOpacity
-                    onPress={() => updateQuantity(item.id, item.quantity - 1)}
+                    onPress={() =>
+                      updateQuantity(
+                        item.id,
+                        item.size ?? 'default',
+                        item.quantity - 1
+                      )
+                    }
                   >
-                    <Text style={styles.actionText}>-</Text>
+                    <Text>-</Text>
                   </TouchableOpacity>
 
                   <Text style={styles.quantity}>{item.quantity}</Text>
 
                   <TouchableOpacity
-                    onPress={() => updateQuantity(item.id, item.quantity + 1)}
+                    onPress={() =>
+                      updateQuantity(
+                        item.id,
+                        item.size ?? 'default',
+                        item.quantity + 1
+                      )
+                    }
                   >
-                    <Text style={styles.actionText}>+</Text>
+                    <Text>+</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={() => removeFromCart(item.id)}>

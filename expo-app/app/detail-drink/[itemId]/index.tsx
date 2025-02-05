@@ -8,7 +8,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import { screenWidth, screenHeight } from '@/utils/dimensions'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 import axios from 'axios'
 import BackArrow from '@/components/BackArrow'
 import Header from '@/components/home/Header'
@@ -29,6 +29,11 @@ export default function DrinkDetail () {
   const [loading, setLoading] = useState(true)
   const { addToCart } = useCart()
   const navigation = useNavigation()
+  const router = useRouter()
+  //const { itemId } = router.query
+  const id = Number(itemId) // Convertir a número antes de usarlo
+
+  console.log('📌 ID convertido:', id)
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false })
