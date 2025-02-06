@@ -48,10 +48,10 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 40
+    marginBottom: 25
   },
   logoText: {
-    fontSize: 38,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#fff'
