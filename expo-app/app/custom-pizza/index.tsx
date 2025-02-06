@@ -153,10 +153,10 @@ const CustomPizzaScreen = () => {
       id: new Date().getTime(),
       name: 'Pizza Personalizada',
       size: selectedSize,
-      price: calculateTotalPrice(), // ✅ Incluye tamaño, ingredientes y cantidad
+      price: calculateTotalPrice(),
       quantity,
       image:
-        'https://saboresmendoza.com/wp-content/uploads/2024/02/pizza-de-muzzarella-sabores-1.jpg',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvRQDENcQtGlwVNUIOozmVwqvASfVDp9Q9Q&s',
       ingredients: selectedIngredients.map(ing => ing.name)
     }
 
@@ -166,7 +166,6 @@ const CustomPizzaScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Encabezado con ícono y título */}
       <BackArrow />
       <View style={styles.header}>
         {/* <TouchableOpacity
@@ -175,13 +174,21 @@ const CustomPizzaScreen = () => {
         >
           <AntDesign name='close' size={28} color='white' />
         </TouchableOpacity> */}
-        <Text style={styles.title}>¡Vamos a crear tu pizza!</Text>
+        <View style={styles.title}>
+          <Text style={styles.title1}>¡Vamos a crear tu pizza!</Text>
+          <Text style={styles.title2}>
+            Para una Oh! deliciosa experiencia, selecciona más de cuatro
+            ingredientes 🙃{' '}
+          </Text>
+        </View>
       </View>
 
       {/* Vista previa de la pizza */}
       <View style={styles.pizzaPreviewContainer}>
         <Image
-          source={require('../../assets/images/pizza_base.png')}
+          source={
+            'https://static6.depositphotos.com/1094859/653/v/450/depositphotos_6530650-stock-illustration-pizza-black-background.jpg'
+          }
           style={styles.pizzaBase}
         />
         <Image
@@ -312,8 +319,19 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   title: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  },
+  title1: {
     color: '#fff',
     fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  title2: {
+    color: '#fff',
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
     flex: 1
