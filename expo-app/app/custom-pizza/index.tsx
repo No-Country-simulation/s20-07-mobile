@@ -42,70 +42,54 @@ const CustomPizzaScreen = () => {
   useEffect(() => {
     const fetchSizesAndIngredients = async () => {
       try {
-        const sizesResponse = await axios.get('http://localhost:3000/api/sizes')
-        const ingredientsResponse = await axios.get(
-          'http://localhost:3000/api/ingredients'
-        )
+        const sizesResponse = await axios.get("http://localhost:3000/api/sizes");
+        const ingredientsResponse = await axios.get("http://localhost:3000/api/ingredients");
 
         // Accediendo correctamente a los datos
-        const { sizes } = sizesResponse.data
-        const { ingredients } = ingredientsResponse.data
-        const normalizedIngredients = normalizeIngredients(ingredients)
+        const { sizes } = sizesResponse.data;
+        const { ingredients } = ingredientsResponse.data;
+        const normalizedIngredients = normalizeIngredients(ingredients);
 
-        setSizes(sizes) // Guardando tamaños
-        setIngredients(normalizedIngredients) // Guardando ingredientes
+        setSizes(sizes); // Guardando tamaños
+        setIngredients(normalizedIngredients); // Guardando ingredientes
 
         if (Array.isArray(sizes) && sizes.length > 0) {
-          setSelectedSize(sizes[0].name)
-          setSelectedPrice(sizes[0].basePrice)
+          setSelectedSize(sizes[0].name);
+          setSelectedPrice(sizes[0].basePrice);
         }
       } catch (err) {
-        console.error('Error fetching sizes or ingredients:', err)
-        setError('Error al obtener los datos')
+        console.error("Error fetching sizes or ingredients:", err);
+        setError("Error al obtener los datos");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchSizesAndIngredients()
-  }, [])
+    fetchSizesAndIngredients();
+  }, []);
 
-  const normalizeIngredients = (
-    ingredients: {
-      id: number
-      name?: string
-      nombre?: string
-      Costoextra?: number
-      extraCost?: number
-      Costeextra?: number
-      'costo adicional'?: number
-    }[]
-  ) => {
-    return ingredients.map(ingredient => ({
+  const normalizeIngredients = (ingredients: { id: number; name?: string; nombre?: string; Costoextra?: number; extraCost?: number; Costeextra?: number; "costo adicional"?: number; }[]) => {
+    return ingredients.map((ingredient) => ({
       id: ingredient.id,
-      name: ingredient.name || ingredient.nombre || 'Ingrediente desconocido',
+      name: ingredient.name || ingredient.nombre || "Ingrediente desconocido",
       price:
         ingredient.Costoextra ||
         ingredient.extraCost ||
         ingredient.Costeextra ||
-        ingredient['costo adicional'] ||
-        0
-    }))
-  }
+        ingredient["costo adicional"] ||
+        0,
+    }));
+  };
 
-  const toggleIngredient = (ingredient: {
-    id: number
-    name: string
-    price: number
-  }) => {
-    setSelectedIngredients(prevSelected => {
+  const toggleIngredient = (ingredient: { id: number; name: string; price: number; }) => {
+    setSelectedIngredients((prevSelected) => {
       if (prevSelected.includes(ingredient)) {
-        return prevSelected.filter(item => item !== ingredient)
+        return prevSelected.filter((item) => item !== ingredient);
       } else {
-        return [...prevSelected, ingredient]
+        return [...prevSelected, ingredient];
       }
-    })
-  }
+    });
+  };
 
   const calculateTotalPrice = () => {
     const ingredientsPrice = selectedIngredients.reduce(
@@ -118,19 +102,19 @@ const CustomPizzaScreen = () => {
   }
 
   const increaseQuantity = () => {
-    setQuantity(prev => prev + 1)
-  }
+    setQuantity((prev) => prev + 1);
+  };
 
   const decreaseQuantity = () => {
-    setQuantity(prev => (prev > 1 ? prev - 1 : 1))
-  }
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
 
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size='large' color='#fff' />
+        <ActivityIndicator size="large" color="#fff" />
       </View>
-    )
+    );
   }
 
   if (error) {
@@ -138,7 +122,7 @@ const CustomPizzaScreen = () => {
       <View style={styles.container}>
         <Text style={styles.errorText}>Error: {error}</Text>
       </View>
-    )
+    );
   }
 
   const handleAddToCart = () => {
@@ -201,24 +185,16 @@ const CustomPizzaScreen = () => {
       <View style={styles.sizeSelectorContainer}>
         <Text style={styles.subtitle}>Elige el tamaño:</Text>
         <View style={styles.sizeContainer}>
-          {sizes.map(size => (
+          {sizes.map((size) => (
             <TouchableOpacity
               key={size.name}
               onPress={() => {
-                setSelectedSize(size.name)
-                setSelectedPrice(size.basePrice)
+                setSelectedSize(size.name);
+                setSelectedPrice(size.basePrice);
               }}
-              style={[
-                styles.sizeButton,
-                selectedSize === size.name && styles.selectedSizeButton
-              ]}
+              style={[styles.sizeButton, selectedSize === size.name && styles.selectedSizeButton]}
             >
-              <Text
-                style={[
-                  styles.sizeButtonText,
-                  selectedSize === size.name && styles.selectedSizeButtonText
-                ]}
-              >
+              <Text style={[styles.sizeButtonText, selectedSize === size.name && styles.selectedSizeButtonText]}>
                 {size.name}
               </Text>
             </TouchableOpacity>
@@ -228,18 +204,16 @@ const CustomPizzaScreen = () => {
 
       {/* Selección de ingredientes */}
       <ScrollView style={styles.ingredientsContainer}>
-        {ingredients.map(ingredient => (
+        {ingredients.map((ingredient) => (
           <View key={ingredient.id} style={styles.ingredientRow}>
             <Text style={styles.ingredientName}>{ingredient.name}</Text>
-            <Text style={styles.ingredientPrice}>
-              ${ingredient.price.toFixed(2)}
-            </Text>
+            <Text style={styles.ingredientPrice}>${ingredient.price.toFixed(2)}</Text>
             <TouchableOpacity
               onPress={() => toggleIngredient(ingredient)}
               style={styles.checkbox}
             >
               {selectedIngredients.includes(ingredient) && (
-                <AntDesign name='check' size={16} color='#ffc107' />
+                <AntDesign name="check" size={16} color="#ffc107" />
               )}
             </TouchableOpacity>
           </View>
@@ -264,18 +238,12 @@ const CustomPizzaScreen = () => {
 
           {/* ✅ Controles de cantidad */}
           <View style={styles.quantityControls}>
-            <TouchableOpacity
-              onPress={decreaseQuantity}
-              style={styles.quantityButton}
-            >
-              <AntDesign name='minus' size={16} color='#EB6334' />
+            <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
+              <AntDesign name="minus" size={16} color="#EB6334" />
             </TouchableOpacity>
             <Text style={styles.quantityText}>{quantity}</Text>
-            <TouchableOpacity
-              onPress={increaseQuantity}
-              style={styles.quantityButton}
-            >
-              <AntDesign name='plus' size={16} color='#EB6334' />
+            <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
+              <AntDesign name="plus" size={16} color="#EB6334" />
             </TouchableOpacity>
           </View>
         </View>
@@ -296,8 +264,8 @@ const CustomPizzaScreen = () => {
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -308,15 +276,15 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
-    marginTop: 20
+    marginTop: 20,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
   },
   closeButton: {
-    marginRight: 10
+    marginRight: 10,
   },
   title: {
     display: 'flex',
@@ -334,7 +302,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    flex: 1
   },
   pizzaPreviewContainer: {
     justifyContent: 'center',
@@ -344,91 +311,91 @@ const styles = StyleSheet.create({
   pizzaBase: {
     width: 200,
     height: 200,
-    position: 'absolute'
+    position: "absolute",
   },
   pizzaSauce: {
     width: 180,
     height: 180,
-    position: 'absolute'
+    position: "absolute",
   },
   sizeSelectorContainer: {
-    marginTop: 80
+    marginTop: 80,
   },
   subtitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
     marginTop: 20
   },
   sizeContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   sizeButton: {
     flex: 1,
     marginHorizontal: 5,
     paddingVertical: 10,
-    backgroundColor: '#333',
-    alignItems: 'center',
-    borderRadius: 10
+    backgroundColor: "#333",
+    alignItems: "center",
+    borderRadius: 10,
   },
   selectedSizeButton: {
-    backgroundColor: '#EB6334'
+    backgroundColor: "#EB6334",
   },
   sizeButtonText: {
     fontSize: 16,
-    color: '#fff'
+    color: "#fff",
   },
   selectedSizeButtonText: {
-    fontWeight: 'bold',
-    color: '#000'
+    fontWeight: "bold",
+    color: "#000",
   },
   ingredientsContainer: {
-    marginTop: 20
+    marginTop: 20,
   },
   ingredientRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 10
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
   ingredientName: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    flex: 1
+    flex: 1,
   },
   ingredientPrice: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    marginRight: 10
+    marginRight: 10,
   },
   checkbox: {
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4
+    borderColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
   },
   priceContainer: {
     marginTop: 40,
-    alignItems: 'center'
+    alignItems: "center",
   },
   priceLabel: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold'
+    color: "#fff",
+    fontWeight: "bold",
   },
   priceValue: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFC107'
+    fontWeight: "bold",
+    color: "#FFC107",
   },
   errorText: {
-    color: '#f00',
-    fontSize: 16
+    color: "#f00",
+    fontSize: 16,
   },
   orderSummaryContainer: {
     backgroundColor: '#333',
@@ -436,9 +403,9 @@ const styles = StyleSheet.create({
   },
   orderTitle: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    marginBottom: 10
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   orderRow: {
     flexDirection: 'row', // ✅ Todo en una línea
@@ -448,31 +415,31 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   quantityControls: {
-    flexDirection: 'row',
-    alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   quantityButton: {
     borderWidth: 1,
-    borderColor: '#EB6334',
+    borderColor: "#EB6334",
     padding: 5,
     borderRadius: 5,
-    marginHorizontal: 5
+    marginHorizontal: 5,
   },
   quantityText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   addButton: {
-    backgroundColor: '#EB6334',
+    backgroundColor: "#EB6334",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 10
+    borderRadius: 10,
   },
   addButtonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   totalPrice: {
     fontSize: 18,
@@ -497,4 +464,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CustomPizzaScreen
+export default CustomPizzaScreen;
